@@ -34,7 +34,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
    * By Default Gaussian has radius 1
    */
   GaussianBlur() {
-    this(radius:1);
+    this(1);
   }
 
   public BufferedImage apply(BufferedImage input) {
