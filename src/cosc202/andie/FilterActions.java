@@ -35,6 +35,7 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MeanFilterAction("Brightness", null, "Change the brightness", Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
