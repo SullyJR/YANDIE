@@ -81,8 +81,6 @@ public class FilterActions {
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-        
-        
 
         /**
          * <p>
@@ -121,39 +119,34 @@ public class FilterActions {
             target.getParent().revalidate();
         }
 
-        
-
     }
-    
+
     public class SharpenFilterAction extends ImageAction {
         SharpenFilterAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-        public void actionPerformed(ActionEvent e) { 
+        public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new SharpenFilter());
             target.repaint();
             target.getParent().revalidate();
         }
     }
-    
+
     public class SoftBlurAction extends ImageAction {
         SoftBlurAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-        public void actionPerformed(ActionEvent e) { 
+        public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new SoftBlur());
             target.repaint();
             target.getParent().revalidate();
         }
     }
-    
-    
-    
-    
+
 }
