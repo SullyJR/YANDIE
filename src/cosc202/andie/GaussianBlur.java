@@ -40,29 +40,26 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
   public BufferedImage apply(BufferedImage input) {
     
     // Initializing data fields for equation
-    int size = radius * 2 + 1;
-    float matrix[] = new float[size * size];
-    float sigma = radius / 1.5f;
-    float twoSigmaSquare = 2*sigma*sigma;
-    float sigmaRootPI = (float) Math.sqrt(twoSigmaSquare * Math.PI);
-    int index = 0;
-    // INSERT CODE HERE FOR GAUSSIAN EQUATION
-    for(int x = -radius; x < radius; x++){
-      for(int y = -radius; y < radius; y++){
-        float distance = (x*x)+(y*y);
-        matrix[index] = (float) Math.exp(distance / twoSigmaSquare) / sigmaRootPI;
-        index++;
+    int size = (radius * 2 + 1) * (radius * 2 + 1);
+    float array[] = new float[size];
+    float sigma = radius / 3f;
+    // Getting values for kernel using gaussian equation
+    int counter = 0;
+    for(int i = 0; i < radius * 2 + 1; i++){
+      for(int j = 0; j < radius * 2 + 1; j++){
+        array[counter] = (float) calculateGaussian(j - radius, i - radius, sigma);
+        counter++;
       }
     }
 
-    ConvolveOp convOp = ConvolveOp(kernel);
+    Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+    ConvolveOp convOp = new ConvolveOp(kernel);
     BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), false, null);
     convOp.filter(input, output);
     return output;
   }
 
-  public double gaussianModel(int x, int y, int sigma){
-    return (1 / (2 * Math.PI * Math.pow(sigma, 2)) 
-    * Math.exp(-(Math.pow(x, 2) + Math.pow(y, 2)) / (2 * Math.pow(sigma, 2))));
+  public double calculateGaussian(int x, int y, float sigma){
+    return (1 / (2 * Math.PI * Math.pow(sigma, 2)) * Math.exp(-(Math.pow(x, 2) + Math.pow(y, 2)) / (2 * Math.pow(sigma, 2))));
   }
 }
