@@ -91,13 +91,8 @@ public class Andie {
     /**
      * <p>
      * Main entry point to the ANDIE program.
-     * Callum was here
-     * Andrew was here
-     * Sen was here
-     * test
-     * I'm first
      * </p>
-     * sam here 
+     * 
      * <p>
      * Creates and launches the main GUI in a separate thread.
      * As a result, this is essentially a wrapper around {@code createAndShowGUI()}.
