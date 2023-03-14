@@ -63,20 +63,7 @@ public class Brightness {
             this(1);
         }
     
-        /**
-         * <p>
-         * Apply a Mean filter to an image.
-         * </p>
-         * 
-         * <p>
-         * As with many filters, the Mean filter is implemented via convolution.
-         * The size of the convolution kernel is specified by the {@link radius}.  
-         * Larger radii lead to stronger blurring.
-         * </p>
-         * 
-         * @param input The image to apply the Mean filter to.
-         * @return The resulting (blurred)) image.
-         */
+        
         
         public BufferedImage apply(BufferedImage input) {
             int size = (2*amount+1) * (2*amount+1);
