@@ -96,7 +96,7 @@ public class Andie {
      * test
      * I'm first
      * </p>
-     * 
+     * sam here 
      * <p>
      * Creates and launches the main GUI in a separate thread.
      * As a result, this is essentially a wrapper around {@code createAndShowGUI()}.
