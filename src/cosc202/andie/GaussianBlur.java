@@ -38,7 +38,23 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
   }
 
   public BufferedImage apply(BufferedImage input) {
-    // INSERT CODE HERE FOR EQUATION
+    
+    // Initializing data fields for equation
+    int size = radius * 2 + 1;
+    float matrix[] = new float[size * size];
+    float sigma = radius / 1.5f;
+    float twoSigmaSquare = 2*sigma*sigma;
+    float sigmaRootPI = (float) Math.sqrt(twoSigmaSquare * Math.PI);
+    int index = 0;
+    // INSERT CODE HERE FOR GAUSSIAN EQUATION
+    for(int x = -radius; x < radius; x++){
+      for(int y = -radius; y < radius; y++){
+        float distance = (x*x)+(y*y);
+        matrix[index] = (float) Math.exp(distance / twoSigmaSquare) / sigmaRootPI;
+        index++;
+      }
+    }
+
     ConvolveOp convOp = ConvolveOp(kernel);
     BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), false, null);
     convOp.filter(input, output);
