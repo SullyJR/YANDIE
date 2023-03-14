@@ -39,25 +39,31 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
   public BufferedImage apply(BufferedImage input) {
     
-    // Initializing data fields for equation
-    int size = (radius * 2 + 1) * (radius * 2 + 1);
-    float array[] = new float[size];
-    float sigma = radius / 3f;
-    
-    // Getting values for kernel using gaussian equation
-    int counter = 0;
-    for(int i = 0; i < radius * 2 + 1; i++){
-      for(int j = 0; j < radius * 2 + 1; j++){
-        array[counter] = (float) calculateGaussian(j - radius, i - radius, sigma);
-        counter++;
+    if(radius == 1) {
+      // When radius is 1 Gaussian Blur shouldn't have any effects on the photo
+      // (TESTED ON PHOTOSHOP)
+      return input;
+    } else {
+        // Initializing data fields for equation
+      int size = (radius * 2 + 1);
+      float array[] = new float[size * size];
+      float sigma = radius / 3f;
+      
+      // Getting values for kernel using gaussian equation
+      int counter = 0;
+      for(int y = 0; y < size; y++){
+        for(int x = 0; x < size; x++){
+          array[counter] = (float) calculateGaussian(x - radius, y - radius, sigma);
+          counter++;
+        }
       }
-    }
 
-    Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-    ConvolveOp convOp = new ConvolveOp(kernel);
-    BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), false, null);
-    convOp.filter(input, output);
-    return output;
+      Kernel kernel = new Kernel(size, size, array);
+      ConvolveOp convOp = new ConvolveOp(kernel);
+      BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), false, null);
+      convOp.filter(input, output);
+      return output;
+    }
   }
 
   /**
