@@ -44,7 +44,7 @@ public class Brightness {
          * 
          * @param radius The radius of the newly constructed MeanFilter
          */
-        MeanFilter(int amount) {
+        Brightness(int amount) {
             this.amount = amount;    
         }
     
@@ -59,7 +59,7 @@ public class Brightness {
          * 
          * @see MeanFilter(int)
          */
-        MeanFilter() {
+        Brightness() {
             this(1);
         }
     
