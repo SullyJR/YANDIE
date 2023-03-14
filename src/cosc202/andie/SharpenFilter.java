@@ -76,10 +76,14 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         int size = (2*radius+1) * (2*radius+1);
-        float [] array = new float[size];
+        float [] sharpen = new float[] {
+            0.0f, -1.0f, 0.0f,
+            -1.0f, 5.0f, -1.0f,
+            0.0f, -1.0f, 0.0f
+        };
         Arrays.fill(array, 1.0f/size);
 
-        Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+        Kernel kernel = new Kernel(2*radius+1, 2*radius+1, sharpen);
         ConvolveOp convOp = new ConvolveOp(kernel);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         convOp.filter(input, output);
