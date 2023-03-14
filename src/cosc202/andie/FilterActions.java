@@ -37,8 +37,8 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new MeanFilterAction("Brightness", null, "Change the brightness", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Soft blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new BrightnessAction("Brightness", null, "Change the brightness", Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new SoftBlurAction("Soft blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -174,7 +174,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel amountModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(amountModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter amount of Brightness:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter amount of Brightness:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -184,7 +184,7 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new Brightness(amount));
+           // target.getImage().apply(new Brightness(amount));
             target.repaint();
             target.getParent().revalidate();
         }
