@@ -39,6 +39,7 @@ public class FilterActions {
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new BrightnessAction("Brightness", null, "Change the brightness", Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new SoftBlurAction("Soft blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new SharpenFilterAction("Sharpen", null, "Apply Sharpen", Integer.valueOf(KeyEvent.VK_H)));
     }
 
     /**
@@ -124,7 +125,19 @@ public class FilterActions {
         
 
     }
+    public class SharpenFilterAction extends ImageAction {
+        SharpenFilterAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
 
+        public void actionPerformed(ActionEvent e) { 
+            // Create and apply the filter
+            target.getImage().apply(new SharpenFilter());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
     public class SoftBlurAction extends ImageAction {
         SoftBlurAction(String name, ImageIcon icon,
                 String desc, Integer mnemonic) {
