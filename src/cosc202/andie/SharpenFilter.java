@@ -9,7 +9,7 @@ import java.util.*;
  * </p>
  * 
  * <p>
- * A Mean filter blurs an image by replacing each pixel by the average of the
+ * A Sharpen Filter blurs an image by replacing each pixel by the average of the
  * pixels in a surrounding neighbourhood, and can be implemented by a convoloution.
  * </p>
  * 
@@ -30,7 +30,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Construct a Mean filter with the given size.
+     * Construct a Sharpen Filter with the given size.
      * </p>
      * 
      * <p>
@@ -39,7 +39,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
      * Larger filters give a stronger blurring effect.
      * </p>
      * 
-     * @param radius The radius of the newly constructed MeanFilter
+     * @param radius The radius of the newly constructed SharpenFilter
      */
     SharpenFilter(int radius) {
         this.radius = radius;    
@@ -47,14 +47,14 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Construct a Mean filter with the default size.
+     * Construct a Sharpen Filter with the default size.
      * </p
      * >
      * <p>
-     * By default, a Mean filter has radius 1.
+     * By default, a Sharpen Filter has radius 1.
      * </p>
      * 
-     * @see MeanFilter(int)
+     * @see SharpenFilter(int)
      */
     SharpenFilter() {
         this(1);
@@ -62,16 +62,16 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Apply a Mean filter to an image.
+     * Apply a Sharpen Filter to an image.
      * </p>
      * 
      * <p>
-     * As with many filters, the Mean filter is implemented via convolution.
+     * As with many filters, the Sharpen Filter is implemented via convolution.
      * The size of the convolution kernel is specified by the {@link radius}.  
      * Larger radii lead to stronger blurring.
      * </p>
      * 
-     * @param input The image to apply the Mean filter to.
+     * @param input The image to apply the Sharpen Filter to.
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
