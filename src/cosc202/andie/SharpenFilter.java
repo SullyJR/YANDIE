@@ -81,7 +81,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
             -1.0f, 5.0f, -1.0f,
             0.0f, -1.0f, 0.0f
         };
-        Arrays.fill(array, 1.0f/size);
+        Arrays.fill(sharpen, 1.0f/size);
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, sharpen);
         ConvolveOp convOp = new ConvolveOp(kernel);
