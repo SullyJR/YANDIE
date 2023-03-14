@@ -4,3 +4,14 @@ doc
 
 # Ignore VSCode settings
 .vscode/settings.json
+
+##############################
+## Java
+##############################
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*

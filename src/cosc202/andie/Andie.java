@@ -90,7 +90,7 @@ public class Andie {
 
     /**
      * <p>
-     * Main entry point to the ANDIE program.Callum
+     * Main entry point to the ANDIE program.Andrew
      * </p>
      * 
      * <p>
