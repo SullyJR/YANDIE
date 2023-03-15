@@ -88,6 +88,7 @@ public class FileActions {
          * <p>
          * This method is called whenever the FileOpenAction is triggered.
          * It prompts the user to select a file and opens it as an image.
+         * If it is an unsupported file, it will display an error message
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -100,8 +101,13 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
-                } catch (Exception ex) {
-                    System.exit(1);
+
+                } catch (Exception ex) { //Error Message
+                    JPanel error = new JPanel();
+                    error.add(new JLabel("This file is not Supported"));
+                    error.setVisible(enabled);
+                    JOptionPane.showMessageDialog(target, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    
                 }
             }
 
