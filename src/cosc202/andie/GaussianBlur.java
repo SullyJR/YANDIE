@@ -1,7 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
+
 /**
  * <p>
  * Image operation to apply GaussianBlur filter.
