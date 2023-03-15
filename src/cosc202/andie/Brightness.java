@@ -1,84 +1,54 @@
 package cosc202.andie;
-import java.awt.image.*;
-import java.util.*;
+import java.awt.image.BufferedImage;
 
 
-public class Brightness {
-    
+public class Brightness implements ImageOperation, java.io.Serializable {
+  
+  /** Amount to change the brightness by */
+  private int brightness;
 
+  /**
+   * Construct a Brightness Filter with the given brightness adjustment.
+   * 
+   * @param brightness The amount to change the brightness by.
+   */
+  public Brightness(int brightness) {
+    this.brightness = brightness;
+  }
 
-    /**
-     * <p>
-     * ImageOperation to apply a Mean (simple blur) filter.
-     * </p>
-     * 
-     * <p>
-     * A Mean filter blurs an image by replacing each pixel by the average of the
-     * pixels in a surrounding neighbourhood, and can be implemented by a convoloution.
-     * </p>
-     * 
-     * <p> 
-     * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
-     * </p>
-     * 
-     * @see java.awt.image.ConvolveOp
-     * @author Steven Mills
-     * @version 1.0
-     */
-        
-        /**
-         * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
-         */
-        private int amount;
-    
-        /**
-         * <p>
-         * Construct a Mean filter with the given size.
-         * </p>
-         * 
-         * <p>
-         * The size of the filter is the 'radius' of the convolution kernel used.
-         * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
-         * Larger filters give a stronger blurring effect.
-         * </p>
-         * 
-         * @param radius The radius of the newly constructed MeanFilter
-         */
-        Brightness(int amount) {
-            this.amount = amount;    
-        }
-    
-        /**
-         * <p>
-         * Construct a Mean filter with the default size.
-         * </p
-         * >
-         * <p>
-         * By default, a Mean filter has radius 1.
-         * </p>
-         * 
-         * @see MeanFilter(int)
-         */
-        Brightness() {
-            this(1);
-        }
-    
-        
-        
-        public BufferedImage apply(BufferedImage input) {
-            int size = (2*amount+1) * (2*amount+1);
-            float [] array = new float[size];
-            Arrays.fill(array, 1.0f/size);
-    
-            Kernel kernel = new Kernel(2*amount+1, 2*amount+1, array);
-            ConvolveOp convOp = new ConvolveOp(kernel);
-            BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-            convOp.filter(input, output);
-    
-            return output;
-        }
-    
-    
+  /**
+   * Apply the brightness filter to the given input image.
+   * 
+   * @param input The input image to apply the filter to.
+   * @return The output image after the filter has been applied.
+   */
+  public BufferedImage apply(BufferedImage input) {
+    BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
+   
+    for (int x = 0; x < input.getWidth(); x++) {
+      for (int y = 0; y < input.getHeight(); y++) {
+        int pixel = input.getRGB(x, y);
+        int alpha = (pixel >> 24) & 0xff;
+        int red = (pixel >> 16) & 0xff;
+        int green = (pixel >> 8) & 0xff;
+        int blue = pixel & 0xff;
+
+        // Change the brightness of the pixel by the specified amount
+        red += brightness;
+        green += brightness;
+        blue += brightness;  
+
+        // Ensure that the pixel values are within the valid range of 0-255
+        red = Math.max(0, Math.min(255, red));
+        green = Math.max(0, Math.min(255, green));
+        blue = Math.max(0, Math.min(255, blue));
+
+        // Combine the new RGB values into a single pixel and set it on the output image
+        int newPixel = (alpha << 24) | (red << 16) | (green << 8) | blue;
+        output.setRGB(x, y, newPixel);
+      }
     }
-      
 
+    return output;
+  }
+}
