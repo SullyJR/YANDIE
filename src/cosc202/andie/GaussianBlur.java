@@ -30,8 +30,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
   }
    
   /** Construct a GaussianBlur with the default size
-   * 
-   * By Default Gaussian has radius 1
+   *
    */
   GaussianBlur() {
     this(1);
