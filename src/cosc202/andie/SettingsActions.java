@@ -91,18 +91,18 @@ public class SettingsActions {
          * @param e The event triggering this callback.
          */
 
+         
         public void actionPerformed(ActionEvent e) {
 
             //I don't know where to put this stuff yet!!!
             Preferences prefs = Preferences.userNodeForPackage(Andie.class); 
             Locale.setDefault(new Locale(prefs.get("language", "EN"))); 
-            ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");     
+            //ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");     
 
             // Creates a array of languages and opens a panel of a combobox 
-            String[] languages = {"English", "French"};
+            String[] languages = {"English", "French", "Malay"};
             String option = (String)JOptionPane.showInputDialog(null, "Choose a language:", 
                 "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
-            //System.out.println(option);
 
             // Checks the returning value of the combobox and evaluates choosen option using switch
             if (option == null) {
@@ -114,10 +114,17 @@ public class SettingsActions {
                     switch (option) { 
                     case "English": 
                         prefs.put("language", "EN"); 
+                        System.out.println("English");
                         done = true;
                         break; 
                     case "French": 
-                        prefs.put("language", "FR"); 
+                        prefs.put("language", "FR");
+                        System.out.println("French"); 
+                        done = true;
+                        break; 
+                    case "Malay": 
+                        prefs.put("language", "MY");
+                        System.out.println("Malay"); 
                         done = true;
                         break; 
                     default:
