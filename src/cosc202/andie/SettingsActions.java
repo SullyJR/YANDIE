@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.prefs.Preferences;
 
 /**
  * <p>
@@ -89,31 +90,43 @@ public class SettingsActions {
          * 
          * @param e The event triggering this callback.
          */
+
         public void actionPerformed(ActionEvent e) {
 
-            // Determine the radius - ask the user.
-            int radius = 1;
-    
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-    
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
+            //I don't know where to put this stuff yet!!!
+            Preferences prefs = Preferences.userNodeForPackage(Andie.class); 
+            Locale.setDefault(new Locale(prefs.get("language", "EN"))); 
+            ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");     
+
+            // Creates a array of languages and opens a panel of a combobox 
+            String[] languages = {"English", "French"};
+            String option = (String)JOptionPane.showInputDialog(null, "Choose a language:", 
+                "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+            //System.out.println(option);
+
+            // Checks the returning value of the combobox and evaluates choosen option using switch
+            if (option == null) {
+                System.out.println("NULL");
                 return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+            } else if (option != null) {
+                boolean done = false; 
+                while (!done) { 
+                    switch (option) { 
+                    case "English": 
+                        prefs.put("language", "EN"); 
+                        done = true;
+                        break; 
+                    case "French": 
+                        prefs.put("language", "FR"); 
+                        done = true;
+                        break; 
+                    default:
+                        break;
+                    }  
+                } 
             }
-    
-             // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
         }
+
     }
-
 }
-
 
