@@ -68,62 +68,60 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) { 
       int size = (radius * 2 + 1) * (radius * 2 + 1);
-      float[] boxBlurKernel = new float[size];
-      // CODE below is to perform a simple boxblur before applying median filter 
-      for(int i = 0; i < boxBlurKernel.length; i++) {
-        boxBlurKernel[i] = 1.0f;
-      }
-      
-      Kernel kernel = new Kernel(radius * 2 + 1, radius * 2 + 1, boxBlurKernel);
-      ConvolveOp convolveOp = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-      BufferedImage boxBlurredImg = convolveOp.filter(input, null);
-      // LINE BELOW IS SPECIFICALLY FOR REFERENCING PIXEL DATA OF BOXBLURREDIMAGE
-      // USED FOR ACCESSING AND MODIFYING PIXEL DATA \/
-      WritableRaster raster = boxBlurredImg.getRaster();
-      int inputWidth = input.getWidth();
-      int inputHeight = input.getHeight();
-      BufferedImage outputImg = new BufferedImage(inputWidth, inputHeight, BufferedImage.TYPE_INT_ARGB);
-      // fun part begins **despairage**
-      for(int y = 0; y < inputHeight; y++) {
-        for(int x = 0; x < inputWidth; x++) {
-          // Extraction of local neighbourhod of current pixel BEGINS
+      int width = input.getWidth();
+      int height = input.getHeight();
+
+      // Initialize an empty output image
+      BufferedImage outputImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+      // looping over each pixel in image
+      for(int y = 0; y < height; y++) {
+        for(int x = 0; x < width; x++) {
+          // Extraction of current pixel in local neighbourhood
           int startX = x - radius;
           int startY = y - radius;
-          int[] redValues = new int[size];
-          int[] greenValues = new int[size];
-          int[] blueValues = new int[size];
-          int[] alphaValues = new int[size];
-          int count = 0;
-            for (int ny = startY; ny <= startY + radius * 2; ny++) {
-              for (int nx = startX; nx <= startX + radius * 2; nx++) {
-                // SIMILAR TO METHOD FROM CONVERT TO GRAY                        
-                int[] pixel = raster.getPixel(nx, ny, new int[4]);
-                redValues[count] = pixel[0];
-                greenValues[count] = pixel[1];
-                blueValues[count] = pixel[2];
-                alphaValues[count] = pixel[3];
-                count++;
-              }
+          int endX = x + radius;
+          int endY = y + radius;
+          List<Integer> redValues = new ArrayList<Integer>();
+          List<Integer> greenValues = new ArrayList<Integer>();
+          List<Integer> blueValues = new ArrayList<Integer>();
+          List<Integer> alphaValues = new ArrayList<Integer>();
+          for (int ny = startY; ny <= endY; ny++) {
+            for (int nx = startX; nx <= endX; nx++) {
+              //Similar to convert to grey part
+              int rgb = input.getRGB(nx + radius, ny + radius);
+              redValues.add((rgb >> 16) & 0xFF);
+              greenValues.add((rgb >> 8) & 0xFF);
+              blueValues.add(rgb & 0xFF);
+              alphaValues.add((rgb >> 24) & 0xFF);
             }
-              int medianRed = getMedian(redValues);
-              int medianGreen = getMedian(greenValues);
-              int medianBlue = getMedian(blueValues);
-              int medianAlpha = getMedian(alphaValues);
-              int medianRGB = (medianAlpha << 24) | (medianRed << 16) | (medianGreen << 8) | medianBlue;
-              outputImg.setRGB(x, y, medianRGB);
+          }
+
+          //Sorting each channel ascendingly
+          Collections.sort(redValues);
+          Collections.sort(greenValues);
+          Collections.sort(blueValues);
+          Collections.sort(alphaValues);
+        
+          //Median pixel value for each channel
+          int medianR = getMedian(redValues);
+          int medianG = getMedian(greenValues);
+          int medianB = getMedian(blueValues);
+          int medianA = getMedian(alphaValues);
+
+          // Finally assigning median pixel value back to corresponding pixel in output image
+          int medianRGB = (medianA << 24) | (medianR << 16) | (medianG << 8) | medianB;
+          outputImg.setRGB(x, y, medianRGB);
         }
       }
-        return outputImg;
-
-      
-
+      return outputImg;
     }
     /**
      * Private method to calculate median of inputArrays
      * 
      */
-    private static int getMedian(int[] inputV) {
-      int length = inputV.length;
+    private static int getMedian(List<Integer> inputV) {
+      int length = inputV.size();
       int[] sortedArray = new int[length];
       System.arraycopy(inputV, 0, sortedArray, 0, length);
       Arrays.sort(sortedArray);
