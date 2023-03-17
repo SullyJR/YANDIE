@@ -41,6 +41,7 @@ public class FilterActions {
         actions.add(new SharpenFilterAction("Sharpen Filter", null, "Apply Sharpen", Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a gaussian blur", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new ResizeAction("Resize", null, "Resize the image", Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -213,5 +214,35 @@ public class FilterActions {
             target.getParent().revalidate();
         }
     }  
-    
+
+    public class ResizeAction extends ImageAction {
+
+        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the radius - ask the user.
+            double percentage = 1.0;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel percentageModel = new SpinnerNumberModel(1, 0.1, 10, 0.1);
+            JSpinner percentageSpinner = new JSpinner(percentageModel);
+            int option = JOptionPane.showOptionDialog(null, percentageSpinner, "Enter filter radius",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                percentage = percentageModel.getNumber().doubleValue();
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new Resize(percentage));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
 }
