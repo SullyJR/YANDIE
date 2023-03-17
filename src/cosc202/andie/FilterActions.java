@@ -36,13 +36,13 @@ public class FilterActions {
      */
     public FilterActions() {
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Soft blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new SharpenFilterAction("Sharpen Filter", null, "Apply Sharpen", Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a gaussian blur", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_L)));
-        actions.add(new ResizeAction("Resize", null, "Resize the image", Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new RotateAction("Rotate", null, "Rotate the image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new MeanFilterAction(Language.translate("Mean filter"), null, Language.translate("Apply a mean filter"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction(Language.translate("Soft blur"), null, Language.translate("Apply a soft blur"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), null, Language.translate("Apply Sharpen"), Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), null, Language.translate("Apply a gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new MedianFilterAction(Language.translate("Median Filter"), null, Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new ResizeAction(Language.translate("Resize"), null, Language.translate("Resize the image"), Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RotateAction(Language.translate("Rotate"), null, Language.translate("Rotate the image"), Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -53,7 +53,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(Language.translate("Filter"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -107,7 +107,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -168,7 +168,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -199,7 +199,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -230,7 +230,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel percentageModel = new SpinnerNumberModel(1.0, 0.01, 10.0, 0.1);
             JSpinner percentageSpinner = new JSpinner(percentageModel);
-            int option = JOptionPane.showOptionDialog(null, percentageSpinner, "Enter resize percentage in decimal places",
+            int option = JOptionPane.showOptionDialog(null, percentageSpinner, Language.translate("Enter resize percentage in decimal places"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -261,7 +261,7 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel degreeModel = new SpinnerNumberModel(0, 0, 360, 10);
             JSpinner degreeSpinner = new JSpinner(degreeModel);
-            int option = JOptionPane.showOptionDialog(null, degreeSpinner, "Enter rotation degrees",
+            int option = JOptionPane.showOptionDialog(null, degreeSpinner, Language.translate("Enter rotation degrees"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.

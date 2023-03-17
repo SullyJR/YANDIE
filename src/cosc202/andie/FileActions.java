@@ -34,11 +34,11 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileOpenAction("Open Default", null, "Open a Default Image", Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
+        actions.add(new FileOpenAction(Language.translate("Open"), null, Language.translate("Open a file"), Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileOpenAction(Language.translate("Open Default"), null, Language.translate("Open a Default Image"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new FileSaveAction(Language.translate("Save"), null, Language.translate("Save the file"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(Language.translate("Save As"), null, Language.translate("Save a copy"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExitAction(Language.translate("Exit"), null, Language.translate("Exit the program"), Integer.valueOf(0)));
     }
 
     /**
@@ -49,7 +49,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu(Language.translate("File"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
@@ -103,9 +103,9 @@ public class FileActions {
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
                     JPanel error = new JPanel();
-                    error.add(new JLabel("This file type is not Supported"));
+                    error.add(new JLabel(Language.translate("This file type is not Supported")));
                     error.setVisible(enabled);
-                    JOptionPane.showMessageDialog(target, error, "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
                     
                 }
             }

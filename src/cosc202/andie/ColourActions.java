@@ -34,8 +34,8 @@ public class ColourActions {
      */
     public ColourActions() {
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessAction(Language.translate("Brightness"), null, "Adjust the Brightness", Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), null, Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BrightnessAction(Language.translate("Brightness"), null, Language.translate("Adjust the Brightness"), Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -46,7 +46,7 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
+        JMenu fileMenu = new JMenu(Language.translate("Colour"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
@@ -133,7 +133,7 @@ public class ColourActions {
 
         SpinnerNumberModel brightModel = new SpinnerNumberModel(10, -100, 100, 1);
             JSpinner brightSpinner = new JSpinner(brightModel);
-            int option = JOptionPane.showOptionDialog(null, brightSpinner, "Enter filter brightness", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, brightSpinner, Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
