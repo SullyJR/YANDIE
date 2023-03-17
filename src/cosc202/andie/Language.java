@@ -21,9 +21,9 @@ public class Language {
         "Flou gaussien", "Filtre de médiane", "Rotation", "Redimensionner", "Niveau de gris", "Luminosité",
         "Langue"};
 
-        String[] myValues = {"Fail", "Sunting", "Paparan", "Penapis", "Imej", "Warna", "Tetapan",
-        "Buka", "Simpan", "Simpan sebagai", "Keluar", "Undo", "Redo", "Zoom Masuk", "Zoom Keluar", "Zoom Penuh",
-        "Min", "Lembut", "Tajamkan", "Gaussian", "Median", "Putar", "Ukur semula", "Skala kelabu",
+        String[] myValues = {"Fail", "Edit", "Lihat", "Penapis", "Imej", "Warna", "Tetapan",
+        "Buka", "Buka Lalai", "Simpan", "Simpan Sebagai", "Keluar", "Buat asal", "Buat semula", "Zum Masuk", "Zum Keluar", "Zum Penuh",
+        "Penapis Min", "Kabur Lembut", "Penapis Tepat", "Kabur Gaussian", "Penapis Median", "Putar", "Ukuran Semula", "Skala Kelabuan",
         "Kecerahan", "Bahasa"};
 
         if (language.equals("en")) {

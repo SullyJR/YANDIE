@@ -120,32 +120,19 @@ public class Andie {
 
         // Checks the returning value of the combobox and evaluates choosen option using
         // switch
-        if (option == null) {
-            System.out.println("NULL");
-            return;
-        } else if (option != null) {
-            boolean done = false;
-            while (!done) {
-                switch (option) {
-                    case "English":
-                        Language.setLanguage("en");
-                        done = true;
-                        break;
-                    case "French":
+        switch (option) {
+            case "English":
+                Language.setLanguage("en");
+                break;
+            case "French":
+                Language.setLanguage("fr");
+                break;
+            case "Malay":
+                Language.setLanguage("my");
+                break;
 
-                        Language.setLanguage("fr");
-                        done = true;
-                        break;
-                    case "Malay":
-
-                        Language.setLanguage("my");
-                        done = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
+        
 
     }
 
