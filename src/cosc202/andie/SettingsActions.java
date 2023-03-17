@@ -35,7 +35,7 @@ public class SettingsActions {
      */
     public SettingsActions() {
         actions = new ArrayList<Action>();
-        actions.add(new LanguageAction("Language", null, "Change language", Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new LanguageAction(Language.translate("Language"), null, "Change language", Integer.valueOf(KeyEvent.VK_O)));
     }
 
     /**
@@ -46,7 +46,7 @@ public class SettingsActions {
      * @return The Settings menu UI element.
      */
     public JMenu createMenu() {
-        JMenu settingsMenu = new JMenu("Settings");
+        JMenu settingsMenu = new JMenu(Language.translate("Settings"));
 
         for(Action action: actions) {
             settingsMenu.add(new JMenuItem(action));

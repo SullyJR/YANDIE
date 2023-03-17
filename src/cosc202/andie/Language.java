@@ -27,9 +27,11 @@ public class Language {
                 return "Paramètres";
             if (input == "Open")
                 return "Ouvrir";
+            if (input == "Open Default")
+                return "Ouvrir défaut";
             if (input == "Save")
                 return "Enregistrer";
-            if (input == "Save as")
+            if (input == "Save As")
                 return "Enregistrer sous";
             if (input == "Exit")
                 return "Quitter";
@@ -43,16 +45,16 @@ public class Language {
                 return "Zoom arrière";
             if (input == "Zoom Full")
                 return "Zoom pleine page";
-            if (input == "Mean")
-                return "Moyenne";
-            if (input == "Soft")
-                return "Doux";
-            if (input == "Sharpen")
-                return "Netteté";
-            if (input == "Gaussian")
-                return "Gaussien";
-            if (input == "Median")
-                return "Médiane";
+            if (input == "Mean Filter")
+                return "Filtre de la moyenne";
+            if (input == "Soft Blur")
+                return "Flou doux";
+            if (input == "Sharpen Filter")
+                return "Filtre de netteté";
+            if (input == "Gaussian Blur")
+                return "Flou gaussien";
+            if (input == "Median Filter")
+                return "Filtre de médiane";
             if (input == "Rotate")
                 return "Rotation";
             if (input == "Resize")

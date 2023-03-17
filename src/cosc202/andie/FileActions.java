@@ -148,7 +148,7 @@ public class FileActions {
            // JFileChooser fileChooser = new JFileChooser();
             //int result = fileChooser.showOpenDialog(target);
 
-            if (1==1) {
+            if (true) {
                 try {
                     //String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open("J:/andie/src/image.jpg");
