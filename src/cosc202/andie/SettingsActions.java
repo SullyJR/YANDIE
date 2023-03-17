@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.prefs.Preferences;
 
 /**
  * <p>
@@ -94,49 +93,27 @@ public class SettingsActions {
          
         public void actionPerformed(ActionEvent e) {
 
-            //I don't know where to put this stuff yet!!!
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class); 
-            Locale.setDefault(new Locale(prefs.get("language", "EN"))); 
-            //ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");     
-
             // Creates a array of languages and opens a panel of a combobox 
             String[] languages = {"English", "French", "Malay"};
             String option = (String)JOptionPane.showInputDialog(null, "Choose a language:", 
                 "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
 
-                            // Checks the returning value of the combobox and evaluates choosen option using switch
-            if (option == null) {
-                System.out.println("NULL");
-                return;
-            } else if (option != null) {
-                boolean done = false; 
-                while (!done) { 
-                    switch (option) { 
-                    case "English": 
-                        prefs.put("language", "EN"); 
-                        System.out.println("English");
+            // Checks the returning value of the combobox and evaluates choosen option using switch
+            switch (option) {
+                    case "English":
                         Language.setLanguage("en");
-                        done = true;
-                        break; 
-                    case "French": 
-                        prefs.put("language", "FR");
-                        System.out.println("French"); 
-                        Language.setLanguage("fr");
-                        done = true;
-                        break; 
-                    case "Malay": 
-                        prefs.put("language", "MY");
-                        System.out.println("Malay"); 
-                        Language.setLanguage("my");
-                        done = true;
-                        break; 
-                    default:
                         break;
-                    }  
-                } 
+                    case "French":
+                        Language.setLanguage("fr");
+                        break;
+                    case "Malay":
+                        Language.setLanguage("my");
+                        break;
+                    default:
+                        return;
+        
             }
         }
-
     }
 }
 
