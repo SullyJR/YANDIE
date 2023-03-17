@@ -55,14 +55,7 @@ public abstract class ImageAction extends AbstractAction {
      * @param desc A brief description of the action  (ignored if null).
      * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
      */
-    public ImagePanel() {
-        image = new EditableImage();
-        scale = 1.0;
-
-        // Open default image
-        String defaultImagePath = "C:\Users\Sam Bugden\Desktop\andie\src\image.jpg";
-        FileActions.openImage(image, defaultImagePath);
-    }
+  
 
     public EditableImage getImage() {
         return image;

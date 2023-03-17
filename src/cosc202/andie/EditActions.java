@@ -36,8 +36,9 @@ public class EditActions {
         actions = new ArrayList<Action>();
         actions.add(new UndoAction("Undo", null, "Undo", Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(new RedoAction("Redo", null, "Redo", Integer.valueOf(KeyEvent.VK_Y)));
-    }
 
+    }
+ 
     /**
      * <p>
      * Create a menu contianing the list of Edit actions.
@@ -47,6 +48,7 @@ public class EditActions {
      */
     public JMenu createMenu() {
         JMenu editMenu = new JMenu("Edit");
+        
 
         for (Action action: actions) {
             editMenu.add(new JMenuItem(action));
@@ -62,7 +64,7 @@ public class EditActions {
      * 
      * @see EditableImage#undo()
      */
-    public class UndoAction extends ImageAction {
+    public static class UndoAction extends ImageAction {
 
         /**
          * <p>

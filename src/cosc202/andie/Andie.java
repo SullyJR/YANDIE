@@ -1,8 +1,10 @@
 package cosc202.andie;
-
+import java.awt.image.BufferedImage;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
+import javax.swing.UIManager.*;
+
 
 /**
  * <p>
@@ -53,19 +55,37 @@ public class Andie {
     private static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
+        
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+        
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            // Set the look and feel to Nimbus
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                
+                if ("Windows".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+            // Override the default background color of the menu
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        // The main content area is an ImagePanel
+        // The main content area is an ImagePanel       
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
+        scrollPane.setBackground(Color.RED);
         frame.add(scrollPane, BorderLayout.CENTER);
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(Color.GRAY);
 
         // File menus are pretty standard, so things that usually go in File menus go
         // here.
@@ -89,15 +109,24 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
+        
 
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());
 
         frame.setJMenuBar(menuBar);
+        frame.addKeyListener(new KeyPress());
         frame.pack();
         frame.setVisible(true);
-    }
 
+        EditableImage a = new EditableImage();
+        System.out.println("FILE OPENING");
+        a.open("C:/Users/Sam Bugden/Desktop/andie/src/image.jpg");
+        
+        
+        
+    }
+    
     /**
      * <p>
      * Main entry point to the ANDIE program. Sen
