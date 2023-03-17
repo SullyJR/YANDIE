@@ -10,64 +10,40 @@ public class Language {
 
     public static String translate(String input) {
         
-        if (language == "fr") {
-            if (input == "File")
-                return "Fichier";
-            if (input == "Edit")
-                return "Édition";
-            if (input == "View")
-                return "Affichage";
-            if (input == "Filter")
-                return "Filtre";
-            if (input == "Image")
-                return "Image";
-            if (input == "Colour")
-                return "Couleur";
-            if (input == "Settings")
-                return "Paramètres";
-            if (input == "Open")
-                return "Ouvrir";
-            if (input == "Open Default")
-                return "Ouvrir défaut";
-            if (input == "Save")
-                return "Enregistrer";
-            if (input == "Save As")
-                return "Enregistrer sous";
-            if (input == "Exit")
-                return "Quitter";
-            if (input == "Undo")
-                return "Annuler";
-            if (input == "Redo")
-                return "Rétablir";
-            if (input == "Zoom In")
-                return "Zoom avant";
-            if (input == "Zoom Out")
-                return "Zoom arrière";
-            if (input == "Zoom Full")
-                return "Zoom pleine page";
-            if (input == "Mean Filter")
-                return "Filtre de la moyenne";
-            if (input == "Soft Blur")
-                return "Flou doux";
-            if (input == "Sharpen Filter")
-                return "Filtre de netteté";
-            if (input == "Gaussian Blur")
-                return "Flou gaussien";
-            if (input == "Median Filter")
-                return "Filtre de médiane";
-            if (input == "Rotate")
-                return "Rotation";
-            if (input == "Resize")
-                return "Redimensionner";
-            if (input == "Greyscale")
-                return "Niveau de gris";
-            if (input == "Brightness")
-                return "Luminosité";
-            if (input == "Language")
-                return "Langue";
-        }
-        if (language == "en") {
-            return input;
+        String[] enValues = {"File", "Edit", "View", "Filter", "Image", "Colour", "Settings",
+        "Open", "Open Default", "Save", "Save As", "Exit", "Undo", "Redo", "Zoom In", "Zoom Out", "Zoom Full",
+        "Mean Filter", "Soft Blur", "Sharpen Filter", "Gaussian Blur", "Median Filter", "Rotate", "Resize", "Greyscale",
+        "Brightness", "Language"};
+
+        String[] frValues = {"Fichier", "Édition", "Affichage", "Filtre", "Image", "Couleur", "Paramètres",
+        "Ouvrir", "Ouvrir défaut", "Enregistrer", "Enregistrer sous", "Quitter", "Annuler", "Rétablir",
+        "Zoom avant", "Zoom arrière", "Zoom pleine page", "Filtre de la moyenne", "Flou doux", "Filtre de netteté",
+        "Flou gaussien", "Filtre de médiane", "Rotation", "Redimensionner", "Niveau de gris", "Luminosité",
+        "Langue"};
+
+        String[] myValues = {"Fail", "Sunting", "Paparan", "Penapis", "Imej", "Warna", "Tetapan",
+        "Buka", "Simpan", "Simpan sebagai", "Keluar", "Undo", "Redo", "Zoom Masuk", "Zoom Keluar", "Zoom Penuh",
+        "Min", "Lembut", "Tajamkan", "Gaussian", "Median", "Putar", "Ukur semula", "Skala kelabu",
+        "Kecerahan", "Bahasa"};
+
+        if (language.equals("en")) {
+            for(int i = 0; i < enValues.length; i++){
+                if(input.equals(enValues[i])){
+                    return enValues[i];
+                }
+            }
+        }else if (language.equals("fr")) {
+            for(int i = 0; i < frValues.length; i++){
+                if(input.equals(enValues[i])){
+                    return frValues[i];
+                }
+            }
+        }else if (language.equals("my")) {
+            for(int i = 0; i < myValues.length; i++){
+                if(input.equals(enValues[i])){
+                    return myValues[i];
+                }
+            }
         }
         return "";
     }
