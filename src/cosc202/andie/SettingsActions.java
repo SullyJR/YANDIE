@@ -104,7 +104,7 @@ public class SettingsActions {
             String option = (String)JOptionPane.showInputDialog(null, "Choose a language:", 
                 "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
 
-            // Checks the returning value of the combobox and evaluates choosen option using switch
+                            // Checks the returning value of the combobox and evaluates choosen option using switch
             if (option == null) {
                 System.out.println("NULL");
                 return;
@@ -115,16 +115,19 @@ public class SettingsActions {
                     case "English": 
                         prefs.put("language", "EN"); 
                         System.out.println("English");
+                        Language.setLanguage("en");
                         done = true;
                         break; 
                     case "French": 
                         prefs.put("language", "FR");
                         System.out.println("French"); 
+                        Language.setLanguage("fr");
                         done = true;
                         break; 
                     case "Malay": 
                         prefs.put("language", "MY");
                         System.out.println("Malay"); 
+                        Language.setLanguage("my");
                         done = true;
                         break; 
                     default:
