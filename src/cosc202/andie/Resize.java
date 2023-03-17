@@ -22,16 +22,16 @@ public class Resize implements ImageOperation, java.io.Serializable {
     }
 
     /**
-     * Construct Resize constructor with the default size which is 1.0
+     * Construct Resize constructor with the default size which is 1
      * 
      */
     Resize() {
         this(1.0);
     }
 
-    /** applying the resize method to picture */
+    /** Applying the resize method to picture */
     public BufferedImage apply(BufferedImage input) {
-        
+
         int resizeH = (int) (percentage * input.getHeight());
         int resizeW = (int) (percentage * input.getWidth());
 
