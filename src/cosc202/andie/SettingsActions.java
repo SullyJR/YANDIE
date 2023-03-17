@@ -35,7 +35,7 @@ public class SettingsActions {
      */
     public SettingsActions() {
         actions = new ArrayList<Action>();
-        actions.add(new LanguageAction("Language", null, "Change language", Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new LanguageAction(Language.translate("Language"), null, "Change language", Integer.valueOf(KeyEvent.VK_O)));
     }
 
     /**
@@ -46,7 +46,7 @@ public class SettingsActions {
      * @return The Settings menu UI element.
      */
     public JMenu createMenu() {
-        JMenu settingsMenu = new JMenu("Settings");
+        JMenu settingsMenu = new JMenu(Language.translate("Settings"));
 
         for(Action action: actions) {
             settingsMenu.add(new JMenuItem(action));
@@ -104,7 +104,7 @@ public class SettingsActions {
             String option = (String)JOptionPane.showInputDialog(null, "Choose a language:", 
                 "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
 
-            // Checks the returning value of the combobox and evaluates choosen option using switch
+                            // Checks the returning value of the combobox and evaluates choosen option using switch
             if (option == null) {
                 System.out.println("NULL");
                 return;
@@ -115,16 +115,19 @@ public class SettingsActions {
                     case "English": 
                         prefs.put("language", "EN"); 
                         System.out.println("English");
+                        Language.setLanguage("en");
                         done = true;
                         break; 
                     case "French": 
                         prefs.put("language", "FR");
                         System.out.println("French"); 
+                        Language.setLanguage("fr");
                         done = true;
                         break; 
                     case "Malay": 
                         prefs.put("language", "MY");
                         System.out.println("Malay"); 
+                        Language.setLanguage("my");
                         done = true;
                         break; 
                     default:

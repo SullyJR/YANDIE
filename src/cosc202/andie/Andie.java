@@ -129,8 +129,7 @@ public class Andie {
     
     /**
      * <p>
-     * Main entry point to the ANDIE program. Sen
-     * Main entry point to the ANDIE program.Andrew
+     * Main entry point to the ANDIE program.
      * </p>
      * 
      * <p>
@@ -142,11 +141,38 @@ public class Andie {
      * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
+
+    public static void chooseLanguage() {
+        String[] languages = { "English", "French", "Malay" };
+        String option = (String) JOptionPane.showInputDialog(null, "Choose a language:",
+                "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+
+        // Checks the returning value of the combobox and evaluates choosen option using
+        // switch
+        switch (option) {
+            case "English":
+                Language.setLanguage("en");
+                break;
+            case "French":
+                Language.setLanguage("fr");
+                break;
+            case "Malay":
+                Language.setLanguage("my");
+                break;
+
+        }
+        
+
+    }
+
     public static void main(String[] args) throws Exception {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+                
                 try {
+                    chooseLanguage();
                     createAndShowGUI();
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     System.exit(1);
@@ -154,4 +180,5 @@ public class Andie {
             }
         });
     }
+
 }
