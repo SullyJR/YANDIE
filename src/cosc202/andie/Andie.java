@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
 import javax.swing.UIManager.*;
+import java.io.*;
 
 
 /**
@@ -27,7 +28,9 @@ import javax.swing.UIManager.*;
  */
 public class Andie {
 
-    /**
+    static String[] languages = { "English", "French", "Malay" };
+
+    /** 
      * <p>
      * Launches the main GUI for the ANDIE program.
      * </p>
@@ -120,8 +123,8 @@ public class Andie {
         frame.setVisible(true);
 
         EditableImage a = new EditableImage();
-        System.out.println("FILE OPENING");
-        a.open("C:/Users/Sam Bugden/Desktop/andie/src/image.jpg");
+        //System.out.println("FILE OPENING");
+        //a.open(System.getProperty("user.dir") + File.separator + "image.jpg");
         
         
         
@@ -143,7 +146,6 @@ public class Andie {
      */
 
     public static void chooseLanguage() {
-        String[] languages = { "English", "French", "Malay" };
         String option = (String) JOptionPane.showInputDialog(null, "Choose a language:",
                 "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
 
@@ -163,6 +165,10 @@ public class Andie {
         }
         
 
+    }
+
+    public static int getNumLanguages(){
+        return  languages.length;
     }
 
     public static void main(String[] args) throws Exception {
