@@ -125,9 +125,7 @@ public class Andie {
         EditableImage a = new EditableImage();
         //System.out.println("FILE OPENING");
         //a.open(System.getProperty("user.dir") + File.separator + "image.jpg");
-        
-        
-        
+
     }
     
     /**
@@ -146,11 +144,16 @@ public class Andie {
      */
 
     public static void chooseLanguage() {
-        String option = (String) JOptionPane.showInputDialog(null, "Choose a language:",
-                "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+        String option = (String) JOptionPane.showInputDialog(null, Language.translate("Choose a language") +":",
+                null, JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
 
         // Checks the returning value of the combobox and evaluates choosen option using
         // switch
+        if(option == null){
+            Language.setLanguage("en");
+            return;
+        }
+
         switch (option) {
             case "English":
                 Language.setLanguage("en");
@@ -161,7 +164,6 @@ public class Andie {
             case "Malay":
                 Language.setLanguage("my");
                 break;
-
         }
         
 
