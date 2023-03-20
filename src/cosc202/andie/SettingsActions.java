@@ -100,7 +100,7 @@ public class SettingsActions {
 
             // Checks the returning value of the combobox and evaluates choosen option using switch
             switch (option) {
-                    case language[0]:
+                    case "English":
                         Language.setLanguage("en");
                         break;
                     case "French":
