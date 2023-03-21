@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
@@ -284,29 +285,84 @@ public class FilterActions {
         RotateAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
+    
         public void actionPerformed(ActionEvent e) {
-
-            // Determine the radius - ask the user.
+    
+            // Determine the degree of rotation based on the button clicked
             double degree = 0.0;
-
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel degreeModel = new SpinnerNumberModel(0, -360, 360, 90);
-            JSpinner degreeSpinner = new JSpinner(degreeModel);
-            int option = JOptionPane.showOptionDialog(null, degreeSpinner, Language.translate("Enter rotation degrees"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                degree = degreeModel.getNumber().doubleValue();
+    
+            // Create the buttons
+            JButton button90Left = new JButton("Rotate 90° Left");
+            button90Left.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    final double degree = -90.0;
+                    rotateImage(degree);
+                }
+            });
+    
+            JButton button90Right = new JButton("Rotate 90° Right");
+            button90Right.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    final double degree = 90.0;
+                    rotateImage(degree);
+                }
+            });
+    
+            JButton button180Left = new JButton("Rotate 180° Left");
+            button180Left.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    final double degree = -180.0;
+                    rotateImage(degree);
+                }
+            });
+    
+            JButton button180Right = new JButton("Rotate 180° Right");
+            button180Right.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    final double degree = 180.0;
+                    rotateImage(degree);
+                }
+            });
+    
+            JButton button270Left = new JButton("Rotate 270° Left");
+            button270Left.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    final double degree = -270.0;
+                    rotateImage(degree);
+                }
+            });
+    
+            JButton button270Right = new JButton("Rotate 270° Right");
+            button270Right.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    final double degree = 270.0;
+                    rotateImage(degree);
+                }
+            });
+    
+            // Create a panel to hold the buttons
+            JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
+            buttonPanel.add(button90Left);
+            buttonPanel.add(button90Right);
+            buttonPanel.add(button180Left);
+            buttonPanel.add(button180Right);
+            buttonPanel.add(button270Left);
+            buttonPanel.add(button270Right);
+    
+            // Show the panel in a dialog box
+            int option = JOptionPane.showOptionDialog(null, buttonPanel, Language.translate("Rotate Image"),
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+    
+            // Repaint and revalidate the target image
+            if (option == JOptionPane.OK_OPTION) {
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            // Create and apply the filter
+        }
+    
+        private void rotateImage(double degree) {
+            // Apply the filter to the target image
             target.getImage().apply(new Rotate(degree));
-            target.repaint();
-            target.getParent().revalidate();
         }
     }
 }
