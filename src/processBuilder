@@ -1,0 +1,20 @@
+public void switchLanguage(String language) throws IOException {
+    // Load the resource bundle for the desired language
+    ResourceBundle resources = ResourceBundle.getBundle("resources", new Locale(language));
+
+    // Update the UI text with the new resources
+
+    // Restart the application
+    String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+    String classpath = System.getProperty("java.class.path");
+    String mainClass = System.getProperty("sun.java.command");
+
+    List<String> command = new ArrayList<>();
+    command.add(javaBin);
+    command.add("-cp");
+    command.add(classpath);
+    command.add(mainClass);
+    ProcessBuilder builder = new ProcessBuilder(command);
+    builder.start();
+    System.exit(0);
+}
