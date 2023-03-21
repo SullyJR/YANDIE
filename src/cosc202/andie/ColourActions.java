@@ -36,6 +36,7 @@ public class ColourActions {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), null, Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BrightnessAction(Language.translate("Brightness"), null, Language.translate("Adjust the brightness"), Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new ContrastAction(Language.translate("Contrast"), null, Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -148,5 +149,56 @@ public class ColourActions {
         }
 
     }
+
+    public class ContrastAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new contrast action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        //Initial Default contrast
+        
+        /**
+         * <p>
+         * Callback for when the contrast action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ContrastAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            int contrast = 10;
+
+        SpinnerNumberModel contrastModel = new SpinnerNumberModel(10, -100, 100, 1);
+            JSpinner contrastSpinner = new JSpinner(contrastModel);
+            int option = JOptionPane.showOptionDialog(null, contrastSpinner, Language.translate("Enter filter contrast"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                contrast = contrastModel.getNumber().intValue();
+            }
+            target.getImage().apply(new Contrast(contrast));
+            target.repaint();
+            target.getParent().revalidate();
+            
+        }
+
+    }    
 
 }
