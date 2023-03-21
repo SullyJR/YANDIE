@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.util.Scanner;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Language {
     static String language = "en";
@@ -19,7 +21,9 @@ public class Language {
     public static String translate(String input) {
 
         String[][] languageArray = new String[Andie.getNumLanguages()][getNumTexts()];
-        try (Scanner sc = new Scanner(new File("LanguageList"))) {
+        URL languageList = Language.class.getClassLoader().getResource("LanguageList");
+        try {
+            Scanner sc = new Scanner(new File(languageList.toURI()));
             int counter = 0;
             while (sc.hasNextLine()) {
                 String[] arr = sc.nextLine().split(", ");
@@ -29,8 +33,9 @@ public class Language {
                 counter++;
             }
             sc.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException | URISyntaxException e) {
+            return "No Language";
+           // e.printStackTrace();
         }
 
         switch(language){
@@ -54,7 +59,8 @@ public class Language {
                         return languageArray[2][i];
                     }
                 }
-                break;
+                
+                
         }
         // if (language.equals("en")) {
         //     for (int i = 0; i < languageArray[0].length; i++) {
