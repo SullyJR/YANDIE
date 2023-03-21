@@ -35,7 +35,7 @@ public class FileActions {
     public FileActions() {
         actions = new ArrayList<Action>();
         actions.add(new FileOpenAction(Language.translate("Open"), null, Language.translate("Open a file"), Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileOpenAction(Language.translate("Open Default"), null, Language.translate("Open a Default Image"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new FileOpenAction(Language.translate("Open Default"), null, Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new FileSaveAction(Language.translate("Save"), null, Language.translate("Save the file"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction(Language.translate("Save As"), null, Language.translate("Save a copy"), Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FileExitAction(Language.translate("Exit"), null, Language.translate("Exit the program"), Integer.valueOf(0)));
@@ -89,6 +89,7 @@ public class FileActions {
          * <p>
          * This method is called whenever the FileOpenAction is triggered.
          * It prompts the user to select a file and opens it as an image.
+         * If it is an unsupported file, it will display an error message
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -148,7 +149,7 @@ public class FileActions {
            // JFileChooser fileChooser = new JFileChooser();
             //int result = fileChooser.showOpenDialog(target);
 
-            if (1==1) {
+            if (true) {
                 try {
                     //String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open("J:/andie/src/image.jpg");

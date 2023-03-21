@@ -34,7 +34,11 @@ public abstract class ImageAction extends AbstractAction {
      * This is common to all ImageActions.
      */
     protected static ImagePanel target;
+    private EditableImage image;
 
+    private double scale;
+   
+    
     /**
      * <p>
      * Constructor for ImageActions.
@@ -51,6 +55,12 @@ public abstract class ImageAction extends AbstractAction {
      * @param desc A brief description of the action  (ignored if null).
      * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
      */
+  
+
+    public EditableImage getImage() {
+        return image;
+    }
+
     ImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
         super(name, icon);
         if (desc != null) {

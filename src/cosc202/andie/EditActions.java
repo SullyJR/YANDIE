@@ -37,7 +37,7 @@ public class EditActions {
         actions.add(new UndoAction(Language.translate("Undo"), null, Language.translate("Undo"), Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(new RedoAction(Language.translate("Redo"), null, Language.translate("Redo"), Integer.valueOf(KeyEvent.VK_Y)));
     }
-
+ 
     /**
      * <p>
      * Create a menu contianing the list of Edit actions.
@@ -62,7 +62,7 @@ public class EditActions {
      * 
      * @see EditableImage#undo()
      */
-    public class UndoAction extends ImageAction {
+    public static class UndoAction extends ImageAction {
 
         /**
          * <p>

@@ -1,8 +1,11 @@
 package cosc202.andie;
-
+import java.awt.image.BufferedImage;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
+import javax.swing.UIManager.*;
+import java.io.*;
+
 
 /**
  * <p>
@@ -25,7 +28,9 @@ import javax.imageio.*;
  */
 public class Andie {
 
-    /**
+    static String[] languages = { "English", "French", "Malay" };
+
+    /** 
      * <p>
      * Launches the main GUI for the ANDIE program.
      * </p>
@@ -53,19 +58,37 @@ public class Andie {
     private static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
+        
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+        
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            // Set the look and feel to Nimbus
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                
+                if ("Windows".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+            // Override the default background color of the menu
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        // The main content area is an ImagePanel
+        // The main content area is an ImagePanel       
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
+        scrollPane.setBackground(Color.RED);
         frame.add(scrollPane, BorderLayout.CENTER);
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(Color.GRAY);
 
         // File menus are pretty standard, so things that usually go in File menus go
         // here.
@@ -89,15 +112,22 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
+        
 
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());
 
         frame.setJMenuBar(menuBar);
+        frame.addKeyListener(new KeyPress());
         frame.pack();
         frame.setVisible(true);
-    }
 
+        EditableImage a = new EditableImage();
+        //System.out.println("FILE OPENING");
+        //a.open(System.getProperty("user.dir") + File.separator + "image.jpg");
+
+    }
+    
     /**
      * <p>
      * Main entry point to the ANDIE program.
@@ -114,39 +144,33 @@ public class Andie {
      */
 
     public static void chooseLanguage() {
-        String[] languages = { "English", "French", "Malay" };
-        String option = (String) JOptionPane.showInputDialog(null, "Choose a language:",
-                "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+        String option = (String) JOptionPane.showInputDialog(null, Language.translate("Choose a language") +":",
+                null, JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
 
         // Checks the returning value of the combobox and evaluates choosen option using
         // switch
-        if (option == null) {
-            System.out.println("NULL");
+        if(option == null){
+            Language.setLanguage("en");
             return;
-        } else if (option != null) {
-            boolean done = false;
-            while (!done) {
-                switch (option) {
-                    case "English":
-                        Language.setLanguage("en");
-                        done = true;
-                        break;
-                    case "French":
-
-                        Language.setLanguage("fr");
-                        done = true;
-                        break;
-                    case "Malay":
-
-                        Language.setLanguage("my");
-                        done = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
 
+        switch (option) {
+            case "English":
+                Language.setLanguage("en");
+                break;
+            case "French":
+                Language.setLanguage("fr");
+                break;
+            case "Malay":
+                Language.setLanguage("my");
+                break;
+        }
+        
+
+    }
+
+    public static int getNumLanguages(){
+        return  languages.length;
     }
 
     public static void main(String[] args) throws Exception {

@@ -1,7 +1,8 @@
 package cosc202.andie;
-
 import java.awt.*;
 import javax.swing.*;
+
+
 
 /**
  * <p>
@@ -21,6 +22,7 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
+    
     
     /**
      * The image to display in the ImagePanel.
