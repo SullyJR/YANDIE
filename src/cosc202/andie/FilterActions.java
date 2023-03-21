@@ -259,7 +259,7 @@ public class FilterActions {
             double degree = 0.0;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel degreeModel = new SpinnerNumberModel(0, 0, 360, 10);
+            SpinnerNumberModel degreeModel = new SpinnerNumberModel(0, -270, 360, 90);
             JSpinner degreeSpinner = new JSpinner(degreeModel);
             int option = JOptionPane.showOptionDialog(null, degreeSpinner, Language.translate("Enter rotation degrees"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
