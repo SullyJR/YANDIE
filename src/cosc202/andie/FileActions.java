@@ -154,7 +154,11 @@ public class FileActions {
                     //String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open("J:/andie/src/image.jpg");
                 } catch (Exception ex) {
-                    System.exit(1);
+                    JPanel error = new JPanel();
+                    error.add(new JLabel(Language.translate("There was a problem opening the image")));
+                    error.setVisible(enabled);
+                    JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+                    //System.exit(1);
                 }
             }
 
@@ -204,7 +208,11 @@ public class FileActions {
             try {
                 target.getImage().save();           
             } catch (Exception ex) {
-                System.exit(1);
+                JPanel error = new JPanel();
+                error.add(new JLabel(Language.translate("There was a problem saving the image")));
+                error.setVisible(enabled);
+                JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+                //System.exit(1);
             }
         }
 

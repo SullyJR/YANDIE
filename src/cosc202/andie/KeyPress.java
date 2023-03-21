@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.*;
+
 import cosc202.andie.EditActions.UndoAction;
 
 public class KeyPress implements KeyListener {
@@ -45,7 +47,8 @@ public class KeyPress implements KeyListener {
            x=0;
         }
         if ((a+l+E+x) == 4){
-            System.exit(1);
+            JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!", JOptionPane.QUESTION_MESSAGE);
+            //System.exit(1);
         }
             
         
