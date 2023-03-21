@@ -34,7 +34,7 @@ public class SettingsActions {
      */
     public SettingsActions() {
         actions = new ArrayList<Action>();
-        actions.add(new LanguageAction(Language.translate("Language"), null, "Change language", Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new LanguageAction(Language.translate("Language"), null, Language.translate("Change language"), Integer.valueOf(KeyEvent.VK_O)));
     }
 
     /**
@@ -94,9 +94,9 @@ public class SettingsActions {
         public void actionPerformed(ActionEvent e) {
 
             // Creates a array of languages and opens a panel of a combobox 
-            String[] languages = {"English", "French", "Malay"};
-            String option = (String)JOptionPane.showInputDialog(null, "Choose a language:", 
-                "Language Selection", JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+            String[] languages = {Language.translate("English"), Language.translate("French"), Language.translate("Malay")};
+            String option = (String)JOptionPane.showInputDialog(null, Language.translate("Choose a language" + ":"), 
+                null, JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
 
             // Checks the returning value of the combobox and evaluates choosen option using switch
             switch (option) {
@@ -113,6 +113,7 @@ public class SettingsActions {
                         return;
         
             }
+            
         }
     }
 }

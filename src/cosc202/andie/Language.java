@@ -5,11 +5,10 @@ import java.io.*;
 
 public class Language {
     static String language = "en";
-    static int numTexts = 28;
+    static int numTexts = 51;
 
     public static void setLanguage(String input) {
         language = input;
-
     }
 
     public static int getNumTexts() {
@@ -34,25 +33,48 @@ public class Language {
             e.printStackTrace();
         }
 
-        if (language.equals("en")) {
-            for (int i = 0; i < languageArray[0].length; i++) {
-                if (input.equals(languageArray[0][i])) {
-                    return languageArray[0][i];
+        switch(language){
+            case "en":
+                for (int i = 0; i < languageArray[0].length; i++) {
+                    if (input.equals(languageArray[0][i])) {
+                        return languageArray[0][i];
+                    }
                 }
-            }
-        } else if (language.equals("fr")) {
-            for (int i = 0; i < languageArray[1].length; i++) {
-                if (input.equals(languageArray[0][i])) {
-                    return languageArray[1][i];
+                break;
+            case "fr":
+                for (int i = 0; i < languageArray[1].length; i++) {
+                    if (input.equals(languageArray[0][i])) {
+                        return languageArray[1][i];
+                    }
                 }
-            }
-        } else if (language.equals("my")) {
-            for (int i = 0; i < languageArray[2].length; i++) {
-                if (input.equals(languageArray[0][i])) {
-                    return languageArray[2][i];
+                break;
+            case "my":
+                for (int i = 0; i < languageArray[2].length; i++) {
+                    if (input.equals(languageArray[0][i])) {
+                        return languageArray[2][i];
+                    }
                 }
-            }
+                break;
         }
+        // if (language.equals("en")) {
+        //     for (int i = 0; i < languageArray[0].length; i++) {
+        //         if (input.equals(languageArray[0][i])) {
+        //             return languageArray[0][i];
+        //         }
+        //     }
+        // } else if (language.equals("fr")) {
+        //     for (int i = 0; i < languageArray[1].length; i++) {
+        //         if (input.equals(languageArray[0][i])) {
+        //             return languageArray[1][i];
+        //         }
+        //     }
+        // } else if (language.equals("my")) {
+        //     for (int i = 0; i < languageArray[2].length; i++) {
+        //         if (input.equals(languageArray[0][i])) {
+        //             return languageArray[2][i];
+        //         }
+        //     }
+        // }
         return "";
     }
 }
