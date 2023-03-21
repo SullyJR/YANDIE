@@ -112,22 +112,35 @@ public class SettingsActions {
                 Language.setLanguage("my");
             }
 
-            String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
-            String classpath = System.getProperty("java.class.path");
-            String mainClass = System.getProperty("sun.java.command");
-
-            List<String> command = new ArrayList<>();
-            command.add(javaBin);
-            command.add("-cp");
-            command.add(classpath);
-            command.add(mainClass);
-            ProcessBuilder builder = new ProcessBuilder(command);
             try {
-                builder.start();
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                Andie.frame.dispose();
+                Andie.createAndShowGUI();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.exit(1);
             }
-            System.exit(0);
+
+            // String javaBin = System.getProperty("java.home") + File.separator + "bin" +
+            // File.separator + "java";
+            // String classpath = System.getProperty("java.class.path");
+            // String mainClass = System.getProperty("sun.java.command");
+
+            // List<String> command = new ArrayList<>();
+            // command.add(javaBin);
+            // command.add("-cp");
+            // command.add(classpath);
+            // command.add(mainClass);
+            // ProcessBuilder builder = new ProcessBuilder(command);
+            // try {
+            // System.out.println(Language.language);
+            // builder.start();
+            // System.out.println(Language.language);
+            // } catch (IOException e1) {
+            // e1.printStackTrace();
+            // }
+            // System.exit(0);
+            // System.out.println(Language.language);
         }
     }
 }
