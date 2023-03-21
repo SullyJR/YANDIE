@@ -42,7 +42,9 @@ public class FilterActions {
         actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), null, Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new MedianFilterAction(Language.translate("Median Filter"), null, Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
         actions.add(new ResizeAction(Language.translate("Resize"), null, Language.translate("Resize the image"), Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new RotateAction(Language.translate("Rotate"), null, Language.translate("Rotate the image"), Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RotateAction(Language.translate("Rotate"), null, Language.translate("Rotate the image"), Integer.valueOf(KeyEvent.VK_P)));
+        actions.add(new FlipHorizontallyAction("Flip Horizontally", null, "Flips image horizontally", Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FlipVerticallyAction("Flip Vertically", null, "Flips image vertically", Integer.valueOf(KeyEvent.VK_V)));
     }
 
     /**
@@ -149,6 +151,36 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new SoftBlur());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class FlipHorizontallyAction extends ImageAction {
+
+        FlipHorizontallyAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new FlipHorizontally());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class FlipVerticallyAction extends ImageAction {
+
+        FlipVerticallyAction(String name, ImageIcon icon,
+                String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new FlipVertically());
             target.repaint();
             target.getParent().revalidate();
         }
