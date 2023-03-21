@@ -19,6 +19,14 @@ public class KeyPress implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_Z){
+            //undo();
+        } 
+
+
+
+
+
         
         if (e.getKeyCode() == KeyEvent.VK_A){
             if(a==0){

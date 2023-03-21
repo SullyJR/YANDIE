@@ -152,6 +152,7 @@ public class Andie {
 
                 try {
                     createAndShowGUI();
+                    //FileActions.FileOpenDefaultAction();
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
