@@ -31,7 +31,7 @@ public class Rotate implements ImageOperation, java.io.Serializable {
 
     /** Applying Rotate method to picture */
     public BufferedImage apply(BufferedImage input) {
-
+                        
         int witdh = input.getWidth();
         int height = input.getHeight();
 
