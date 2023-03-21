@@ -1,11 +1,11 @@
 package cosc202.andie;
+
 import java.awt.image.BufferedImage;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
 import javax.swing.UIManager.*;
 import java.io.*;
-
 
 /**
  * <p>
@@ -29,8 +29,9 @@ import java.io.*;
 public class Andie {
 
     static String[] languages = { "English", "French", "Malay" };
+    static JFrame frame;
 
-    /** 
+    /**
      * <p>
      * Launches the main GUI for the ANDIE program.
      * </p>
@@ -55,31 +56,30 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
-    private static void createAndShowGUI() throws Exception {
+    public static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
-        JFrame frame = new JFrame("ANDIE");
-        
+        frame = new JFrame("ANDIE");
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
-        
+
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
             // Set the look and feel to Nimbus
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                
+
                 if ("Windows".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
             // Override the default background color of the menu
-           
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // The main content area is an ImagePanel       
+        // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -112,7 +112,6 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
-        
 
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());
@@ -123,11 +122,11 @@ public class Andie {
         frame.setVisible(true);
 
         EditableImage a = new EditableImage();
-        //System.out.println("FILE OPENING");
-        //a.open(System.getProperty("user.dir") + File.separator + "image.jpg");
+        // System.out.println("FILE OPENING");
+        // a.open(System.getProperty("user.dir") + File.separator + "image.jpg");
 
     }
-    
+
     /**
      * <p>
      * Main entry point to the ANDIE program.
@@ -143,42 +142,15 @@ public class Andie {
      * @see #createAndShowGUI()
      */
 
-    public static void chooseLanguage() {
-        String option = (String) JOptionPane.showInputDialog(null, Language.translate("Choose a language") +":",
-                null, JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
-
-        // Checks the returning value of the combobox and evaluates choosen option using
-        // switch
-        if(option == null){
-            Language.setLanguage("en");
-            return;
-        }
-
-        switch (option) {
-            case "English":
-                Language.setLanguage("en");
-                break;
-            case "French":
-                Language.setLanguage("fr");
-                break;
-            case "Malay":
-                Language.setLanguage("my");
-                break;
-        }
-        
-
-    }
-
-    public static int getNumLanguages(){
-        return  languages.length;
+    public static int getNumLanguages() {
+        return languages.length;
     }
 
     public static void main(String[] args) throws Exception {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                
+
                 try {
-                    chooseLanguage();
                     createAndShowGUI();
                     //FileActions.FileOpenDefaultAction();
 
