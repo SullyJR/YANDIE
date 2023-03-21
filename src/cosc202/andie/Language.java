@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Language {
     static String language = "en";
-    static int numTexts = 51;
+    static int numTexts = 53;
 
     public static void setLanguage(String input) {
         language = input;
@@ -33,7 +33,7 @@ public class Language {
             e.printStackTrace();
         }
 
-        switch(language){
+        switch (language) {
             case "en":
                 for (int i = 0; i < languageArray[0].length; i++) {
                     if (input.equals(languageArray[0][i])) {
@@ -57,23 +57,23 @@ public class Language {
                 break;
         }
         // if (language.equals("en")) {
-        //     for (int i = 0; i < languageArray[0].length; i++) {
-        //         if (input.equals(languageArray[0][i])) {
-        //             return languageArray[0][i];
-        //         }
-        //     }
+        // for (int i = 0; i < languageArray[0].length; i++) {
+        // if (input.equals(languageArray[0][i])) {
+        // return languageArray[0][i];
+        // }
+        // }
         // } else if (language.equals("fr")) {
-        //     for (int i = 0; i < languageArray[1].length; i++) {
-        //         if (input.equals(languageArray[0][i])) {
-        //             return languageArray[1][i];
-        //         }
-        //     }
+        // for (int i = 0; i < languageArray[1].length; i++) {
+        // if (input.equals(languageArray[0][i])) {
+        // return languageArray[1][i];
+        // }
+        // }
         // } else if (language.equals("my")) {
-        //     for (int i = 0; i < languageArray[2].length; i++) {
-        //         if (input.equals(languageArray[0][i])) {
-        //             return languageArray[2][i];
-        //         }
-        //     }
+        // for (int i = 0; i < languageArray[2].length; i++) {
+        // if (input.equals(languageArray[0][i])) {
+        // return languageArray[2][i];
+        // }
+        // }
         // }
         return "";
     }
