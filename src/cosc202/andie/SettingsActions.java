@@ -2,8 +2,6 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.io.*;
-
 import javax.swing.*;
 
 /**
@@ -96,22 +94,28 @@ public class SettingsActions {
 
         public void actionPerformed(ActionEvent e) {
 
-            // Creates a array of languages and opens a panel of a combobox
-            String[] languages = { Language.translate("English"), Language.translate("French"),
-                    Language.translate("Malay") };
+            // Creates a array of languages
+            String[] newLanguages = new String[3];
+            // Fills the language array with translated language options
+            for (int i = 0; i < Andie.languages.length; i++) {
+                newLanguages[i] = Language.translate(Andie.languages[i]);
+            }
+            // Creates a JOptionPane which prompts to user to choose a language
             String option = (String) JOptionPane.showInputDialog(null, Language.translate("Choose a language") + ":",
-                    null, JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+                    null, JOptionPane.QUESTION_MESSAGE, null, newLanguages, newLanguages[0]);
 
             // Checks the returning value of the combobox and evaluates choosen option using
-            // switch
-            if (option == languages[0]) {
+            // if statements, true if statements use the setLanguage method
+            // that changes the language to input
+            if (option == newLanguages[0]) {
                 Language.setLanguage("en");
-            } else if (option == languages[1]) {
+            } else if (option == newLanguages[1]) {
                 Language.setLanguage("fr");
-            } else if (option == languages[2]) {
+            } else if (option == newLanguages[2]) {
                 Language.setLanguage("my");
             }
-
+            // if an option is chosen, the frame will reload and change all the text to
+            // whatever was chosen previously, otherwise nothing changes
             if (option != null) {
                 try {
                     Andie.frame.dispose();
