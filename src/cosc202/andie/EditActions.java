@@ -1,7 +1,13 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
  /**
@@ -31,11 +37,19 @@ public class EditActions {
      * <p>
      * Create a set of Edit menu actions.
      * </p>
+     * @throws IOException
      */
-    public EditActions() {
+    public EditActions() throws IOException {
+        //Adds Icons and Scales them down to fit in the box
+        ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/undo.png")));
+        undoIcon.setImage(undoIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon redoIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/redo.png")));
+        redoIcon.setImage(redoIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+
+
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(Language.translate("Undo"), null, Language.translate("Undo"), Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(Language.translate("Redo"), null, Language.translate("Redo"), Integer.valueOf(KeyEvent.VK_Y)));
+        actions.add(new UndoAction(Language.translate("Undo"), undoIcon, Language.translate("Undo"), Integer.valueOf(KeyEvent.VK_Z)));
+        actions.add(new RedoAction(Language.translate("Redo"), redoIcon, Language.translate("Redo"), Integer.valueOf(KeyEvent.VK_Y)));
     }
  
     /**
@@ -47,7 +61,8 @@ public class EditActions {
      */
     public JMenu createMenu() {
         JMenu editMenu = new JMenu(Language.translate("Edit"));
-
+        //editMenu.setForeground(Color.RED);
+        
         for (Action action: actions) {
             editMenu.add(new JMenuItem(action));
         }

@@ -1,7 +1,12 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -32,12 +37,22 @@ public class ViewActions {
      * <p>
      * Create a set of View menu actions.
      * </p>
+     * @throws IOException
      */
-    public ViewActions() {
+    public ViewActions() throws IOException {
+        //Adds Icons and Scales them down to fit in the box
+        ImageIcon inIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/zoom in.png")));
+        inIcon.setImage(inIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon outIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/zoom out.png")));
+        outIcon.setImage(outIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon fullIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/zoom full.png")));
+        fullIcon.setImage(fullIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+
+        
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(Language.translate("Zoom In"), null, Language.translate("Zoom In"), Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(Language.translate("Zoom Out"), null, Language.translate("Zoom Out"), Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(Language.translate("Zoom Full"), null, Language.translate("Zoom Full"), Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(new ZoomInAction(Language.translate("Zoom In"), inIcon, Language.translate("Zoom In"), Integer.valueOf(KeyEvent.VK_PLUS)));
+        actions.add(new ZoomOutAction(Language.translate("Zoom Out"), outIcon, Language.translate("Zoom Out"), Integer.valueOf(KeyEvent.VK_MINUS)));
+        actions.add(new ZoomFullAction(Language.translate("Zoom Full"), fullIcon, Language.translate("Zoom Full"), Integer.valueOf(KeyEvent.VK_1)));
     }
 
     /**
