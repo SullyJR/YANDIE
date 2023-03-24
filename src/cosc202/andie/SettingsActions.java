@@ -116,7 +116,6 @@ public class SettingsActions {
                 try {
                     Andie.frame.dispose();
                     Andie.createAndShowGUI();
-
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     System.exit(1);
