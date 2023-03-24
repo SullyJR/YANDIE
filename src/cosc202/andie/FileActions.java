@@ -63,6 +63,7 @@ public class FileActions {
         actions.add(new FileOpenDefaultAction(Language.translate("Open Default"), opdefIcon, Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new FileSaveAction(Language.translate("Save"), saveIcon, Language.translate("Save the file"), Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction(Language.translate("Save As"), saveasIcon, Language.translate("Save a copy"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAsAction(Language.translate("Export As"), saveasIcon, Language.translate("Export a copy"), Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction(Language.translate("Exit"), exitIcon, Language.translate("Exit the program"), Integer.valueOf(0)));
     }
 
