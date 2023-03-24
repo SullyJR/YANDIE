@@ -1,9 +1,11 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Image;
 import java.awt.event.*;
 import java.io.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -34,10 +36,17 @@ public class SettingsActions {
      * <p>
      * Create a set of Settings menu actions.
      * </p>
+     * @throws IOException
      */
-    public SettingsActions() {
+
+     
+    public SettingsActions() throws IOException {
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/language.png"));
+        //Image image = ImageIO.read(Andie.class.getClassLoader().getResource("language.png"));
+                ImageIcon languageIcon = new ImageIcon(image);
+                languageIcon.setImage(languageIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         actions = new ArrayList<Action>();
-        actions.add(new LanguageAction(Language.translate("Language"), null, Language.translate("Change language"),
+        actions.add(new LanguageAction(Language.translate("Language"), languageIcon, Language.translate("Change language"),
                 Integer.valueOf(KeyEvent.VK_O)));
     }
 
@@ -97,10 +106,18 @@ public class SettingsActions {
         public void actionPerformed(ActionEvent e) {
 
             // Creates a array of languages and opens a panel of a combobox
-            String[] languages = { Language.translate("English"), Language.translate("French"),
-                    Language.translate("Malay") };
+            String[] languages = { Language.translate("English"), Language.translate("French"), Language.translate("Malay") };
+
+             
+            try {
+                Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+                ImageIcon languageIcon = new ImageIcon(image);
+            
+            
+            
+           
             String option = (String) JOptionPane.showInputDialog(null, Language.translate("Choose a language") + ":",
-                    null, JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
+                    null, JOptionPane.QUESTION_MESSAGE, languageIcon, languages, languages[0]);
 
             // Checks the returning value of the combobox and evaluates choosen option using
             // switch
@@ -121,6 +138,10 @@ public class SettingsActions {
                     System.exit(1);
                 }
             }
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         }
     }
+}
 }

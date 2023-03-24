@@ -1,7 +1,12 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -31,12 +36,22 @@ public class ColourActions {
      * <p>
      * Create a set of Colour menu actions.
      * </p>
+     * @throws IOException
      */
-    public ColourActions() {
+    public ColourActions() throws IOException {
+        //Adds Icons and Scales them down to fit in the box
+        ImageIcon brightIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/brightness.png")));
+        brightIcon.setImage(brightIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon greyIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/greyscale.png")));
+        greyIcon.setImage(greyIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon conIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/contrast.png")));
+        conIcon.setImage(conIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        
+
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), null, Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessAction(Language.translate("Brightness"), null, Language.translate("Adjust the brightness"), Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new ContrastAction(Language.translate("Contrast"), null, Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), greyIcon, Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BrightnessAction(Language.translate("Brightness"), brightIcon, Language.translate("Adjust the brightness"), Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new ContrastAction(Language.translate("Contrast"), conIcon, Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**

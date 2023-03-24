@@ -1,7 +1,12 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -31,14 +36,28 @@ public class FileActions {
      * <p>
      * Create a set of File menu actions.
      * </p>
+     * @throws IOException
      */
-    public FileActions() {
+    public FileActions() throws IOException {
+       //Adds Icons and Scales them down to fit in the box
+       ImageIcon openIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/open.png")));
+       openIcon.setImage(openIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+       ImageIcon opdefIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/default image.png")));
+       opdefIcon.setImage(opdefIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+       ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save.png")));
+        saveIcon.setImage(saveIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon saveasIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save as.png")));
+        saveasIcon.setImage(saveasIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon exitIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/exit.png")));
+        exitIcon.setImage(exitIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+
+
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(Language.translate("Open"), null, Language.translate("Open a file"), Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileOpenDefaultAction(Language.translate("Open Default"), null, Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new FileSaveAction(Language.translate("Save"), null, Language.translate("Save the file"), Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(Language.translate("Save As"), null, Language.translate("Save a copy"), Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction(Language.translate("Exit"), null, Language.translate("Exit the program"), Integer.valueOf(0)));
+        actions.add(new FileOpenAction(Language.translate("Open"), openIcon, Language.translate("Open a file"), Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileOpenDefaultAction(Language.translate("Open Default"), opdefIcon, Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new FileSaveAction(Language.translate("Save"), saveIcon, Language.translate("Save the file"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(Language.translate("Save As"), saveasIcon, Language.translate("Save a copy"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExitAction(Language.translate("Exit"), exitIcon, Language.translate("Exit the program"), Integer.valueOf(0)));
     }
 
     /**

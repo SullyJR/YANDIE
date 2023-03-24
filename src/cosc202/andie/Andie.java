@@ -59,8 +59,10 @@ public class Andie {
     public static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
+        frame.setForeground(Color.RED);
 
-        Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png"));
+        // Image image = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/icon.png"));
 
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,9 +123,9 @@ public class Andie {
         frame.pack();
         frame.setVisible(true);
 
-        EditableImage a = new EditableImage();
-        // System.out.println("FILE OPENING");
-        // a.open(System.getProperty("user.dir") + File.separator + "image.jpg");
+       Dimension menuBarSize = new Dimension(400, 35);
+        menuBar.setPreferredSize(menuBarSize);
+        menuBar.setBackground(Color.GRAY);
 
     }
 
