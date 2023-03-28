@@ -42,29 +42,35 @@ public class FileActions {
      * <p>
      * Create a set of File menu actions.
      * </p>
+     * 
      * @throws IOException
      */
     public FileActions() throws IOException {
-       //Adds Icons and Scales them down to fit in the box
-       ImageIcon openIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/open.png")));
-       openIcon.setImage(openIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-       ImageIcon opdefIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/default image.png")));
-       opdefIcon.setImage(opdefIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-       ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save.png")));
+        // Adds Icons and Scales them down to fit in the box
+        ImageIcon openIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/open.png")));
+        openIcon.setImage(openIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon opdefIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/default_image.png")));
+        opdefIcon.setImage(opdefIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save.png")));
         saveIcon.setImage(saveIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon saveasIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save as.png")));
+        ImageIcon saveasIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save_as.png")));
         saveasIcon.setImage(saveasIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         ImageIcon exitIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/exit.png")));
         exitIcon.setImage(exitIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 
-
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(Language.translate("Open"), openIcon, Language.translate("Open a file"), Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileOpenDefaultAction(Language.translate("Open Default"), opdefIcon, Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new FileSaveAction(Language.translate("Save"), saveIcon, Language.translate("Save the file"), Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(Language.translate("Save As"), saveasIcon, Language.translate("Save a copy"), Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAsAction(Language.translate("Export As"), saveasIcon, Language.translate("Export a copy"), Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new FileExitAction(Language.translate("Exit"), exitIcon, Language.translate("Exit the program"), Integer.valueOf(0)));
+        actions.add(new FileOpenAction(Language.translate("Open"), openIcon, Language.translate("Open a file"),
+                Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileOpenDefaultAction(Language.translate("Open Default"), opdefIcon,
+                Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new FileSaveAction(Language.translate("Save"), saveIcon, Language.translate("Save the file"),
+                Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(Language.translate("Save As"), saveasIcon, Language.translate("Save a copy"),
+                Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAsAction(Language.translate("Export As"), saveasIcon,
+                Language.translate("Export a copy"), Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new FileExitAction(Language.translate("Exit"), exitIcon, Language.translate("Exit the program"),
+                Integer.valueOf(0)));
     }
 
     /**
@@ -344,12 +350,13 @@ public class FileActions {
                     File output = new File(imageFilepath);
                     /**
                      * THIS PART IS NOT WORKING
-                     * THE ARRAY IS TO STORE ALL THE STRINGS SPLITTED BY . AND THE LAST ONE IS SUPPOSED TO BE THE FILE TYPE
+                     * THE ARRAY IS TO STORE ALL THE STRINGS SPLITTED BY . AND THE LAST ONE IS
+                     * SUPPOSED TO BE THE FILE TYPE
                      * ERROR: IT CRASHES AFTER I HIT SAVE SADGE :(
                      */
-                    //String[] arrPng = imageFilepath.split(".");
-                    //String input = arrPng[arrPng.length - 1];
-                    //System.out.println(input);
+                    // String[] arrPng = imageFilepath.split(".");
+                    // String input = arrPng[arrPng.length - 1];
+                    // System.out.println(input);
                     try {
                         // formatName should be according to the user's input
                         ImageIO.write(bi, "jpg", output);

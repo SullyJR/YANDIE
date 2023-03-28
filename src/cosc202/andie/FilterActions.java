@@ -2,7 +2,11 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.File;
 import java.awt.GridLayout;
+import java.awt.Image;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -35,25 +39,38 @@ public class FilterActions {
      * Create a set of Filter menu actions.
      * </p>
      */
-    public FilterActions() {
+    public FilterActions() throws Exception {
+
+        ImageIcon blurIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/blur.png")));
+        blurIcon.setImage(blurIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon filterIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/filter.png")));
+        filterIcon.setImage(filterIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon resizeIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/resize.png")));
+        resizeIcon.setImage(resizeIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon rotateIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/rotate.png")));
+        rotateIcon.setImage(rotateIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ImageIcon flipIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/flip.png")));
+        flipIcon.setImage(flipIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction(Language.translate("Mean Filter"), null,
+        actions.add(new MeanFilterAction(Language.translate("Mean Filter"), filterIcon,
                 Language.translate("Apply a mean filter"), Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction(Language.translate("Soft Blur"), null, Language.translate("Apply a soft blur"),
-                Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), null,
+        actions.add(
+                new SoftBlurAction(Language.translate("Soft Blur"), blurIcon, Language.translate("Apply a soft blur"),
+                        Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), filterIcon,
                 Language.translate("Apply sharpen"), Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), null,
+        actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), blurIcon,
                 Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new MedianFilterAction(Language.translate("Median Filter"), null,
+        actions.add(new MedianFilterAction(Language.translate("Median Filter"), filterIcon,
                 Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
-        actions.add(new ResizeAction(Language.translate("Resize"), null, Language.translate("Resize the image"),
+        actions.add(new ResizeAction(Language.translate("Resize"), resizeIcon, Language.translate("Resize the image"),
                 Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new RotateAction(Language.translate("Rotate"), null, Language.translate("Rotate the image"),
+        actions.add(new RotateAction(Language.translate("Rotate"), rotateIcon, Language.translate("Rotate the image"),
                 Integer.valueOf(KeyEvent.VK_P)));
-        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), null,
+        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), flipIcon,
                 Language.translate("Flips image horizontally"), Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), null,
+        actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), flipIcon,
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
     }
 
