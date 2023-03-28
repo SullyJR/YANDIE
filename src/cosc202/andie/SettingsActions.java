@@ -107,9 +107,6 @@ public class SettingsActions {
         public void actionPerformed(ActionEvent e) {
 
             try {
-                Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
-                ImageIcon languageIcon = new ImageIcon(image);
-
                 // Creates a array of languages
                 String[] newLanguages = new String[Language.getNumLanguages];
                 // Fills the language array with translated language options
@@ -119,7 +116,7 @@ public class SettingsActions {
                 // Creates a JOptionPane which prompts to user to choose a language
                 String option = (String) JOptionPane.showInputDialog(null,
                         Language.translate("Choose a language") + ":",
-                        null, JOptionPane.QUESTION_MESSAGE, languageIcon, newLanguages, newLanguages[0]);
+                        null, JOptionPane.QUESTION_MESSAGE, null, newLanguages, newLanguages[0]);
 
                 // Checks the returning value of the combobox and evaluates choosen option using
                 // if statements, true if statements use the setLanguage method
@@ -142,8 +139,8 @@ public class SettingsActions {
                         System.exit(1);
                     }
                 }
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }

@@ -97,6 +97,7 @@ public class Language {
         // to check if a text matches the input
         // if the text matched then it will replace it with the correct language
         // translation
+
         switch (language) {
             case "en":
                 for (int i = 0; i < languageArray[0].length; i++) {
