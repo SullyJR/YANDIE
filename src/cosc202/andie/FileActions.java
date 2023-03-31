@@ -344,26 +344,31 @@ public class FileActions {
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
+                    
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     BufferedImage bi = target.getImage().getCurrentImage();
 
                     File output = new File(imageFilepath);
-                    /**
-                     * THIS PART IS NOT WORKING
-                     * THE ARRAY IS TO STORE ALL THE STRINGS SPLITTED BY . AND THE LAST ONE IS
-                     * SUPPOSED TO BE THE FILE TYPE
-                     * ERROR: IT CRASHES AFTER I HIT SAVE SADGE :(
-                     */
-                    // String[] arrPng = imageFilepath.split(".");
-                    // String input = arrPng[arrPng.length - 1];
-                    // System.out.println(input);
+                    String extension = imageFilepath.substring(1+imageFilepath.lastIndexOf(".")).toLowerCase();
+                    
+                    // Note: extension will never be null now find out a different way
+
                     try {
-                        // formatName should be according to the user's input
-                        ImageIO.write(bi, "jpg", output);
+                        ImageIO.write(bi, extension, output);
                         System.out.println("Image saved successfully");
                     } catch (IOException ex) {
                         System.out.println("ERROR CODE GRAY");
                     }
+                    
+                    //Code below is skeleton body to try to input default file if no extension
+                    //is given \/\/\/
+
+                    //if() {
+
+                    //} else {
+                        
+                    //}
+                    
                 } catch (Exception ex) {
                     System.exit(1);
                 }
