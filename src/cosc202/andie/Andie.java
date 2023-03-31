@@ -101,6 +101,10 @@ public class Andie {
         EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
+        // Image actions purposedly for Rotate and flips
+        ImageActions imageActions = new ImageActions();
+        menuBar.add(imageActions.createMenu());
+
         // View actions control how the image is displayed, but do not alter its actual
         // content
         ViewActions viewActions = new ViewActions();
