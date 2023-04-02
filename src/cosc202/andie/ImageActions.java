@@ -86,7 +86,7 @@ public JMenu createMenu() {
             JButton button90Left = new JButton("Rotate 90° Left");
             button90Left.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    final double degree = -90.0;
+                    final double degree = 90.0;
                     rotateImage(degree);
                 }
             });
@@ -94,51 +94,24 @@ public JMenu createMenu() {
             JButton button90Right = new JButton("Rotate 90° Right");
             button90Right.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    final double degree = 90.0;
+                    final double degree = -90.0;
                     rotateImage(degree);
                 }
             });
 
-            JButton button180Left = new JButton("Rotate 180° Left");
-            button180Left.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    final double degree = -180.0;
-                    rotateImage(degree);
-                }
-            });
-
-            JButton button180Right = new JButton("Rotate 180° Right");
-            button180Right.addActionListener(new ActionListener() {
+            JButton button180 = new JButton("Rotate 180°");
+            button180.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     final double degree = 180.0;
                     rotateImage(degree);
                 }
             });
 
-            JButton button270Left = new JButton("Rotate 270° Left");
-            button270Left.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    final double degree = -270.0;
-                    rotateImage(degree);
-                }
-            });
-
-            JButton button270Right = new JButton("Rotate 270° Right");
-            button270Right.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    final double degree = 270.0;
-                    rotateImage(degree);
-                }
-            });
-
             // Create a panel to hold the buttons
-            JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
+            JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
             buttonPanel.add(button90Left);
             buttonPanel.add(button90Right);
-            buttonPanel.add(button180Left);
-            buttonPanel.add(button180Right);
-            buttonPanel.add(button270Left);
-            buttonPanel.add(button270Right);
+            buttonPanel.add(button180);
 
             // Show the panel in a dialog box
             int option = JOptionPane.showOptionDialog(null, buttonPanel, Language.translate("Rotate Image"),
