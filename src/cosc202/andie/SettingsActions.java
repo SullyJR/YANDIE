@@ -1,9 +1,10 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Image;
 import java.awt.event.*;
 import java.io.*;
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -34,11 +35,18 @@ public class SettingsActions {
      * <p>
      * Create a set of Settings menu actions.
      * </p>
+     * 
+     * @throws IOException
      */
-    public SettingsActions() {
+
+    public SettingsActions() throws IOException {
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/language.png"));
+        ImageIcon languageIcon = new ImageIcon(image);
+        languageIcon.setImage(languageIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         actions = new ArrayList<Action>();
-        actions.add(new LanguageAction(Language.translate("Language"), null, Language.translate("Change language"),
-                Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(
+                new LanguageAction(Language.translate("Language"), languageIcon, Language.translate("Change language"),
+                        Integer.valueOf(KeyEvent.VK_O)));
     }
 
     /**
@@ -96,31 +104,41 @@ public class SettingsActions {
 
         public void actionPerformed(ActionEvent e) {
 
-            // Creates a array of languages and opens a panel of a combobox
-            String[] languages = { Language.translate("English"), Language.translate("French"),
-                    Language.translate("Malay") };
-            String option = (String) JOptionPane.showInputDialog(null, Language.translate("Choose a language") + ":",
-                    null, JOptionPane.QUESTION_MESSAGE, null, languages, languages[0]);
-
-            // Checks the returning value of the combobox and evaluates choosen option using
-            // switch
-            if (option == languages[0]) {
-                Language.setLanguage("en");
-            } else if (option == languages[1]) {
-                Language.setLanguage("fr");
-            } else if (option == languages[2]) {
-                Language.setLanguage("my");
-            }
-
-            if (option != null) {
-                try {
-                    Andie.frame.dispose();
-                    Andie.createAndShowGUI();
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    System.exit(1);
+            try {
+                // Creates a array of languages
+                String[] newLanguages = new String[Language.getNumLanguages];
+                // Fills the language array with translated language options
+                for (int i = 0; i < Andie.languages.length; i++) {
+                    newLanguages[i] = Language.translate(Andie.languages[i]);
                 }
+                // Creates a JOptionPane which prompts to user to choose a language
+                String option = (String) JOptionPane.showInputDialog(null, null,
+                        Language.translate("Choose a language") + ":", JOptionPane.QUESTION_MESSAGE, null, newLanguages,
+                        newLanguages[0]);
+
+                // Checks the returning value of the combobox and evaluates choosen option using
+                // if statements, true if statements use the setLanguage method
+                // that changes the language to input
+                if (option == newLanguages[0]) {
+                    Language.setLanguage("en");
+                } else if (option == newLanguages[1]) {
+                    Language.setLanguage("fr");
+                } else if (option == newLanguages[2]) {
+                    Language.setLanguage("my");
+                }
+                // if an option is chosen, the frame will reload and change all the text to
+                // whatever was chosen previously, otherwise nothing changes
+                if (option != null) {
+                    try {
+                        Andie.frame.dispose();
+                        Andie.createAndShowGUI();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        System.exit(1);
+                    }
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         }
     }

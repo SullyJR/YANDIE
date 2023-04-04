@@ -12,6 +12,7 @@ Open, Ouvrir, Buka
 Open Default, Ouvrir defaut, Buka lalai
 Save, Enregistrer, Simpan
 Save As, Enregistrer sous, Simpan sebagai
+Export As, Exporter Sous, Eksport Sebagai
 Exit, Quitter, Keluar
 Undo, Annuler, Batalkan
 Redo, Retablir, Buat Semula
@@ -32,6 +33,7 @@ Open a file, Ouvrir un fichier, Buka fail
 Open a default image, Ouvrir une image par defaut, Buka imej lalai
 Save the file, Enregistrer le fichier, Simpan fail
 Save a copy, Enregistrer une copie, Simpan salinan
+Export a copy, Exporter une copie, Eksport salinan
 Exit the program, Quitter le programme, Keluar dari program
 Apply a mean filter, Appliquer un filtre moyenne, Memohon penapis min
 Apply a soft blur, Appliquer un flou doux, Memohon pengaburan lembut
@@ -51,3 +53,8 @@ Choose a language, Choisir une langue, Pilih bahasa
 Contrast, Contraste, Kontras
 Adjust the contrast, Ajuster le contraste, Melaraskan kontras
 Enter filter contrast, Filtre de contraste, Penapis kontras
+Flip Horizontally, Retourner Horizontalement, Putar Secara Mendatar
+Flip Vertically, Retourner Verticalement, Putar Secara Menegak
+Flips image horizontally, Retourne l'image horizontalement, Memutar imej secara mendatar
+Flips image vertically, Retourne l'image verticalement, Memutar imej secara menegak
+Rotate Image, Faire Pivoter l'image, Putar Imej
