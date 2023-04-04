@@ -7,7 +7,7 @@ import java.net.URL;
 
 public class Language {
 
-    static String language = "en";
+    public static String language = "en";
     static int getNumTexts = getNumTexts();
     static int getNumLanguages = getNumLanguages();
 

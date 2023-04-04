@@ -41,8 +41,6 @@ public class SettingsActions {
 
     public SettingsActions() throws IOException {
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/language.png"));
-        // Image image =
-        // ImageIO.read(Andie.class.getClassLoader().getResource("language.png"));
         ImageIcon languageIcon = new ImageIcon(image);
         languageIcon.setImage(languageIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         actions = new ArrayList<Action>();
@@ -114,9 +112,9 @@ public class SettingsActions {
                     newLanguages[i] = Language.translate(Andie.languages[i]);
                 }
                 // Creates a JOptionPane which prompts to user to choose a language
-                String option = (String) JOptionPane.showInputDialog(null,
-                        Language.translate("Choose a language") + ":",
-                        null, JOptionPane.QUESTION_MESSAGE, null, newLanguages, newLanguages[0]);
+                String option = (String) JOptionPane.showInputDialog(null, null,
+                        Language.translate("Choose a language") + ":", JOptionPane.QUESTION_MESSAGE, null, newLanguages,
+                        newLanguages[0]);
 
                 // Checks the returning value of the combobox and evaluates choosen option using
                 // if statements, true if statements use the setLanguage method
