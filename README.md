@@ -39,8 +39,13 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ## Current Project Team Members
 
+### Current Projecct Developement Team
+
 * sulca807 - Callum Sullivan <sulca807@student.otago.ac.nz> (he/him)
 * bugsa135 - Sam Bugden <bugsa135@student.otago.ac.nz> (he/him)
 * johan372 - Andrew John Lieng <johan372@student.otago.ac.nz> (he/him)
 * macse341 - Sen Macmaster <macse341@student.otago.ac.nz> (he/him)
-* lamal240 - Alex Lambert-Janes <lamal240@student.otago.ac.nz> (MIA)
+
+### Emotional Support Team
+
+* lamal240 - Alex Lambert-Janes <lamal240@student.otago.ac.nz> (he/him)
