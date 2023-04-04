@@ -37,6 +37,7 @@ public class FileActions {
 
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
+    protected String oriExtension;
 
     /**
      * <p>
@@ -133,6 +134,7 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
                     JPanel error = new JPanel();
@@ -345,31 +347,41 @@ public class FileActions {
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
-                    
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     BufferedImage bi = target.getImage().getCurrentImage();
 
                     File output = new File(imageFilepath);
-                    String extension = imageFilepath.substring(1+imageFilepath.lastIndexOf(".")).toLowerCase();
-                    
+
+                    String extension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
+
                     // Note: extension will never be null now find out a different way
-
-                    try {
-                        ImageIO.write(bi, extension, output);
-                        System.out.println("Image saved successfully");
-                    } catch (IOException ex) {
-                        System.out.println("ERROR CODE GRAY");
-                    }
                     
-                    //Code below is skeleton body to try to input default file if no extension
-                    //is given \/\/\/
-
-                    //if() {
-
-                    //} else {
-                        
+                    //try {
+                    //    ImageIO.write(bi, extension, output);
+                    //} catch (IOException ex) {
+                    //    System.out.println("ERROR CODE GRAY");
                     //}
-                    
+
+                    // Code below is skeleton body to try to input default file if no extension
+                    // is given \/\/\/
+                    int length = extension.length();
+                    if (length > 5) {
+                        try {
+                            imageFilepath = imageFilepath + "." + oriExtension;
+                            File outputDe = new File(imageFilepath);
+                            ImageIO.write(bi, oriExtension, outputDe);
+                        } catch (IOException ex) {
+                            System.out.println("ERROR CODE GRAY");
+                        }
+                    } else {
+                        try {
+                            ImageIO.write(bi, extension, output);
+                        } catch (IOException ex) {
+                            System.out.println("ERROR CODE GRAY");
+                        }
+                    }
+
                 } catch (Exception ex) {
                     System.exit(1);
                 }
