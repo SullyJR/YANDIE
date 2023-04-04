@@ -83,7 +83,7 @@ public class Andie {
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
-        scrollPane.setBackground(Color.RED);
+        scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
 
         // Add in menus for various types of action the user may perform.
