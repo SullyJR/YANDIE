@@ -33,6 +33,7 @@ import javax.imageio.*;
  */
 class EditableImage {
 
+    //public static final String ImageIO = null;
     /** The original image. This should never be altered by ANDIE. */
     private BufferedImage original;
     /** The current image, the result of applying {@link ops} to {@link original}. */
