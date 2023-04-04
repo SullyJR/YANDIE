@@ -4,7 +4,7 @@ import java.awt.image.*;
 import java.awt.Graphics2D;
 
 /**
- * Image operation to flip the image horizontally
+ * Image operation to flip the image vertically
  */
 public class FlipVertically implements ImageOperation, java.io.Serializable{
     

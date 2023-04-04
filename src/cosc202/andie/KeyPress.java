@@ -10,74 +10,71 @@ import javax.swing.*;
 import cosc202.andie.EditActions.UndoAction;
 
 public class KeyPress implements KeyListener {
-    private boolean controlPressed = false;
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
-    int a = 0;
-    int l = 0;
-    int E = 0;
-    int x = 0;
+
+    boolean boolA = false;
+    boolean boolL = false;
+    boolean boolE = false;
+    boolean boolX = false;
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_Z){
-            //undo();
-        } 
 
 
 
+        if (e.getKeyCode() == KeyEvent.VK_Z) {
+            // undo();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
 
+                boolA = true;
+                boolL = false;
+                boolE = false;
+                boolX = false;
 
-        
-        if (e.getKeyCode() == KeyEvent.VK_A){
-            if(a==0){
-                a=1;
-            }
-        } 
-        if (e.getKeyCode() == KeyEvent.VK_L){
-            if(l==0){
-                l=1;
-            }
-        }
-        if (e.getKeyCode() == KeyEvent.VK_E){
-            if(E==0){
-                E=1;
-            }
-        }
-        if (e.getKeyCode() == KeyEvent.VK_X){
-            if(x==0){
-                x=1;
-            }
-        }
-        if (e.getKeyCode() != KeyEvent.VK_X & e.getKeyCode() != KeyEvent.VK_E & e.getKeyCode() != KeyEvent.VK_L & e.getKeyCode() != KeyEvent.VK_A){
-           a=0;
-           l=0;
-           E=0;
-           x=0;
-        }
-        if ((a+l+E+x) == 4){
-            JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!", JOptionPane.QUESTION_MESSAGE);
-            //System.exit(1);
-        }
             
-        
-        
-            
-            
-            
-             
         }
-        @Override
-        public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-                controlPressed = false;
-            }
+        if (e.getKeyCode() == KeyEvent.VK_L && boolA == true) {
+
+                boolL = true;
+                boolA = false;
+                boolE = false;
+                boolX = false;
         }
-    
-        @Override
-        public void keyTyped(KeyEvent e) {
-            // Not used
+        if (e.getKeyCode() == KeyEvent.VK_E && boolL == true) {
+
+                boolE = true;
+                boolA = false;
+                boolL = false;
+                boolX = false;
+            
         }
-    
+        if (e.getKeyCode() == KeyEvent.VK_X && boolE == true) {
+
+                boolX = true;
+                boolA = false;
+                boolL = false;
+                boolE = false;
+
+        }
+
+        if (boolX == true){
+            JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!",
+                    JOptionPane.QUESTION_MESSAGE);
+                    boolX = false;
+            // System.exit(1);
+        }
+
     }
 
-   
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Not used
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Not used
+    }
+
+}
