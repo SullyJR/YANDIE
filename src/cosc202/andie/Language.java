@@ -81,7 +81,6 @@ public class Language {
         URL languageList = Language.class.getClassLoader().getResource("LanguageList");
         try {
             if (languageArray[0][0] == null) {
-                System.out.println("Not full");
                 Scanner sc = new Scanner(new File(languageList.toURI()));
                 int counter = 0;
                 while (sc.hasNextLine()) {
@@ -93,7 +92,6 @@ public class Language {
                 }
                 sc.close();
             }
-            System.out.println("Full");
         } catch (FileNotFoundException | URISyntaxException e) {
             return "No Language";
             // e.printStackTrace();
