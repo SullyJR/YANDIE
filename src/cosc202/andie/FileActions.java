@@ -186,7 +186,8 @@ public class FileActions {
             if (true) {
                 try {
                     // String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().open("J:/andie/src/image.jpg");
+                    target.getImage().open("src/image.jpg");
+                    //ImageIO.read(new File("./src/cosc202/andie/icons/save.png"));
                 } catch (Exception ex) {
                     JPanel error = new JPanel();
                     error.add(new JLabel(Language.translate("There was a problem opening the image")));
