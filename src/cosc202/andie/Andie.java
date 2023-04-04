@@ -59,15 +59,15 @@ public class Andie {
     public static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
-        frame.setForeground(Color.RED);
+        frame.setForeground(Color.GRAY);
 
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png"));
-        // Image image = ImageIO.read(Andie.class.getClassLoader().getResource("Icons/icon.png"));
+       // Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icons/icon.png"));
 
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
-            // Set the look and feel to Nimbus
+            // Set the look and feel to Windows
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 
                 if ("Windows".equals(info.getName())) {
