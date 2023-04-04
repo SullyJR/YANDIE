@@ -15,20 +15,23 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * The Colour menu contains actions that affect the colour of each pixel directly 
+ * The Colour menu contains actions that affect the colour of each pixel
+ * directly
  * without reference to the rest of the image.
- * This includes conversion to greyscale in the sample code, but more operations will need to be added.
+ * This includes conversion to greyscale in the sample code, but more operations
+ * will need to be added.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class ColourActions {
-    
+
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
 
@@ -36,22 +39,25 @@ public class ColourActions {
      * <p>
      * Create a set of Colour menu actions.
      * </p>
+     * 
      * @throws IOException
      */
     public ColourActions() throws IOException {
-        //Adds Icons and Scales them down to fit in the box
+        // Adds Icons and Scales them down to fit in the box
         ImageIcon brightIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/brightness.png")));
         brightIcon.setImage(brightIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         ImageIcon greyIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/greyscale.png")));
         greyIcon.setImage(greyIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         ImageIcon conIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/contrast.png")));
         conIcon.setImage(conIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        
 
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), greyIcon, Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessAction(Language.translate("Brightness"), brightIcon, Language.translate("Adjust the brightness"), Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new ContrastAction(Language.translate("Contrast"), conIcon, Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), greyIcon,
+                Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BrightnessAction(Language.translate("Brightness"), brightIcon,
+                Language.translate("Adjust the brightness"), Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new ContrastAction(Language.translate("Contrast"), conIcon,
+                Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -64,7 +70,7 @@ public class ColourActions {
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu(Language.translate("Colour"));
 
-        for(Action action: actions) {
+        for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
 
@@ -85,14 +91,17 @@ public class ColourActions {
          * Create a new convert-to-grey action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK)); // TODO: Make an argument to the constructor
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK)); // TODO: Make an
+                                                                                                       // argument to
+                                                                                                       // the
+                                                                                                       // constructor
         }
 
         /**
@@ -108,9 +117,12 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ConvertToGrey());
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new ConvertToGrey());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
         }
 
     }
@@ -122,17 +134,17 @@ public class ColourActions {
          * Create a new convert-to-grey action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         BrightnessAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-        //Initial Defult brightness
-        
+        // Initial Default brightness
+
         /**
          * <p>
          * Callback for when the convert-to-grey action is triggered.
@@ -148,9 +160,11 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
             int bright = 10;
 
-        SpinnerNumberModel brightModel = new SpinnerNumberModel(10, -100, 100, 1);
+            SpinnerNumberModel brightModel = new SpinnerNumberModel(10, -100, 100, 1);
             JSpinner brightSpinner = new JSpinner(brightModel);
-            int option = JOptionPane.showOptionDialog(null, brightSpinner, Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, brightSpinner,
+                    Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -158,10 +172,13 @@ public class ColourActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 bright = brightModel.getNumber().intValue();
             }
-            target.getImage().apply(new Brightness(bright));
-            target.repaint();
-            target.getParent().revalidate();
-            
+            try {
+                target.getImage().apply(new ConvertToGrey());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
+
         }
 
     }
@@ -173,17 +190,17 @@ public class ColourActions {
          * Create a new contrast action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         ContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-        //Initial Default contrast
-        
+        // Initial Default contrast
+
         /**
          * <p>
          * Callback for when the contrast action is triggered.
@@ -199,9 +216,11 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
             int contrast = 10;
 
-        SpinnerNumberModel contrastModel = new SpinnerNumberModel(10, -100, 100, 1);
+            SpinnerNumberModel contrastModel = new SpinnerNumberModel(10, -100, 100, 1);
             JSpinner contrastSpinner = new JSpinner(contrastModel);
-            int option = JOptionPane.showOptionDialog(null, contrastSpinner, Language.translate("Enter filter contrast"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, contrastSpinner,
+                    Language.translate("Enter filter contrast"), JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -209,12 +228,15 @@ public class ColourActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 contrast = contrastModel.getNumber().intValue();
             }
-            target.getImage().apply(new Contrast(contrast));
-            target.repaint();
-            target.getParent().revalidate();
-            
+            try {
+                target.getImage().apply(new Contrast(contrast));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
+
         }
 
-    }    
+    }
 
 }

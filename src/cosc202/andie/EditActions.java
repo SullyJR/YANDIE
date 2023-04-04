@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
- /**
+/**
  * <p>
  * Actions provided by the Edit menu.
  * </p>
@@ -18,18 +18,20 @@ import javax.swing.*;
  * <p>
  * The Edit menu is very common across a wide range of applications.
  * There are a lot of operations that a user might expect to see here.
- * In the sample code there are Undo and Redo actions, but more may need to be added.
+ * In the sample code there are Undo and Redo actions, but more may need to be
+ * added.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class EditActions {
-    
+
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
 
@@ -37,21 +39,23 @@ public class EditActions {
      * <p>
      * Create a set of Edit menu actions.
      * </p>
+     * 
      * @throws IOException
      */
     public EditActions() throws IOException {
-        //Adds Icons and Scales them down to fit in the box
+        // Adds Icons and Scales them down to fit in the box
         ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/undo.png")));
         undoIcon.setImage(undoIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         ImageIcon redoIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/redo.png")));
         redoIcon.setImage(redoIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 
-
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(Language.translate("Undo"), undoIcon, Language.translate("Undo"), Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(Language.translate("Redo"), redoIcon, Language.translate("Redo"), Integer.valueOf(KeyEvent.VK_Y)));
+        actions.add(new UndoAction(Language.translate("Undo"), undoIcon, Language.translate("Undo"),
+                Integer.valueOf(KeyEvent.VK_Z)));
+        actions.add(new RedoAction(Language.translate("Redo"), redoIcon, Language.translate("Redo"),
+                Integer.valueOf(KeyEvent.VK_Y)));
     }
- 
+
     /**
      * <p>
      * Create a menu contianing the list of Edit actions.
@@ -61,9 +65,9 @@ public class EditActions {
      */
     public JMenu createMenu() {
         JMenu editMenu = new JMenu(Language.translate("Edit"));
-        //editMenu.setForeground(Color.RED);
-        
-        for (Action action: actions) {
+        // editMenu.setForeground(Color.RED);
+
+        for (Action action : actions) {
             editMenu.add(new JMenuItem(action));
         }
 
@@ -84,10 +88,10 @@ public class EditActions {
          * Create a new undo action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         UndoAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -107,19 +111,22 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().undo();
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().undo();
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (EmptyStackException err) {
+            }
         }
     }
 
-     /**
+    /**
      * <p>
      * Action to redo an {@link ImageOperation}.
      * </p>
      * 
      * @see EditableImage#redo()
-     */   
+     */
     public class RedoAction extends ImageAction {
 
         /**
@@ -127,17 +134,16 @@ public class EditActions {
          * Create a new redo action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         RedoAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
             putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
         }
 
-        
         /**
          * <p>
          * Callback for when the redo action is triggered.
@@ -151,9 +157,12 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().redo();
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().redo();
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (EmptyStackException err) {
+            }
         }
     }
 

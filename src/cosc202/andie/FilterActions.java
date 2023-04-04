@@ -133,9 +133,12 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new MeanFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
         }
 
     }
@@ -148,9 +151,12 @@ public class FilterActions {
 
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new SharpenFilter());
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new SharpenFilter());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
         }
     }
 
@@ -163,12 +169,15 @@ public class FilterActions {
 
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new SoftBlur());
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new SoftBlur());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
+
         }
     }
-
 
     public class GaussianBlurAction extends ImageAction {
 
@@ -195,9 +204,12 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new GaussianBlur(radius));
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new GaussianBlur(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
         }
     }
 
@@ -226,10 +238,14 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new MedianFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new MedianFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+            }
+
         }
     }
-   
+
 }
