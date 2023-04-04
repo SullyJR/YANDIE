@@ -11,6 +11,8 @@ public class Language {
     static int getNumTexts = getNumTexts();
     static int getNumLanguages = getNumLanguages();
 
+    public static String[][] languageArray = new String[getNumLanguages][getNumTexts];
+
     /**
      * </p>
      * Sets the value of language to what was input in the parameter.
@@ -76,19 +78,22 @@ public class Language {
      */
     public static String translate(String input) {
 
-        String[][] languageArray = new String[getNumLanguages][getNumTexts];
         URL languageList = Language.class.getClassLoader().getResource("LanguageList");
         try {
-            Scanner sc = new Scanner(new File(languageList.toURI()));
-            int counter = 0;
-            while (sc.hasNextLine()) {
-                String[] arr = sc.nextLine().split(", ");
-                for (int i = 0; i < arr.length; i++) {
-                    languageArray[i][counter] = arr[i];
+            if (languageArray[0][0] == null) {
+                System.out.println("Language array was empty");
+                Scanner sc = new Scanner(new File(languageList.toURI()));
+                int counter = 0;
+                while (sc.hasNextLine()) {
+                    String[] arr = sc.nextLine().split(", ");
+                    for (int i = 0; i < arr.length; i++) {
+                        languageArray[i][counter] = arr[i];
+                    }
+                    counter++;
                 }
-                counter++;
+                sc.close();
             }
-            sc.close();
+            System.out.println("Language array was not empty");
         } catch (FileNotFoundException | URISyntaxException e) {
             return "No Language";
             // e.printStackTrace();
