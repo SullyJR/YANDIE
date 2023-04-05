@@ -317,7 +317,7 @@ public class FileActions {
 
         /**
          * <p>
-         * Create a new file-save-as action.
+         * Create a new file-export action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -355,30 +355,32 @@ public class FileActions {
 
                     String extension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
 
-                    // Note: extension will never be null now find out a different way
-                    
-                    //try {
-                    //    ImageIO.write(bi, extension, output);
-                    //} catch (IOException ex) {
-                    //    System.out.println("ERROR CODE GRAY");
-                    //}
-
-                    // Code below is skeleton body to try to input default file if no extension
-                    // is given \/\/\/
                     int length = extension.length();
                     if (length > 5) {
                         try {
                             imageFilepath = imageFilepath + "." + oriExtension;
                             File outputDe = new File(imageFilepath);
                             ImageIO.write(bi, oriExtension, outputDe);
+                            JPanel newP = new JPanel();
+                            newP.add(new JLabel(Language.translate("Image have been saved to original extension")));
+                            newP.setVisible(enabled);
+                            JOptionPane.showMessageDialog(target, newP, Language.translate(""), JOptionPane.OK_CANCEL_OPTION);
                         } catch (IOException ex) {
-                            System.out.println("ERROR CODE GRAY");
+                            JPanel error = new JPanel();
+                            error.add(new JLabel(Language.translate("There was a problem saving the image")));
+                            error.setVisible(enabled);
+                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
                         try {
                             ImageIO.write(bi, extension, output);
+                            JOptionPane.showMessageDialog(null, new JLabel("Image Saved"), "Success",
+                            JOptionPane.OK_CANCEL_OPTION);
                         } catch (IOException ex) {
-                            System.out.println("ERROR CODE GRAY");
+                            JPanel error = new JPanel();
+                            error.add(new JLabel(Language.translate("There was a problem saving the image")));
+                            error.setVisible(enabled);
+                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
                         }
                     }
 
