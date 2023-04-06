@@ -1,7 +1,10 @@
 package cosc202.andie;
 import java.awt.image.BufferedImage;
 
-
+/**
+* Construct a Brightness Class which implements ImageOperation and java.io.Serializable,
+* and creates and applies the brightness filter
+*/
 public class Brightness implements ImageOperation, java.io.Serializable {
   
   /** Amount to change the brightness by */

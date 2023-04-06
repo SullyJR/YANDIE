@@ -163,6 +163,14 @@ class EditableImage {
         this.refresh();
     }
 
+    /**
+     * <p>
+     * Open a default image from the inside of ANDIE.
+     * </p>
+     * 
+     * @param filePath The file to open the image from.
+     * @throws Exception If something goes wrong.
+     */
     public void openDefault(String filePath) throws Exception {
         imageFilename = null;
         opsFilename = null;

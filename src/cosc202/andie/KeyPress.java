@@ -4,11 +4,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import javax.swing.*;
 
-import cosc202.andie.EditActions.UndoAction;
-
+/**
+* The KeyPress class implements KeyListener and lets users use keyboard
+* shortcuts to start functions automatically to the image
+*/
 public class KeyPress implements KeyListener {
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 
@@ -19,8 +20,6 @@ public class KeyPress implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-
 
         if (e.getKeyCode() == KeyEvent.VK_Z) {
             // undo();

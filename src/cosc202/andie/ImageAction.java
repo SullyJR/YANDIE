@@ -35,9 +35,6 @@ public abstract class ImageAction extends AbstractAction {
      */
     protected static ImagePanel target;
     private EditableImage image;
-
-    private double scale;
-   
     
     /**
      * <p>

@@ -2,6 +2,10 @@ package cosc202.andie;
 
 import java.awt.image.BufferedImage;
 
+/**
+* Construct a Contrast Class which implements ImageOperation and creates and 
+* applies the contrast filter
+*/
 public class Contrast implements ImageOperation {
   
   /** Amount to change the contrast by */
