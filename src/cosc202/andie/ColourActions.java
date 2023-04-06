@@ -173,7 +173,7 @@ public class ColourActions {
                 bright = brightModel.getNumber().intValue();
             }
             try {
-                target.getImage().apply(new ConvertToGrey());
+                target.getImage().apply(new Brightness(bright));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
