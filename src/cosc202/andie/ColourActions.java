@@ -98,10 +98,7 @@ public class ColourActions {
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK)); // TODO: Make an
-                                                                                                       // argument to
-                                                                                                       // the
-                                                                                                       // constructor
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK)); 
         }
 
         /**
@@ -122,16 +119,24 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
             }
         }
 
     }
 
+    /**
+     * <p>
+     * Action to change the brightness based on user input.
+     * </p>
+     * 
+     * @see Brightness
+     */
     public class BrightnessAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new convert-to-grey action.
+         * Create a new brightness action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -143,24 +148,23 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
-        // Initial Default brightness
-
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the brightness action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the BrightnessAction is triggered.
+         * It changes the images brightness based on user input.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int bright = 10;
+           
+            int bright = 10; //creates initial value
 
-            SpinnerNumberModel brightModel = new SpinnerNumberModel(10, -100, 100, 1);
+            SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100, 1);
             JSpinner brightSpinner = new JSpinner(brightModel);
             int option = JOptionPane.showOptionDialog(null, brightSpinner,
                     Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
@@ -177,12 +181,20 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
             }
 
         }
 
     }
 
+    /**
+     * <p>
+     * Action to change the contrast based on user input.
+     * </p>
+     * 
+     * @see Brightness
+     */
     public class ContrastAction extends ImageAction {
 
         /**
@@ -199,8 +211,6 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
-        // Initial Default contrast
-
         /**
          * <p>
          * Callback for when the contrast action is triggered.
@@ -216,7 +226,7 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
             int contrast = 10;
 
-            SpinnerNumberModel contrastModel = new SpinnerNumberModel(10, -100, 100, 1);
+            SpinnerNumberModel contrastModel = new SpinnerNumberModel(contrast, -100, 100, 1);
             JSpinner contrastSpinner = new JSpinner(contrastModel);
             int option = JOptionPane.showOptionDialog(null, contrastSpinner,
                     Language.translate("Enter filter contrast"), JOptionPane.OK_CANCEL_OPTION,
@@ -233,6 +243,7 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
             }
 
         }

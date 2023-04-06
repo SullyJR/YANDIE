@@ -8,10 +8,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -47,6 +43,7 @@ public class FileActions {
      * @throws IOException
      */
     public FileActions() throws IOException {
+
         // Adds Icons and Scales them down to fit in the box
         ImageIcon openIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/open.png")));
         openIcon.setImage(openIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
@@ -76,7 +73,7 @@ public class FileActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of File actions.
+     * Create a menu containing the list of File actions.
      * </p>
      * 
      * @return The File menu UI element.
@@ -128,6 +125,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -151,7 +149,11 @@ public class FileActions {
         }
 
     }
-
+    /**
+     * <p>
+     * Action to open a default image to the UI.
+     * </p>
+     */
     public class FileOpenDefaultAction extends ImageAction {
 
         /**
@@ -259,8 +261,6 @@ public class FileActions {
      * <p>
      * Action to save an image to a new file location.
      * </p>
-     * 
-     * @see EditableImage#saveAs(String)
      */
     public class FileSaveAsAction extends ImageAction {
 
@@ -310,8 +310,6 @@ public class FileActions {
      * <p>
      * Action to export an image to a new file location.
      * </p>
-     * 
-     * @see EditableImage#saveAs(String)
      */
     public class FileExportAsAction extends ImageAction {
 

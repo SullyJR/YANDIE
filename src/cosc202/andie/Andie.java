@@ -1,6 +1,5 @@
 package cosc202.andie;
 
-import java.awt.image.BufferedImage;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
@@ -28,7 +27,7 @@ import java.io.*;
  */
 public class Andie {
 
-    static String[] languages = { "English", "French", "Malay" };
+    static String[] languages = {"English", "French", "Malay"};
     static JFrame frame;
 
     /**
@@ -50,9 +49,11 @@ public class Andie {
      * @see ImageOperation
      * @see FileActions
      * @see EditActions
+     * @see ImageActions
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
+     * @see SettingAction
      * 
      * @throws Exception if something goes wrong.
      */
@@ -62,7 +63,7 @@ public class Andie {
         frame.setForeground(Color.GRAY);
 
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png"));
-       // Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icons/icon.png"));
+        //Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icons/icon.png"));
 
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,8 +93,7 @@ public class Andie {
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
 
-        // File menus are pretty standard, so things that usually go in File menus go
-        // here.
+        // File menus are pretty standard, so things that usually go in File menus go here.
         FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
 
@@ -119,15 +119,18 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
+        // Changes all the texts language on the UI
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());
 
+        //Sets the frame
         frame.setJMenuBar(menuBar);
         frame.addKeyListener(new KeyPress());
         frame.pack();
         frame.setVisible(true);
 
-       Dimension menuBarSize = new Dimension(400, 35);
+        //Sets the menubar
+        Dimension menuBarSize = new Dimension(400, 35);
         menuBar.setPreferredSize(menuBarSize);
         menuBar.setBackground(Color.GRAY);
 
@@ -147,11 +150,6 @@ public class Andie {
      * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
-
-    public static int getNumLanguages() {
-        return languages.length;
-    }
-
     public static void main(String[] args) throws Exception {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

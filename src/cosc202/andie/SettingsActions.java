@@ -19,13 +19,10 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
- * 4.0</a>
- * </p>
  * 
- * @author Steven Mills
  * @version 1.0
  */
+
 public class SettingsActions {
 
     /** A list of actions for the Settings menu. */
@@ -40,13 +37,15 @@ public class SettingsActions {
      */
 
     public SettingsActions() throws IOException {
+        
+        // Adds Icons and Scales them down to fit in the box
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/language.png"));
         ImageIcon languageIcon = new ImageIcon(image);
         languageIcon.setImage(languageIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        
         actions = new ArrayList<Action>();
-        actions.add(
-                new LanguageAction(Language.translate("Language"), languageIcon, Language.translate("Change language"),
-                        Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new LanguageAction(Language.translate("Language"), languageIcon, Language.translate("Change language"),
+            Integer.valueOf(KeyEvent.VK_O)));
     }
 
     /**

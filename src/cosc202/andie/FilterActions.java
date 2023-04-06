@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import java.io.File;
-import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
@@ -38,9 +37,12 @@ public class FilterActions {
      * <p>
      * Create a set of Filter menu actions.
      * </p>
+     * 
+     * @throws IOException
      */
     public FilterActions() throws Exception {
 
+        // Adds Icons and Scales them down to fit in the box
         ImageIcon blurIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/blur.png")));
         blurIcon.setImage(blurIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         ImageIcon filterIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/filter.png")));
@@ -62,7 +64,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of Filter actions.
+     * Create a menu containing the list of Filter actions.
      * </p>
      * 
      * @return The filter menu UI element.
@@ -79,7 +81,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to blur an image with a mean filter.
+     * Action to filter an image with a mean filter.
      * </p>
      * 
      * @see MeanFilter
@@ -103,7 +105,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the mean action is triggered.
          * </p>
          * 
          * <p>
@@ -120,7 +122,7 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -143,12 +145,41 @@ public class FilterActions {
 
     }
 
+    /**
+     * <p>
+     * Action to sharpen an image with a sharpen filter.
+     * </p>
+     * 
+     * @see SharpenFilter
+     */
     public class SharpenFilterAction extends ImageAction {
-        SharpenFilterAction(String name, ImageIcon icon,
-                String desc, Integer mnemonic) {
+        
+        /**
+         * <p>
+         * Create a new sharpen filter action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the sharpen action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the SharpenAction is triggered.
+         * {@link SharpenFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             try {
@@ -156,17 +187,47 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
             }
         }
     }
 
+    /**
+     * <p>
+     * Action to blur an image with a soft blur filter.
+     * </p>
+     * 
+     * @see SoftBlur
+     */
     public class SoftBlurAction extends ImageAction {
 
-        SoftBlurAction(String name, ImageIcon icon,
-                String desc, Integer mnemonic) {
+        /**
+         * <p>
+         * Create a new soft blur action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        SoftBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the soft blur action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the SoftBlurAction is triggered.
+         * Command 
+         * {@link SoftBlur}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             try {
@@ -174,24 +235,54 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
             }
 
         }
     }
 
+    /**
+     * <p>
+     * Action to blur an image with a Gaussian blur filter.
+     * </p>
+     * 
+     * @see GaussianBlur
+     */
     public class GaussianBlurAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new Gaussian blur action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         GaussianBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the Gaussian blur action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the GaussianBlurAction is triggered.
+         * {@link GaussianBlur}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
 
             // Determine the radius - ask the user.
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -209,15 +300,39 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
             }
         }
     }
 
     public class MedianFilterAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new median filter action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
+
+        /**
+         * <p>
+         * Callback for when the median action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the MedianFilterAction is triggered.
+         * {@link MedianFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
 
         public void actionPerformed(ActionEvent e) {
 
@@ -225,7 +340,7 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -243,6 +358,7 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
             }
 
         }

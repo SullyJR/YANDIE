@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.*;
 import java.io.File;
@@ -43,6 +42,7 @@ public class EditActions {
      * @throws IOException
      */
     public EditActions() throws IOException {
+
         // Adds Icons and Scales them down to fit in the box
         ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/undo.png")));
         undoIcon.setImage(undoIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
@@ -58,7 +58,7 @@ public class EditActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of Edit actions.
+     * Create a menu containing the list of Edit actions.
      * </p>
      * 
      * @return The edit menu UI element.
@@ -116,6 +116,7 @@ public class EditActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (EmptyStackException err) {
+                //cannot initiate filter without image
             }
         }
     }
@@ -162,6 +163,7 @@ public class EditActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (EmptyStackException err) {
+                //cannot initiate filter without image
             }
         }
     }
