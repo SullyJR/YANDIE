@@ -8,11 +8,17 @@ import java.awt.Graphics2D;
  */
 public class FlipVertically implements ImageOperation, java.io.Serializable{
     
+    /**
+    * Creates a new instance of FlipVertically.
+    */
     public FlipVertically(){
     }
 
     /**
-     * Flips the image vertically using a Graphics2D object
+     * Applies the FlipVertically operation to the specified image.
+     * 
+     * @param input the image to apply the operation to
+     * @return the vertically flipped image
      */
     public BufferedImage apply(BufferedImage input) {
         

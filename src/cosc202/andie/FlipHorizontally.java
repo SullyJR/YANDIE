@@ -8,11 +8,17 @@ import java.awt.Graphics2D;
  */
 public class FlipHorizontally implements ImageOperation, java.io.Serializable{
     
+    /**
+    * Creates a new instance of FlipHorizontally.
+    */
     public FlipHorizontally(){
     }
 
     /**
-     * Flips the image horizontally using a Graphics2D object
+     * Applies the FlipHorizontally operation to the specified image.
+     * 
+     * @param input the image to apply the operation to
+     * @return the horizontally flipped image
      */
     public BufferedImage apply(BufferedImage input) {
         

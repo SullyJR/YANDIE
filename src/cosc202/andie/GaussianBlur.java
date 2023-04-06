@@ -1,3 +1,8 @@
+/**
+* The GaussianBlur class implements the ImageOperation interface to provide a
+* filter that applies a Gaussian blur to the given image.
+*/
+
 package cosc202.andie;
 
 import java.awt.image.*;
@@ -30,12 +35,21 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
   }
 
   /**
-   * Construct a GaussianBlur with the default size
-   *
+   * Constructs a new GaussianBlur object with the given radius.
+   * 
+   * @param radius the radius of the Gaussian filter to be applied
+   * @throws IllegalArgumentException if radius is negative
    */
   GaussianBlur() {
     this(1);
   }
+
+  /**
+   * Applies the Gaussian blur filter to the given BufferedImage object.
+   * 
+   * @param input the input image to be blurred
+   * @return the blurred output image
+   */
 
   public BufferedImage apply(BufferedImage input) {
 

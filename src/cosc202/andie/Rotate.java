@@ -29,7 +29,11 @@ public class Rotate implements ImageOperation, java.io.Serializable {
         this(0);
     }
 
-    /** Applying Rotate method to picture */
+    /**
+    * Applies the rotation to the input image and returns the rotated image.
+    * @param input the input image to rotate.
+    * @return the rotated image.
+    */
     public BufferedImage apply(BufferedImage input) {
                         
         int witdh = input.getWidth();
