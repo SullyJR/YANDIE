@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.awt.Image;
 
@@ -60,6 +61,8 @@ public class FilterActions {
                 Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new MedianFilterAction(Language.translate("Median Filter"), filterIcon,
                 Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new EmbossFilterAction(Language.translate("Emboss Filter"), filterIcon,
+                Language.translate("Apply an emboss filter"), Integer.valueOf(KeyEvent.VK_L)));        
     }
 
     /**
@@ -305,6 +308,55 @@ public class FilterActions {
         }
     }
 
+    public class EmbossFilterAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new soft blur action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        EmbossFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the soft blur action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the SoftBlurAction is triggered.
+         * Command 
+         * {@link Emboss}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            try {
+                Brightness b = new Brightness(128);
+                target.getImage().apply(new Emboss());
+                //target.getImage().apply(new Brightness(128));
+              //  BufferedImage bu = getImage().apply(new Emboss());
+              //  b.apply(bu);
+              
+
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (java.lang.NullPointerException err) {
+                //cannot initiate filter without image
+            }
+
+        }
+    }
+
+
     public class MedianFilterAction extends ImageAction {
 
         /**
@@ -333,7 +385,12 @@ public class FilterActions {
          * 
          * @param e The event triggering this callback.
          */
-
+       
+        /**
+         * <p>
+         * Action to blur an image with a Gaussian blur filter.
+         * </p>
+         **/
         public void actionPerformed(ActionEvent e) {
 
             // Determine the radius - ask the user.
