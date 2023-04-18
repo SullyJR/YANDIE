@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -98,7 +99,7 @@ public class ColourActions {
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK)); 
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK));
         }
 
         /**
@@ -119,7 +120,7 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
-                //cannot initiate filter without image
+                // cannot initiate filter without image
             }
         }
 
@@ -161,27 +162,68 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-           
-            int bright = 10; //creates initial value
 
-            SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100, 1);
-            JSpinner brightSpinner = new JSpinner(brightModel);
-            int option = JOptionPane.showOptionDialog(null, brightSpinner,
-                    Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int bright = 10; // creates initial value
+
+            // Create a slider with minimum value 0, maximum value 100, and initial value 50
+            JSlider slider = new JSlider(-100, 100, 0);
+            // Create a label to display the current value of the slider
+JLabel label = new JLabel("Selected value: " + slider.getValue());
+
+
+
+
+// Show a message dialog with the slider and label
+JPanel panel = new JPanel();
+panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+panel.add(slider);
+panel.add(label);
+            
+            slider.setPaintTicks(true);
+            slider.setMajorTickSpacing(50);
+            slider.setMinorTickSpacing(10);
+            slider.setPaintLabels(true);
+            
+            
+
+            // Show a message dialog with the slider
+            int result = JOptionPane.showOptionDialog(
+                    null, // parent component
+                    slider, // message
+                    "Select a value", // title
+                    JOptionPane.OK_CANCEL_OPTION, // option type
+                    JOptionPane.PLAIN_MESSAGE, // message type
+                    null, // icon
+                    null, // options
+                    null // default option
+            );
+
+            // If the user clicked OK, get the selected value from the slider
+            if (result == JOptionPane.OK_OPTION) {
+                int selectedValue = slider.getValue();
+                System.out.println("Selected value: " + selectedValue);
+
+            }
+
+            // SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100, 1);
+
+            // JSpinner brightSpinner = new JSpinner(brightModel);
+            // int option = JOptionPane.showOptionDialog(null, brightSpinner,
+            //         Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
+            //         JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
+            if (result == JOptionPane.CANCEL_OPTION) {
                 return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                bright = brightModel.getNumber().intValue();
+            } else if (result == JOptionPane.OK_OPTION) {
+                bright = slider.getValue();
             }
             try {
                 target.getImage().apply(new Brightness(bright));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
-                //cannot initiate filter without image
+                // cannot initiate filter without image
             }
 
         }
@@ -243,7 +285,7 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
-                //cannot initiate filter without image
+                // cannot initiate filter without image
             }
 
         }
