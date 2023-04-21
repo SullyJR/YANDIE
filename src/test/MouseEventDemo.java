@@ -96,7 +96,7 @@
      
      public MouseEventDemo() {
          super(new GridLayout(0,1));
-         blankArea = new BlankArea(Color.YELLOW);
+         blankArea = new BlankArea(Color.BLACK);
          add(blankArea);
          textArea = new JTextArea();
          textArea.setEditable(false);
@@ -139,6 +139,8 @@
      
      public void mouseClicked(MouseEvent e) {
          eventOutput("Mouse clicked (# of clicks: "
-                 + e.getClickCount() + ")", e);
+                 + e.getClickCount() + ")" + e.getPoint(), e);
      }
+
+     
  }
