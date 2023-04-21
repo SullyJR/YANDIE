@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
@@ -168,63 +169,69 @@ public class ColourActions {
             // Create a slider with minimum value 0, maximum value 100, and initial value 50
             JSlider slider = new JSlider(-100, 100, 0);
             // Create a label to display the current value of the slider
-JLabel label = new JLabel("Selected value: " + slider.getValue());
+            JLabel label = new JLabel("Selected value: " + slider.getValue());
 
+            // Show a message dialog with the slider and label
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+            panel.add(slider);
+            panel.add(label);
 
-
-
-// Show a message dialog with the slider and label
-JPanel panel = new JPanel();
-panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-panel.add(slider);
-panel.add(label);
-            
             slider.setPaintTicks(true);
             slider.setMajorTickSpacing(50);
             slider.setMinorTickSpacing(10);
             slider.setPaintLabels(true);
-            
-            
 
-            // Show a message dialog with the slider
-            int result = JOptionPane.showOptionDialog(
-                    null, // parent component
-                    slider, // message
-                    "Select a value", // title
-                    JOptionPane.OK_CANCEL_OPTION, // option type
-                    JOptionPane.PLAIN_MESSAGE, // message type
-                    null, // icon
-                    null, // options
-                    null // default option
-            );
+            ImageIcon icon;
+            try {
+                icon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/brightness.png")));
+                icon.setImage(icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+                int result = JOptionPane.showOptionDialog(
+                        null, // parent component
+                        slider, // message
+                        "Change the brightness", // title
+                        JOptionPane.OK_CANCEL_OPTION, // option type
+                        JOptionPane.PLAIN_MESSAGE, // message type
+                        icon, // icon
+                        null, // options
+                        null // default option
+                );
+                if (result == JOptionPane.OK_OPTION) {
+                    int selectedValue = slider.getValue();
+                    System.out.println("Selected brightness: " + selectedValue);
 
-            // If the user clicked OK, get the selected value from the slider
-            if (result == JOptionPane.OK_OPTION) {
-                int selectedValue = slider.getValue();
-                System.out.println("Selected value: " + selectedValue);
+                }
+                if (result == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (result == JOptionPane.OK_OPTION) {
+                    bright = slider.getValue();
+                }
+                try {
+                    target.getImage().apply(new Brightness(bright));
+                    target.repaint();
+                    target.getParent().revalidate();
+                } catch (java.lang.NullPointerException err) {
+                    // cannot initiate filter without image
+                }
 
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
             }
 
-            // SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100, 1);
+            // Show a message dialog with the slider
+
+            // If the user clicked OK, get the selected value from the slider
+
+            // SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100,
+            // 1);
 
             // JSpinner brightSpinner = new JSpinner(brightModel);
             // int option = JOptionPane.showOptionDialog(null, brightSpinner,
-            //         Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
-            //         JOptionPane.QUESTION_MESSAGE, null, null, null);
+            // Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
+            // JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
-            if (result == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (result == JOptionPane.OK_OPTION) {
-                bright = slider.getValue();
-            }
-            try {
-                target.getImage().apply(new Brightness(bright));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (java.lang.NullPointerException err) {
-                // cannot initiate filter without image
-            }
 
         }
 
@@ -266,30 +273,135 @@ panel.add(label);
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int contrast = 10;
+            int contrast = 0;
+            int brightness = 0;
+            JSlider contrastSlider = new JSlider(-100, 100, 0);
+            JSlider brightnessSlider = new JSlider(-100, 100, 0);
+            // Create labels to display the current value of the sliders
+            JLabel contrastLabel = new JLabel("Contrast: " + contrastSlider.getValue());
+            JLabel brightnessLabel = new JLabel("Brightness: " + brightnessSlider.getValue());
+        
+            // Show a message dialog with the sliders and labels
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+            panel.add(new JLabel("Change the contrast:"));
+            panel.add(contrastLabel);
+            panel.add(contrastSlider);
+            panel.add(new JLabel("Change the brightness:"));
+            panel.add(brightnessLabel);
+            panel.add(brightnessSlider);
+            
+        
+            contrastSlider.setPaintTicks(true);
+            contrastSlider.setMajorTickSpacing(50);
+            contrastSlider.setMinorTickSpacing(10);
+            contrastSlider.setPaintLabels(true);
+        
+            brightnessSlider.setPaintTicks(true);
+            brightnessSlider.setMajorTickSpacing(50);
+            brightnessSlider.setMinorTickSpacing(10);
+            brightnessSlider.setPaintLabels(true);
+        
+            contrastSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    int selectedValue = contrastSlider.getValue();
+                    System.out.println("Contrast: " + selectedValue);
+                    contrastLabel.setText("Contrast: " + selectedValue);
+        
+                    
+                }
+            });
+        
+            brightnessSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    int selectedValue = brightnessSlider.getValue();
+                    System.out.println("Brightness: " + selectedValue);
+                    brightnessLabel.setText("Brightness: " + selectedValue);
+        
+                    
+                }
+            });
 
-            SpinnerNumberModel contrastModel = new SpinnerNumberModel(contrast, -100, 100, 1);
-            JSpinner contrastSpinner = new JSpinner(contrastModel);
-            int option = JOptionPane.showOptionDialog(null, contrastSpinner,
-                    Language.translate("Enter filter contrast"), JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                contrast = contrastModel.getNumber().intValue();
-            }
+            // if (panel == JOptionPane.CANCEL_OPTION) {
+            //     return;
+            // } else if (option == JOptionPane.OK_OPTION) {
+            //     contrast = contrastModel.getNumber().intValue();
+            // }
+            // try {
+            //     target.getImage().apply(new Contrast(contrast));
+            //     target.repaint();
+            //     target.getParent().revalidate();
+            // } catch (java.lang.NullPointerException err) {
+            //     // cannot initiate filter without image
+            // }
+        
+            ImageIcon iconC;
             try {
-                target.getImage().apply(new Contrast(contrast));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (java.lang.NullPointerException err) {
-                // cannot initiate filter without image
+                iconC = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/contrast.png")));
+                iconC.setImage(iconC.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+                int result = JOptionPane.showOptionDialog(
+                        null, // parent component
+                        panel, // message
+                        "Adjust Image Settings", // title
+                        JOptionPane.OK_CANCEL_OPTION, // option type
+                        JOptionPane.PLAIN_MESSAGE, // message type
+                        iconC, // icon
+                        null, // options
+                        null // default option
+                );
+
+
+                if (result == JOptionPane.CANCEL_OPTION) {
+                    return;
+                }
+
+                if (result == JOptionPane.OK_OPTION) {
+                    contrast = contrastSlider.getValue();
+                    brightness = brightnessSlider.getValue();
+                    try {
+                        target.getImage().apply(new Contrast(contrast));
+                        target.getImage().apply(new Brightness(brightness));
+                        target.repaint();
+                        target.getParent().revalidate();
+                    } catch (java.lang.NullPointerException err) {
+                        // cannot initiate filter without image
+                    }
+                } else if (result == JOptionPane.CANCEL_OPTION) {
+                    return;
+                }
+
+
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
             }
+        }
+        
+        
+        
+
+            // SpinnerNumberModel contrastModel = new SpinnerNumberModel(contrast, -100, 100, 1);
+            // JSpinner contrastSpinner = new JSpinner(contrastModel);
+            // int option = JOptionPane.showOptionDialog(null, contrastSpinner,
+            //         Language.translate("Enter filter contrast"), JOptionPane.OK_CANCEL_OPTION,
+            //         JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // // Check the return value from the dialog box.
+            // if (option == JOptionPane.CANCEL_OPTION) {
+            //     return;
+            // } else if (option == JOptionPane.OK_OPTION) {
+            //     contrast = contrastModel.getNumber().intValue();
+            // }
+            // try {
+            //     target.getImage().apply(new Contrast(contrast));
+            //     target.repaint();
+            //     target.getParent().revalidate();
+            // } catch (java.lang.NullPointerException err) {
+            //     // cannot initiate filter without image
+            // }
 
         }
 
     }
 
-}
+
