@@ -52,17 +52,18 @@ public class FilterActions {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction(Language.translate("Mean Filter"), filterIcon,
                 Language.translate("Apply a mean filter"), Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(
-                new SoftBlurAction(Language.translate("Soft Blur"), blurIcon, Language.translate("Apply a soft blur"),
+        actions.add(new SoftBlurAction(Language.translate("Soft Blur"), blurIcon, Language.translate("Apply a soft blur"),
                         Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), filterIcon,
                 Language.translate("Apply sharpen"), Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), blurIcon,
                 Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BoxBlurAction(Language.translate("Box Blur"), blurIcon,
+                Language.translate("Apply a Box blur"), Integer.valueOf(KeyEvent.VK_B)));         
         actions.add(new MedianFilterAction(Language.translate("Median Filter"), filterIcon,
                 Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
         actions.add(new EmbossFilterAction(Language.translate("Emboss Filter"), filterIcon,
-                Language.translate("Apply an emboss filter"), Integer.valueOf(KeyEvent.VK_L)));        
+                Language.translate("Apply an emboss filter"), Integer.valueOf(KeyEvent.VK_E)));        
     }
 
     /**
@@ -307,6 +308,69 @@ public class FilterActions {
             }
         }
     }
+
+    /**
+ * <p>
+ * Action to blur an image with a box blur filter.
+ * </p>
+ * 
+ * @see BoxBlur
+ */
+public class BoxBlurAction extends ImageAction {
+
+    /**
+     * <p>
+     * Create a new box blur action.
+     * </p>
+     * 
+     * @param name     The name of the action (ignored if null).
+     * @param icon     An icon to use to represent the action (ignored if null).
+     * @param desc     A brief description of the action (ignored if null).
+     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+     */
+    BoxBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+    }
+
+    /**
+     * <p>
+     * Callback for when the box blur action is triggered.
+     * </p>
+     * 
+     * <p>
+     * This method is called whenever the BoxBlurAction is triggered.
+     * </p>
+     * 
+     * @param e The event triggering this callback.
+     */
+    public void actionPerformed(ActionEvent e) {
+
+        // Determine the radius - ask the user.
+        int radius = 1;
+
+        // Pop-up dialog box to ask for the radius value.
+        SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
+        JSpinner radiusSpinner = new JSpinner(radiusModel);
+        int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+        // Check the return value from the dialog box.
+        if (option == JOptionPane.CANCEL_OPTION) {
+            return;
+        } else if (option == JOptionPane.OK_OPTION) {
+            radius = radiusModel.getNumber().intValue();
+        }
+
+        // Create and apply the filter
+        try {
+            target.getImage().apply(new BoxBlur(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        } catch (java.lang.NullPointerException err) {
+            //cannot initiate filter without image
+        }
+    }
+}
 
     public class EmbossFilterAction extends ImageAction {
 

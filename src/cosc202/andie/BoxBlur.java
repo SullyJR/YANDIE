@@ -58,10 +58,47 @@ public class BoxBlur implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        int width = input.getWidth();
+        int height = input.getHeight();
+        BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
         int size = (2 * radius + 1) * (2 * radius + 1);
-        // Code input
-        
-        
-        return input;
+        int[] data = new int[size];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int r = 0, g = 0, b = 0;
+                int count = 0;
+
+                // Get data for the kernel
+                for (int ky = -radius; ky <= radius; ky++) {
+                    int iy = y + ky;
+                    if (iy < 0 || iy >= height) continue;
+
+                    for (int kx = -radius; kx <= radius; kx++) {
+                        int ix = x + kx;
+                        if (ix < 0 || ix >= width) continue;
+
+                        int pixel = input.getRGB(ix, iy);
+                        data[count++] = pixel;
+
+                        r += (pixel >> 16) & 0xFF;
+                        g += (pixel >> 8) & 0xFF;
+                        b += pixel & 0xFF;
+                    }
+                }
+
+                // Calculate the average of the kernel data
+                r /= size;
+                g /= size;
+                b /= size;
+
+                // Set the output pixel value
+                int value = (r << 16) | (g << 8) | b;
+                output.setRGB(x, y, value);
+            }
+        }
+
+        return output;
     }
 }
