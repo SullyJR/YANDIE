@@ -314,4 +314,10 @@ class EditableImage {
         }
     }
 
+    public BufferedImage copy()  {
+        BufferedImage copy = deepCopy(current);
+        // return copy
+        return copy;        
+    }
+
 }

@@ -61,10 +61,25 @@ public class Andie {
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
         frame.setForeground(Color.GRAY);
+      
 
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png"));
         //Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icons/icon.png"));
 
+
+        // Set the location of the frame to the center of the screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocationRelativeTo(null);
+        frame.setLocation((frame.getWidth() - frame.getWidth()) / 2, (frame.getHeight() - frame.getHeight()) / 2);
+        int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
+        int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
+        frame.addMouseListener(null);
+        
+        
+
+        // Set the location of the frame to the center ADD IF YOU WANT (sam)
+        //frame.setLocation(x-250, y-300);
+       
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
