@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.io.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.*;
 import javax.imageio.*;
 
@@ -275,6 +277,8 @@ class EditableImage {
         refresh();
     }
 
+  
+
     /**
      * <p>
      * Reapply the most recently {@link undo}ne {@link ImageOperation} to the image.
@@ -318,6 +322,9 @@ class EditableImage {
         BufferedImage copy = deepCopy(current);
         // return copy
         return copy;        
+    }
+
+    public void addMouseListener(MouseAdapter mouseAdapter) {
     }
 
 }

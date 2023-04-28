@@ -81,7 +81,7 @@ public class ImageSelection extends JPanel {
   public static void main(String[] args) {
     BufferedImage image = null;
   try { 
-      File file = new File("J:/COSC202/andie/src/image.jpg");
+      File file = new File("J:/andie/src/image.jpg");
       image = ImageIO.read(file);
   } catch (IOException e) {
       e.printStackTrace();

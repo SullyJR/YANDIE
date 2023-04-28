@@ -1,6 +1,9 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 import javax.imageio.*;
 import javax.swing.UIManager.*;
@@ -73,7 +76,9 @@ public class Andie {
         frame.setLocation((frame.getWidth() - frame.getWidth()) / 2, (frame.getHeight() - frame.getHeight()) / 2);
         int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
         int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
-        frame.addMouseListener(null);
+        
+        
+        
         
         
 
@@ -97,12 +102,32 @@ public class Andie {
             e.printStackTrace();
         }
 
+        
+
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
+        
+        Rectangle selection;
+        Point anchor;
+
+        // Mouse listener for the image panel
+        imagePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                imagePanel.setLocation(null);
+                imagePanel.repaint();
+            }
+        });
+    }
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -149,6 +174,8 @@ public class Andie {
         menuBar.setPreferredSize(menuBarSize);
         menuBar.setBackground(Color.GRAY);
 
+       
+
     }
 
     /**
@@ -177,6 +204,9 @@ public class Andie {
                     ex.printStackTrace();
                     System.exit(1);
                 }
+                // Create a mouse listener on the image display panel
+
+
             }
         });
     }

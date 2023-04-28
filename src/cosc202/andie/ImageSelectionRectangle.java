@@ -21,6 +21,11 @@ public class ImageSelectionRectangle implements ImageOperation, java.io.Serializ
     private Point anchor;
     private BufferedImage image;
      
+    //method to create mouse selection rectangle
+ 
+    
+
+
     ImageSelectionRectangle(BufferedImage image) {
         this.selection = null;
         this.anchor = null;
@@ -30,4 +35,7 @@ public class ImageSelectionRectangle implements ImageOperation, java.io.Serializ
     public BufferedImage apply(BufferedImage input) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'apply'");
-    }}    
+    }
+
+
+}    
