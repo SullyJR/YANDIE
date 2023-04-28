@@ -1,4 +1,5 @@
 package cosc202.andie;
+
 import java.awt.GridLayout;
  import java.awt.Color;
  import java.awt.Dimension;
@@ -9,8 +10,8 @@ import java.awt.GridLayout;
  
 public class Mouse extends JPanel implements MouseListener{
 
-   
 
+    
     public void mousePressed(MouseEvent e) {
         System.out.println("Mouse pressed (# of clicks: "
                 + e.getClickCount() + ")"+ e);

@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 
 public class Resize implements ImageOperation, java.io.Serializable {
 
-    /** Percentage field to apply */
+    /* Percentage field to apply */
     private double percentage;
 
     /**
