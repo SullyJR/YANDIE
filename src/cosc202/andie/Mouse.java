@@ -1,7 +1,9 @@
 package cosc202.andie;
 
 import java.awt.GridLayout;
- import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Color;
  import java.awt.Dimension;
  import java.awt.event.MouseListener;
  import java.awt.event.MouseEvent;
@@ -10,18 +12,35 @@ import java.awt.GridLayout;
  
 public class Mouse extends JPanel implements MouseListener{
 
-
+    private Point anchor;
+    private Rectangle selection;
     
     public void mousePressed(MouseEvent e) {
-        System.out.println("Mouse pressed (# of clicks: "
-                + e.getClickCount() + ")"+ e);
+        anchor = e.getPoint();
+        selection = null;
+        repaint();
     }
     
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse released (# of clicks: "
-                + e.getClickCount() + ")"+ e);
+        if (selection != null && selection.width > 0 && selection.height > 0) {
+            // Do something with the selected region
+            System.out.println("Selected region: " + selection);
+          } else {
+            // Cancel the selection
+            selection = null;
+            repaint();
+          }
     }
     
+    public void mouseDragged(MouseEvent e) {
+        int x = Math.min(anchor.x, e.getX());
+        int y = Math.min(anchor.y, e.getY());
+        int width = Math.abs(e.getX() - anchor.x);
+        int height = Math.abs(e.getY() - anchor.y);
+        selection = new Rectangle(x, y, width, height);
+        repaint();
+      }
+      
     public void mouseEntered(MouseEvent e) {
         System.out.println("Mouse entered"+ e);
     }
