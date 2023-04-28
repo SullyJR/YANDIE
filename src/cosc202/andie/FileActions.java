@@ -45,30 +45,31 @@ public class FileActions {
     public FileActions() throws IOException {
 
         // Adds Icons and Scales them down to fit in the box
-        ImageIcon openIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/open.png")));
-        openIcon.setImage(openIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon opdefIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/default_image.png")));
-        opdefIcon.setImage(opdefIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon saveIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save.png")));
-        saveIcon.setImage(saveIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon saveasIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/save_as.png")));
-        saveasIcon.setImage(saveasIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon exitIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/exit.png")));
-        exitIcon.setImage(exitIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        // Adds Icons and Scales them down to fit in the box
+        ImagePanel ip = new ImagePanel();
+
+        ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
+        ip.iconArray[1].setImage(ip.iconArray[1].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open def
+        ip.iconArray[2].setImage(ip.iconArray[2].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
+        ip.iconArray[3].setImage(ip.iconArray[3].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
+                                                                                                            // as/Export
+        ip.iconArray[4].setImage(ip.iconArray[4].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Exit
 
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction(Language.translate("Open"), openIcon, Language.translate("Open a file"),
+        actions.add(new FileOpenAction(Language.translate("Open"), ip.iconArray[0], Language.translate("Open a file"),
                 Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileOpenDefaultAction(Language.translate("Open Default"), opdefIcon,
+        actions.add(new FileOpenDefaultAction(Language.translate("Open Default"), ip.iconArray[1],
                 Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new FileSaveAction(Language.translate("Save"), saveIcon, Language.translate("Save the file"),
+        actions.add(new FileSaveAction(Language.translate("Save"), ip.iconArray[2], Language.translate("Save the file"),
                 Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction(Language.translate("Save As"), saveasIcon, Language.translate("Save a copy"),
-                Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAsAction(Language.translate("Export As"), saveasIcon,
+        actions.add(
+                new FileSaveAsAction(Language.translate("Save As"), ip.iconArray[3], Language.translate("Save a copy"),
+                        Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAsAction(Language.translate("Export As"), ip.iconArray[3],
                 Language.translate("Export a copy"), Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new FileExitAction(Language.translate("Exit"), exitIcon, Language.translate("Exit the program"),
-                Integer.valueOf(0)));
+        actions.add(
+                new FileExitAction(Language.translate("Exit"), ip.iconArray[4], Language.translate("Exit the program"),
+                        Integer.valueOf(0)));
     }
 
     /**
@@ -149,6 +150,7 @@ public class FileActions {
         }
 
     }
+
     /**
      * <p>
      * Action to open a default image to the UI.
@@ -191,7 +193,7 @@ public class FileActions {
                 try {
                     // String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open("src/image.jpg");
-                    //ImageIO.read(new File("./src/cosc202/andie/icons/save.png"));
+                    // ImageIO.read(new File("./src/cosc202/andie/icons/save.png"));
                 } catch (Exception ex) {
                     JPanel error = new JPanel();
                     error.add(new JLabel(Language.translate("There was a problem opening the image")));
@@ -362,23 +364,26 @@ public class FileActions {
                             JPanel newP = new JPanel();
                             newP.add(new JLabel(Language.translate("Image have been saved to original extension")));
                             newP.setVisible(enabled);
-                            JOptionPane.showMessageDialog(target, newP, Language.translate(""), JOptionPane.OK_CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(target, newP, Language.translate(""),
+                                    JOptionPane.OK_CANCEL_OPTION);
                         } catch (IOException ex) {
                             JPanel error = new JPanel();
                             error.add(new JLabel(Language.translate("There was a problem saving the image")));
                             error.setVisible(enabled);
-                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"),
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
                         try {
                             ImageIO.write(bi, extension, output);
                             JOptionPane.showMessageDialog(null, new JLabel("Image Saved"), "Success",
-                            JOptionPane.OK_CANCEL_OPTION);
+                                    JOptionPane.OK_CANCEL_OPTION);
                         } catch (IOException ex) {
                             JPanel error = new JPanel();
                             error.add(new JLabel(Language.translate("There was a problem saving the image")));
                             error.setVisible(enabled);
-                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"),
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                     }
 

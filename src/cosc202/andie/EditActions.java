@@ -43,16 +43,15 @@ public class EditActions {
      */
     public EditActions() throws IOException {
 
+        ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
-        ImageIcon undoIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/undo.png")));
-        undoIcon.setImage(undoIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon redoIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/redo.png")));
-        redoIcon.setImage(redoIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ip.iconArray[5].setImage(ip.iconArray[5].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Undo
+        ip.iconArray[6].setImage(ip.iconArray[6].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Redo
 
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(Language.translate("Undo"), undoIcon, Language.translate("Undo"),
+        actions.add(new UndoAction(Language.translate("Undo"), ip.iconArray[5], Language.translate("Undo"),
                 Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(Language.translate("Redo"), redoIcon, Language.translate("Redo"),
+        actions.add(new RedoAction(Language.translate("Redo"), ip.iconArray[6], Language.translate("Redo"),
                 Integer.valueOf(KeyEvent.VK_Y)));
     }
 
@@ -116,7 +115,7 @@ public class EditActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (EmptyStackException err) {
-                //cannot initiate filter without image
+                // cannot initiate filter without image
             }
         }
     }
@@ -163,7 +162,7 @@ public class EditActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (EmptyStackException err) {
-                //cannot initiate filter without image
+                // cannot initiate filter without image
             }
         }
     }

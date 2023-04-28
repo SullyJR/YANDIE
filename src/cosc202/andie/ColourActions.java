@@ -44,20 +44,19 @@ public class ColourActions {
      * @throws IOException
      */
     public ColourActions() throws IOException {
+
+        ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
-        ImageIcon brightIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/brightness.png")));
-        brightIcon.setImage(brightIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon greyIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/greyscale.png")));
-        greyIcon.setImage(greyIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon conIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/contrast.png")));
-        conIcon.setImage(conIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ip.iconArray[15].setImage(ip.iconArray[15].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Greyscale
+        ip.iconArray[16].setImage(ip.iconArray[16].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Brightness
+        ip.iconArray[17].setImage(ip.iconArray[17].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Contrast
 
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), greyIcon,
+        actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), ip.iconArray[15],
                 Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessAction(Language.translate("Brightness"), brightIcon,
+        actions.add(new BrightnessAction(Language.translate("Brightness"), ip.iconArray[16],
                 Language.translate("Adjust the brightness"), Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new ContrastAction(Language.translate("Contrast"), conIcon,
+        actions.add(new ContrastAction(Language.translate("Contrast"), ip.iconArray[17],
                 Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
@@ -168,23 +167,18 @@ public class ColourActions {
             // Create a slider with minimum value 0, maximum value 100, and initial value 50
             JSlider slider = new JSlider(-100, 100, 0);
             // Create a label to display the current value of the slider
-JLabel label = new JLabel("Selected value: " + slider.getValue());
+            JLabel label = new JLabel("Selected value: " + slider.getValue());
 
+            // Show a message dialog with the slider and label
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+            panel.add(slider);
+            panel.add(label);
 
-
-
-// Show a message dialog with the slider and label
-JPanel panel = new JPanel();
-panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-panel.add(slider);
-panel.add(label);
-            
             slider.setPaintTicks(true);
             slider.setMajorTickSpacing(50);
             slider.setMinorTickSpacing(10);
             slider.setPaintLabels(true);
-            
-            
 
             // Show a message dialog with the slider
             int result = JOptionPane.showOptionDialog(
@@ -205,12 +199,13 @@ panel.add(label);
 
             }
 
-            // SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100, 1);
+            // SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100,
+            // 1);
 
             // JSpinner brightSpinner = new JSpinner(brightModel);
             // int option = JOptionPane.showOptionDialog(null, brightSpinner,
-            //         Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
-            //         JOptionPane.QUESTION_MESSAGE, null, null, null);
+            // Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
+            // JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (result == JOptionPane.CANCEL_OPTION) {
