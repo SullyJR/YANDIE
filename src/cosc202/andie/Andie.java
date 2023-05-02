@@ -156,8 +156,8 @@ public class Andie {
 
         // Sets the toolbar
         Dimension toolBarSize = new Dimension(400, 18);
-        ToolBar.toolBar.setPreferredSize(toolBarSize);
-
+        toolBar.setPreferredSize(toolBarSize);
+        toolBar.setFloatable(false);
     }
 
     /**
