@@ -51,7 +51,7 @@ public class FileActions {
         ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
         ip.iconArray[1].setImage(ip.iconArray[1].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open def
         ip.iconArray[2].setImage(ip.iconArray[2].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
-        ip.iconArray[3].setImage(ip.iconArray[3].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
+        ip.iconArray[3].setImage(ip.iconArray[3].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save //
                                                                                                             // as/Export
         ip.iconArray[4].setImage(ip.iconArray[4].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Exit
 
@@ -62,14 +62,12 @@ public class FileActions {
                 Language.translate("Open a default image"), Integer.valueOf(KeyEvent.VK_D)));
         actions.add(new FileSaveAction(Language.translate("Save"), ip.iconArray[2], Language.translate("Save the file"),
                 Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(
-                new FileSaveAsAction(Language.translate("Save As"), ip.iconArray[3], Language.translate("Save a copy"),
-                        Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileSaveAsAction(Language.translate("Save As"), ip.iconArray[3],
+                Language.translate("Save a copy"), Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FileExportAsAction(Language.translate("Export As"), ip.iconArray[3],
                 Language.translate("Export a copy"), Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(
-                new FileExitAction(Language.translate("Exit"), ip.iconArray[4], Language.translate("Exit the program"),
-                        Integer.valueOf(0)));
+        actions.add(new FileExitAction(Language.translate("Exit"), ip.iconArray[4],
+                Language.translate("Exit the program"), Integer.valueOf(0)));
     }
 
     /**
