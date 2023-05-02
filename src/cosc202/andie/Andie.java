@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.*;
@@ -8,7 +10,6 @@ import javax.imageio.*;
 import javax.swing.UIManager.*;
 import java.io.*;
 
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -64,29 +65,22 @@ public class Andie {
      */
     public static void createAndShowGUI() throws Exception {
 
-        ArrayList<Action> actions = new ArrayList<Action>();
-
-        ImagePanel ip = new ImagePanel();
-
-        ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
-        ip.iconArray[2].setImage(ip.iconArray[2].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
-        ip.iconArray[5].setImage(ip.iconArray[5].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Undo
-        ip.iconArray[6].setImage(ip.iconArray[6].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Redo
-
-        FileActions fActions = new FileActions();
-        EditActions eActions = new EditActions();
-
-        actions.add(fActions.new FileOpenAction(null, ip.iconArray[0], null, Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(fActions.new FileSaveAction(null, ip.iconArray[2], null, Integer.valueOf(KeyEvent.VK_S)));
-        // actions.add(eActions.new UndoAction(null, ip.iconArray[5], null,
-        // Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(eActions.new RedoAction(null, ip.iconArray[6], null, Integer.valueOf(KeyEvent.VK_Y)));
-
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
         frame.setForeground(Color.GRAY);
 
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png")); // andie icon
+
+        // Set the location of the frame to the center of the screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocationRelativeTo(null);
+        frame.setLocation((frame.getWidth() - frame.getWidth()) / 2, (frame.getHeight() - frame.getHeight()) / 2);
+        int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
+        int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
+        frame.addMouseListener(null);
+
+        // Set the location of the frame to the center ADD IF YOU WANT (sam)
+        // frame.setLocation(x-250, y-300);
 
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,9 +109,6 @@ public class Andie {
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
-
-        // Add in toolbar for easier access to commonly used actions
-        JToolBar toolBar = new JToolBar();
 
         // File menus are pretty standard, so things that usually go in File menus go
         // here.
@@ -152,16 +143,11 @@ public class Andie {
 
         // Sets the frame
         frame.setJMenuBar(menuBar);
+        JToolBar toolBar = ToolBar.createToolBar();
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.addKeyListener(new KeyPress());
         frame.pack();
         frame.setVisible(true);
-
-        // Toolbar buttons
-        toolBar.add(new JButton(null, ip.iconArray[0]));
-        toolBar.add(new JButton(null, ip.iconArray[2]));
-        toolBar.add(new JButton(null, ip.iconArray[5]));
-        toolBar.add(new JButton(null, ip.iconArray[6]));
 
         // Sets the menubar
         Dimension menuBarSize = new Dimension(400, 35);
@@ -170,8 +156,7 @@ public class Andie {
 
         // Sets the toolbar
         Dimension toolBarSize = new Dimension(400, 18);
-        toolBar.setPreferredSize(toolBarSize);
-        // toolBar.setBackground(Color.GRAY);
+        ToolBar.toolBar.setPreferredSize(toolBarSize);
 
     }
 
