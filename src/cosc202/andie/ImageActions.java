@@ -159,7 +159,7 @@ public class ImageActions {
                  * @param e The event triggering this callback.
                  */
                 public void actionPerformed(ActionEvent e) {
-                    rotateImage(90.0);
+                    rotateImage(-90.0);
                 }
             });
 
@@ -171,7 +171,7 @@ public class ImageActions {
                  * @param e The event triggering this callback.
                  */
                 public void actionPerformed(ActionEvent e) {
-                    rotateImage(-90.0);
+                    rotateImage(90.0);
                 }
             });
 
