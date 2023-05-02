@@ -153,10 +153,7 @@ public class ImagePanel extends JPanel implements MouseListener {
         }
         scale = zoomPercent / 100;
     }
-
-    <<<<<<<HEAD=======
-
-    >>>>>>>ee51710b21e8ddb3d66713961e2ca6dbaf538b0a
+    
 
     /**
      * <p>
