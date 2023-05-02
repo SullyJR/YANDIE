@@ -4,11 +4,10 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Color;
- import java.awt.Dimension;
- import java.awt.event.MouseListener;
- import java.awt.event.MouseEvent;
- 
- import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import javax.swing.*;
  
 public class Mouse extends JPanel implements MouseListener{
 
@@ -37,6 +36,7 @@ public class Mouse extends JPanel implements MouseListener{
         int width = Math.abs(e.getX() - anchor.x);
         int height = Math.abs(e.getY() - anchor.y);
         selection = new Rectangle(x, y, width, height);
+        repaint();
       }
       
     public void mouseEntered(MouseEvent e) {

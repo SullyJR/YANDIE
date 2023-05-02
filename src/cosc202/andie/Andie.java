@@ -106,20 +106,19 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
+        
+        // MOUSEPANEL THINGS **********
+        MousePanel mouse = new MousePanel();
+        mouse.setPreferredSize(screenSize);
+        mouse.setOpaque(false);
+        
+        imagePanel.add(mouse);
+        
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        Rectangle selection;
-        Point anchor;
-
-        imagePanel.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                ImageSelectionRectangle a = new ImageSelectionRectangle();
-                a.apply(image);
-            }
-        });
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();

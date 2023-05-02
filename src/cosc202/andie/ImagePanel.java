@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.awt.*;
 
 import javax.swing.*;
-import javax.imageio.*;
 
 /**
  * <p>
@@ -71,15 +70,6 @@ public class ImagePanel extends JPanel{
      */
     private double scale;
 
-    /**
-     * Mouse listener stuff
-     * 
-     * 
-     */
-    private Point anchor;
-
-    private Point anchorEND;
-    private Rectangle selection;
 
     /**
      * <p>
@@ -144,7 +134,6 @@ public class ImagePanel extends JPanel{
         }
         scale = zoomPercent / 100;
     }
-
 
     /**
      * <p>
