@@ -28,7 +28,6 @@ public class Mouse extends JPanel implements MouseListener{
           } else {
             // Cancel the selection
             selection = null;
-            repaint();
           }
     }
     
@@ -38,7 +37,6 @@ public class Mouse extends JPanel implements MouseListener{
         int width = Math.abs(e.getX() - anchor.x);
         int height = Math.abs(e.getY() - anchor.y);
         selection = new Rectangle(x, y, width, height);
-        repaint();
       }
       
     public void mouseEntered(MouseEvent e) {

@@ -50,13 +50,7 @@ public class ImageSelection extends JPanel {
     addMouseMotionListener(new MouseAdapter() {
       @Override
       public void mouseDragged(MouseEvent e) {
-        int x = Math.min(anchor.x, e.getX());
-        int y = Math.min(anchor.y, e.getY());
-        int width = Math.abs(e.getX() - anchor.x);
-        int height = Math.abs(e.getY() - anchor.y);
-        selection = new Rectangle(x, y, width, height);
-        repaint();
-      }
+        
     });
   }
 
