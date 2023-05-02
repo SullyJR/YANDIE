@@ -7,6 +7,7 @@ import javax.swing.*;
 
 
 
+
 /**
  * <p>
  * UI display element for {@link EditableImage}s.
@@ -24,7 +25,7 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel implements MouseListener {
     
     
     /**
@@ -45,6 +46,15 @@ public class ImagePanel extends JPanel {
     private double scale;
 
     /**
+     * Mouse listener stuff
+     * 
+     * 
+     */
+    private Point anchor;
+
+    private Point anchorEND;
+    private Rectangle selection;
+    /**
      * <p>
      * Create a new ImagePanel.
      * </p>
@@ -56,6 +66,7 @@ public class ImagePanel extends JPanel {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+<<<<<<< HEAD
         image.addMouseListener(new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
             System.out.println("Mouse pressed at (" + e.getX() + ", " + e.getY() + ")");
@@ -63,6 +74,10 @@ public class ImagePanel extends JPanel {
     });
 }
     
+=======
+        addMouseListener(this);
+    }
+>>>>>>> 90f45de1d5bedac4204007c92b74c89e71daaa47
 
     /**
      * <p>
@@ -150,6 +165,53 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // handle mouse click event
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        anchor = e.getPoint();
+        System.out.println("!!!!!!!!!!!!!!!!!!THIS IS OLD COORD " + anchor);
+    }
+
+    public double getMX() {
+        return anchor.x;
+    }
+
+    public double getMY() {
+        return anchor.y;
+    }
+
+    public Rectangle getSelection() {
+        return selection;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        anchorEND = e.getPoint();        
+        int x = Math.min(anchor.x, e.getX());
+        int y = Math.min(anchor.y, e.getY());
+        int width = Math.abs(e.getX() - anchor.x);
+        int height = Math.abs(e.getY() - anchor.y);
+        selection = new Rectangle(x, y, width, height);
+        System.out.println("THIS IS NEW COORD " + anchorEND);
+        System.out.println(selection.getSize());
+        repaint();
+      }
+    
+    
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // handle mouse enter event
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // handle mouse exit event
     }
 }
 
