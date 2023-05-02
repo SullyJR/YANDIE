@@ -23,23 +23,23 @@ public class ImageActions {
      */
     public ImageActions() throws Exception {
 
+        ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
-        ImageIcon resizeIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/resize.png")));
-        resizeIcon.setImage(resizeIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon rotateIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/rotate.png")));
-        rotateIcon.setImage(rotateIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon flipIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/flip.png")));
-        flipIcon.setImage(flipIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
+        ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
+        ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
 
         actions = new ArrayList<Action>();
-        actions.add(new ResizeAction(Language.translate("Resize"), resizeIcon, Language.translate("Resize the image"),
-            Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new RotateAction(Language.translate("Rotate"), rotateIcon, Language.translate("Rotate the image"),
-            Integer.valueOf(KeyEvent.VK_P)));
-        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), flipIcon,
-            Language.translate("Flips image horizontally"), Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), flipIcon,
-            Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
+        actions.add(
+                new ResizeAction(Language.translate("Resize"), ip.iconArray[7], Language.translate("Resize the image"),
+                        Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(
+                new RotateAction(Language.translate("Rotate"), ip.iconArray[8], Language.translate("Rotate the image"),
+                        Integer.valueOf(KeyEvent.VK_P)));
+        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), ip.iconArray[9],
+                Language.translate("Flips image horizontally"), Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), ip.iconArray[9],
+                Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
     }
 
     /**
@@ -149,62 +149,81 @@ public class ImageActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try {
+                // Create the buttons
+                JButton button90Left = new JButton("");
+                ImageIcon leftIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/rotateleft.png"))
+                        .getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+                button90Left.setIcon(leftIcon);
+                button90Left.addActionListener(new ActionListener() {
+                    /**
+                     * Rotates image 90 degrees left
+                     * 
+                     * @param e The event triggering this callback.
+                     */
+                    public void actionPerformed(ActionEvent e) {
+                        target.repaint();
+                        target.getParent().revalidate();
+                        rotateImage(-90.0);
+                    }
+                });
 
-            // Create the buttons
-            JButton button90Left = new JButton(Language.translate("Rotate") +"90° Left");
-            button90Left.addActionListener(new ActionListener() {
-                /**
-                 * Rotates image 90 degrees left
-                * @param e The event triggering this callback.
-                */
-                public void actionPerformed(ActionEvent e) {
-                    rotateImage(90.0);
+                JButton button90Right = new JButton("");
+                ImageIcon rightIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/rotateright.png"))
+                        .getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+                button90Right.setIcon(rightIcon);
+                // button90Right.setIcon("./src/cosc202/andie/icons/resize.png");
+
+                button90Right.addActionListener(new ActionListener() {
+                    /**
+                     * Rotates image 90 degrees right
+                     * 
+                     * @param e The event triggering this callback.
+                     */
+                    public void actionPerformed(ActionEvent e) {
+                        target.repaint();
+                        target.getParent().revalidate();
+                        rotateImage(90.0);
+                    }
+                });
+
+                // JButton button180 = new JButton(Language.translate("Rotate") +"180°");
+                // button180.addActionListener(new ActionListener() {
+                // /**
+                // * Rotates image 180 degrees
+                // * @param e The event triggering this callback.
+                // */
+                // public void actionPerformed(ActionEvent e) {
+                // rotateImage(180.0);
+                // }
+                // });
+
+                // Create a panel to hold the buttons
+                JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+                buttonPanel.add(button90Left);
+                buttonPanel.add(button90Right);
+                // buttonPanel.add(button180);
+
+                // Show the panel in a dialog box
+                int option = JOptionPane.showOptionDialog(null, buttonPanel, Language.translate("Rotate Image"),
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+                // Repaint and revalidate the target image
+                if (option == JOptionPane.OK_OPTION) {
+                    target.repaint();
+                    target.getParent().revalidate();
                 }
-            });
-
-            JButton button90Right = new JButton(Language.translate("Rotate") +"90° Right");
-            button90Right.addActionListener(new ActionListener() {
-                /**
-                 * Rotates image 90 degrees right
-                * @param e The event triggering this callback.
-                */
-                public void actionPerformed(ActionEvent e) {
-                    rotateImage(-90.0);
-                }
-            });
-
-            JButton button180 = new JButton(Language.translate("Rotate") +"180°");
-            button180.addActionListener(new ActionListener() {
-                /**
-                 * Rotates image 180 degrees
-                * @param e The event triggering this callback.
-                */
-                public void actionPerformed(ActionEvent e) {
-                    rotateImage(180.0);
-                }
-            });
-
-            // Create a panel to hold the buttons
-            JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
-            buttonPanel.add(button90Left);
-            buttonPanel.add(button90Right);
-            buttonPanel.add(button180);
-
-            // Show the panel in a dialog box
-            int option = JOptionPane.showOptionDialog(null, buttonPanel, Language.translate("Rotate Image"),
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-
-            // Repaint and revalidate the target image
-            if (option == JOptionPane.OK_OPTION) {
-                target.repaint();
-                target.getParent().revalidate();
+            } catch (Exception ea) {
+                // TODO: handle exception
             }
+
         }
 
         private void rotateImage(double degree) {
             // Apply the filter to the target image
             target.getImage().apply(new Rotate(degree));
         }
+
     }
 
     public class FlipHorizontallyAction extends ImageAction {
@@ -278,4 +297,5 @@ public class ImageActions {
             target.getParent().revalidate();
         }
     }
+
 }

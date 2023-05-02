@@ -1,6 +1,6 @@
 # andie
 
-andie is a free open source image editor, which allows you to add images from your PC and lets you style them as you please. andie is developed using Java programming and libraries which includes JUnit testing, icons and text files. The UI is based off a standard image editor. ChatGPT was used within the Java programing for translations in languageList.txt and to write some JavaDocs.
+andie is a non destructive (open source) image editor, which allows you to add images from your PC and lets you style them as you please. andie is developed using Java programming and libraries which includes JUnit testing, icons and text files. The UI is based off a standard image editor. ChatGPT was used within the Java programing for translations in languageList.txt and to write some JavaDocs.
 
 ## Features
 
@@ -28,7 +28,7 @@ The Source Code File (src) contains two folders, where:
 The workspace also contains two files, where:
 
 - `.gitignore` : the file that tells git which files to ignore
-- `README.md` : the markdown text file whih describes the GitHub project
+- `README.md` : the markdown text file which describes the GitHub project
 
 > If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 > If you want to access the folder structure, open `https://altitude.otago.ac.nz/cosc202-yandie/andie`
@@ -39,7 +39,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ## Current Project Team Members
 
-### Current Projecct Developement Team
+### Current Project Development Team
 
 * sulca807 - Callum Sullivan <sulca807@student.otago.ac.nz> (he/him)
 * bugsa135 - Sam Bugden <bugsa135@student.otago.ac.nz> (he/him)

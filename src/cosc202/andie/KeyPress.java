@@ -7,10 +7,13 @@ import java.util.Collections;
 import javax.swing.*;
 
 /**
-* The KeyPress class implements KeyListener and lets users use keyboard
-* shortcuts to start functions automatically to the image
-*/
+ * The KeyPress class implements KeyListener and lets users use keyboard
+ * shortcuts to start functions automatically to the image
+ */
 public class KeyPress implements KeyListener {
+
+    ImagePanel ip = new ImagePanel();
+
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 
     boolean boolA = false;
@@ -26,44 +29,42 @@ public class KeyPress implements KeyListener {
         }
         if (e.getKeyCode() == KeyEvent.VK_A) {
 
-                boolA = true;
-                boolL = false;
-                boolE = false;
-                boolX = false;
+            boolA = true;
+            boolL = false;
+            boolE = false;
+            boolX = false;
 
-            
         }
         if (e.getKeyCode() == KeyEvent.VK_L && boolA == true) {
 
-                boolL = true;
-                boolA = false;
-                boolE = false;
-                boolX = false;
+            boolL = true;
+            boolA = false;
+            boolE = false;
+            boolX = false;
         }
         if (e.getKeyCode() == KeyEvent.VK_E && boolL == true) {
 
-                boolE = true;
-                boolA = false;
-                boolL = false;
-                boolX = false;
-            
+            boolE = true;
+            boolA = false;
+            boolL = false;
+            boolX = false;
+
         }
         if (e.getKeyCode() == KeyEvent.VK_X && boolE == true) {
 
-                boolX = true;
-                boolA = false;
-                boolL = false;
-                boolE = false;
+            boolX = true;
+            boolA = false;
+            boolL = false;
+            boolE = false;
 
         }
 
-        if (boolX == true){
+        if (boolX == true) {
             JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!",
-                    JOptionPane.QUESTION_MESSAGE);
-                    boolX = false;
+                    JOptionPane.QUESTION_MESSAGE, ip.iconArray[19]);
+            boolX = false;
             // System.exit(1);
         }
-
     }
 
     @Override

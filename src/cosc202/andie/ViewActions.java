@@ -44,21 +44,23 @@ public class ViewActions {
      * @throws IOException
      */
     public ViewActions() throws IOException {
+
+        ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
-        ImageIcon inIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/zoom_in.png")));
-        inIcon.setImage(inIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon outIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/zoom_out.png")));
-        outIcon.setImage(outIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        ImageIcon fullIcon = new ImageIcon(ImageIO.read(new File("./src/cosc202/andie/icons/zoom_full.png")));
-        fullIcon.setImage(fullIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        ip.iconArray[10].setImage(ip.iconArray[10].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom in
+        ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom
+                                                                                                              // out
+        ip.iconArray[12].setImage(ip.iconArray[12].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom
+                                                                                                              // full
 
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(Language.translate("Zoom In"), inIcon, Language.translate("Zoom In"),
+        actions.add(new ZoomInAction(Language.translate("Zoom In"), ip.iconArray[10], Language.translate("Zoom In"),
                 Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(Language.translate("Zoom Out"), outIcon, Language.translate("Zoom Out"),
+        actions.add(new ZoomOutAction(Language.translate("Zoom Out"), ip.iconArray[11], Language.translate("Zoom Out"),
                 Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(Language.translate("Zoom Full"), fullIcon, Language.translate("Zoom Full"),
-                Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(
+                new ZoomFullAction(Language.translate("Zoom Full"), ip.iconArray[12], Language.translate("Zoom Full"),
+                        Integer.valueOf(KeyEvent.VK_1)));
     }
 
     /**

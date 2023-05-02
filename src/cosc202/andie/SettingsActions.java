@@ -37,15 +37,15 @@ public class SettingsActions {
      */
 
     public SettingsActions() throws IOException {
-        
+
+        ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
-        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/language.png"));
-        ImageIcon languageIcon = new ImageIcon(image);
-        languageIcon.setImage(languageIcon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        
+        ip.iconArray[18].setImage(ip.iconArray[18].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Language
+
         actions = new ArrayList<Action>();
-        actions.add(new LanguageAction(Language.translate("Language"), languageIcon, Language.translate("Change language"),
-            Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new LanguageAction(Language.translate("Language"), ip.iconArray[18],
+                Language.translate("Change language"),
+                Integer.valueOf(KeyEvent.VK_O)));
     }
 
     /**

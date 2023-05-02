@@ -1,10 +1,18 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 import javax.imageio.*;
 import javax.swing.UIManager.*;
 import java.io.*;
+
+import javax.imageio.ImageIO;
 
 /**
  * <p>
@@ -27,7 +35,7 @@ import java.io.*;
  */
 public class Andie {
 
-    static String[] languages = {"English", "French", "Malay"};
+    static String[] languages = { "English", "French", "Malay" };
     static JFrame frame;
 
     /**
@@ -58,14 +66,12 @@ public class Andie {
      * @throws Exception if something goes wrong.
      */
     public static void createAndShowGUI() throws Exception {
+
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
         frame.setForeground(Color.GRAY);
-      
 
-        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png"));
-        //Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icons/icon.png"));
-
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png")); // andie icon
 
         // Set the location of the frame to the center of the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -74,12 +80,10 @@ public class Andie {
         int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
         int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
         frame.addMouseListener(null);
-        
-        
 
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
-        //frame.setLocation(x-250, y-300);
-       
+        // frame.setLocation(x-250, y-300);
+
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
@@ -104,11 +108,22 @@ public class Andie {
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
 
+        Rectangle selection;
+        Point anchor;
+
+        imagePanel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                ImageSelectionRectangle a = new ImageSelectionRectangle();
+                a.apply(image);
+            }
+        });
+
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
 
-        // File menus are pretty standard, so things that usually go in File menus go here.
+        // File menus are pretty standard, so things that usually go in File menus go
+        // here.
         FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
 
@@ -138,16 +153,23 @@ public class Andie {
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());
 
-        //Sets the frame
+        // Sets the frame
         frame.setJMenuBar(menuBar);
+        JToolBar toolBar = ToolBar.createToolBar();
+        frame.add(toolBar, BorderLayout.PAGE_START);
         frame.addKeyListener(new KeyPress());
         frame.pack();
         frame.setVisible(true);
 
-        //Sets the menubar
+        // Sets the menubar
         Dimension menuBarSize = new Dimension(400, 35);
         menuBar.setPreferredSize(menuBarSize);
         menuBar.setBackground(Color.GRAY);
+
+        // Sets the toolbar
+        Dimension toolBarSize = new Dimension(400, 18);
+        toolBar.setPreferredSize(toolBarSize);
+        toolBar.setFloatable(false);
 
     }
 
@@ -171,12 +193,14 @@ public class Andie {
 
                 try {
                     createAndShowGUI();
-                    //FileActions.FileOpenDefaultAction();
+                    // FileActions.FileOpenDefaultAction();
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     System.exit(1);
                 }
+                // Create a mouse listener on the image display panel
+
             }
         });
     }
