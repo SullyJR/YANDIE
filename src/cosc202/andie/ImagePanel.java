@@ -2,6 +2,7 @@ package cosc202.andie;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
@@ -66,7 +67,6 @@ public class ImagePanel extends JPanel implements MouseListener {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
-<<<<<<< HEAD
         image.addMouseListener(new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
             System.out.println("Mouse pressed at (" + e.getX() + ", " + e.getY() + ")");
@@ -74,10 +74,7 @@ public class ImagePanel extends JPanel implements MouseListener {
     });
 }
     
-=======
-        addMouseListener(this);
-    }
->>>>>>> 90f45de1d5bedac4204007c92b74c89e71daaa47
+
 
     /**
      * <p>
