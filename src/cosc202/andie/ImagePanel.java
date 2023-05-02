@@ -36,7 +36,7 @@ public class ImagePanel extends JPanel {
     /**
      * An array holding the icons.
      */
-    protected ImageIcon[] iconArray = {
+    public ImageIcon[] iconArray = {
             new ImageIcon("./src/cosc202/andie/icons/open.png", "Open"),
             new ImageIcon("./src/cosc202/andie/icons/default_image.png", "Default Image"),
             new ImageIcon("./src/cosc202/andie/icons/save.png", "Save"),
@@ -55,7 +55,8 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/greyscale.png", "Greyscale"),
             new ImageIcon("./src/cosc202/andie/icons/brightness.png", "Brightness"),
             new ImageIcon("./src/cosc202/andie/icons/contrast.png", "Contrast"),
-            new ImageIcon("./src/cosc202/andie/icons/language.png", "Language") };
+            new ImageIcon("./src/cosc202/andie/icons/language.png", "Language"),
+            new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex") };
 
     /**
      * <p>
