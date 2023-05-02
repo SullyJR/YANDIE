@@ -111,6 +111,8 @@ public class ImagePanel extends JPanel {
     }
 
 
+
+    
     /**
      * <p>
      * Gets the preferred size of this component for UI layout.

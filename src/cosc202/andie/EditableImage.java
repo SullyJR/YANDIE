@@ -137,6 +137,7 @@ class EditableImage {
      */
     public void open(String filePath) throws Exception {
         imageFilename = filePath;
+        ops = null;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);

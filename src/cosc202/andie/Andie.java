@@ -114,20 +114,12 @@ public class Andie {
         Rectangle selection;
         Point anchor;
 
-        // Mouse listener for the image panel
         imagePanel.addMouseListener(new MouseAdapter() {
-            @Override
             public void mousePressed(MouseEvent e) {
-                
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                imagePanel.setLocation(null);
-                imagePanel.repaint();
+                ImageSelectionRectangle a = new ImageSelectionRectangle();
+                a.apply(image);
             }
         });
-    }
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();

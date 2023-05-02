@@ -340,9 +340,16 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if(this.image == null){
+                JPanel error = new JPanel();
+                            error.add(new JLabel(Language.translate("You have no image to export!")));
+                            error.setVisible(enabled);
+                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+                            return;
+            }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
-
+            
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
 

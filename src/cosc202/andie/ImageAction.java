@@ -34,7 +34,7 @@ public abstract class ImageAction extends AbstractAction {
      * This is common to all ImageActions.
      */
     protected static ImagePanel target;
-    private EditableImage image;
+    protected EditableImage image;
     
     /**
      * <p>
