@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.imageio.*;
@@ -106,6 +108,16 @@ public class Andie {
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
 
+        Rectangle selection;
+        Point anchor;
+
+        imagePanel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                ImageSelectionRectangle a = new ImageSelectionRectangle();
+                a.apply(image);
+            }
+        });
+
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
@@ -158,6 +170,7 @@ public class Andie {
         Dimension toolBarSize = new Dimension(400, 18);
         toolBar.setPreferredSize(toolBarSize);
         toolBar.setFloatable(false);
+
     }
 
     /**
@@ -186,6 +199,8 @@ public class Andie {
                     ex.printStackTrace();
                     System.exit(1);
                 }
+                // Create a mouse listener on the image display panel
+
             }
         });
     }
