@@ -103,11 +103,4 @@ public class ImageSelectionRectangle implements ImageOperation, java.io.Serializ
 
     }
 
-
-    @Override
-    public BufferedImage apply(BufferedImage input) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'apply'");
-    }
-
 }    
