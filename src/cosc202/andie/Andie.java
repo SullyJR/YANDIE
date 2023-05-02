@@ -67,11 +67,14 @@ public class Andie {
      */
     public static void createAndShowGUI() throws Exception {
 
+        ImagePanel ip = new ImagePanel();
+
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
         frame.setForeground(Color.GRAY);
 
-        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png")); // andie icon
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/alex.png")); // andie icon
+        // new File("./src/cosc202/andie/icons/icon.png"
 
         // Set the location of the frame to the center of the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -84,7 +87,7 @@ public class Andie {
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
         // frame.setLocation(x-250, y-300);
 
-        frame.setIconImage(image);
+        frame.setIconImage(image); // ip.iconArray[19]
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
             // Set the look and feel to Windows
