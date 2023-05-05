@@ -17,11 +17,14 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
      */
     
     SelectRectangle() {
-    
     }
 
+    /**
+     * Repalcement for default constructor
+     * Wow
+     */
     SelectRectangle(MousePanel mouse) {
-      this.mouse = mousePanel;
+      this.mouse = mouse;
     }
 
     public BufferedImage apply(BufferedImage input) {
