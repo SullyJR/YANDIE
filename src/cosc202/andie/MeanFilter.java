@@ -78,21 +78,23 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+        
+        
+
+        //this is the orginal code, keeping incase I need to revert
+        // float[] kernelValues2 = new float[size];
+        // Arrays.fill(kernelValues2, 1.0f / size);
+        // Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, kernelValues2);
+        // ConvolveOp convOp = new ConvolveOp(kernel);
+        // BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),input.isAlphaPremultiplied(), null);
+        // convOp.filter(input, output);
+
+        //new version of code
         int size = (2 * radius + 1) * (2 * radius + 1);
         float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
-        float[] kernelValues2 = new float[size];
-        Arrays.fill(kernelValues2, 1.0f / size);
         for (float[] array : kernelValues) {
             Arrays.fill(array, 1.0f / size);
         }
-
-        Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, kernelValues2);
-        ConvolveOp convOp = new ConvolveOp(kernel);
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
-
-        // return output;
         return applyKernelV2(input, kernelValues);
     }
 

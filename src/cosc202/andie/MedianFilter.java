@@ -38,8 +38,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable  {
      */
     public BufferedImage apply(BufferedImage input) {
   
-        for (int y = radius; y < input.getHeight() - radius; ++y) {
-            for (int x = radius; x < input.getWidth() - radius; ++x) {
+        for (int y = 0; y < input.getHeight(); ++y) {
+            for (int x = 0; x < input.getWidth(); ++x) {
                 
                 int[] argb = getSurroundingPixels(input, x, y, radius);
                 
@@ -84,7 +84,21 @@ public class MedianFilter implements ImageOperation, java.io.Serializable  {
         int count = 0;
         for (int i = y - radius; i <= y+radius; ++i) {
             for (int j = x-radius; j <= x+radius; ++j) {
-                surroundingPixels[count] = input.getRGB(j, i);
+                int pixelPosY = i;
+                int pixelPosX = j;
+                if (i < 0) {
+                    pixelPosY = 0;
+                }
+                if (i >= input.getHeight()) {
+                    pixelPosY = input.getHeight() - 1;
+                }
+                if (j < 0) {
+                    pixelPosX = 0;
+                }
+                if (j >= input.getWidth()) {
+                    pixelPosX = input.getWidth() - 1;
+                } 
+                surroundingPixels[count] = input.getRGB(pixelPosX, pixelPosY);
                 count++;
             }
         }
