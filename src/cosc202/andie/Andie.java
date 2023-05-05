@@ -135,7 +135,7 @@ public class Andie {
         menuBar.add(editActions.createMenu());
 
         // Image actions purposedly for Rotate and flips
-        ImageActions imageActions = new ImageActions();
+        ImageActions imageActions = new ImageActions(mouse);
         menuBar.add(imageActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual
@@ -158,7 +158,7 @@ public class Andie {
 
         // Sets the frame
         frame.setJMenuBar(menuBar);
-        JToolBar toolBar = ToolBar.createToolBar();
+        JToolBar toolBar = ToolBar.createToolBar(mouse);
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.addKeyListener(new KeyPress());
         frame.pack();

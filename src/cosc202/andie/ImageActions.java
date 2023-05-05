@@ -22,7 +22,7 @@ public class ImageActions {
      * 
      * @throws IOException
      */
-    public ImageActions() throws IOException {
+    public ImageActions(MousePanel mouse) throws Exception {
 
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box

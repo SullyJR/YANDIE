@@ -58,7 +58,7 @@ public class Emboss implements ImageOperation, java.io.Serializable {
         // Apply this as a convolution - same code as in MeanFilter convOp
         ConvolveOp c1 = new ConvolveOp(k1);
         ConvolveOp c2 = new ConvolveOp(k2);
-         ConvolveOp c3 = new ConvolveOp(k3);
+        ConvolveOp c3 = new ConvolveOp(k3);
         ConvolveOp c4 = new ConvolveOp(k4);
         ConvolveOp c5 = new ConvolveOp(k5);
         ConvolveOp c6 = new ConvolveOp(k6);
@@ -79,8 +79,8 @@ public class Emboss implements ImageOperation, java.io.Serializable {
         // c7.filter(input, output);
         // c8.filter(input, output);
         // c9.filter(input, output);
-         c10.filter(input, output);
-    // c.filter(input, output); // <-- this is the funky emboss. maybe add at the end
+        c10.filter(input, output);
+        // c.filter(input, output); // <-- this is the funky emboss. maybe add at the end
 
      for (int x = 0; x < output.getWidth(); x++) {
       for (int y = 0; y < output.getHeight(); y++) {
