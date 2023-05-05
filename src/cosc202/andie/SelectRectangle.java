@@ -10,7 +10,7 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
     
     private Rectangle selectedArea;
     private int brightness = -50;
-    private MousePanel mouse; 
+    private ImagePanel imagePanel;
 
     /**
      * Default constructor for SelectRectangle
@@ -23,8 +23,8 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
      * Repalcement for default constructor
      * Wow
      */
-    SelectRectangle(MousePanel mouse) {
-      this.mouse = mouse;
+    SelectRectangle(ImagePanel imagePanel) {
+      this.imagePanel = imagePanel;
     }
 
     public BufferedImage apply(BufferedImage input) {
@@ -57,7 +57,7 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
             }
           }
           
-          selectedArea = mouse.getSelection();
+          selectedArea = imagePanel.getSelection();
 
           // Increase the brightness of the selected area
         for (int y = selectedArea.y; y < selectedArea.y + selectedArea.height; y++) {
