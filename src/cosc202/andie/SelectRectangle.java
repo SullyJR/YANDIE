@@ -9,7 +9,7 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
     /** Private data fields */
     
     private Rectangle selectedArea;
-    private int brightness = 50;
+    private int brightness = -50;
     private MousePanel mouse; 
 
     /**
@@ -29,7 +29,7 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
 
     public BufferedImage apply(BufferedImage input) {
 
-        
+        System.out.println("UISHADIUHASOID");
         BufferedImage output = new BufferedImage(input.getColorModel(),input.copyData(null),input.isAlphaPremultiplied(), null);
         
         // Changing initial brightness of image
@@ -56,8 +56,24 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
               output.setRGB(x, y, newPixel);
             }
           }
-
           
-          return output;
+          selectedArea = mouse.getSelection();
+
+          // Increase the brightness of the selected area
+        for (int y = selectedArea.y; y < selectedArea.y + selectedArea.height; y++) {
+          for (int x = selectedArea.x; x < selectedArea.x + selectedArea.width; x++) {
+              int rgb = output.getRGB(x, y);
+              int alpha = (rgb >> 24) & 0xff;
+              int red = (rgb >> 16) & 0xff;
+              int green = (rgb >> 8) & 0xff;
+              int blue = rgb & 0xff;
+              red = Math.min(255, red - brightness);
+              green = Math.min(255, green - brightness);
+              blue = Math.min(255, blue - brightness);
+              output.setRGB(x, y, (alpha << 24) | (red << 16) | (green << 8) | blue);
+          }
+      }
+      System.out.println("AIUSDGUIASKHn");
+      return output;
     }
 }

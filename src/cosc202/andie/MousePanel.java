@@ -23,18 +23,7 @@ public class MousePanel extends JPanel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-        down = true;
         anchor = e.getPoint();
-        while(down){
-            anchorEND = e.getPoint();        
-            int x = Math.min(anchor.x, e.getX());
-            int y = Math.min(anchor.y, e.getY());
-            int width = Math.abs(e.getX() - anchor.x);
-            int height = Math.abs(e.getY() - anchor.y);
-            selection = new Rectangle(x, y, width, height);
-            System.out.println(selection.getSize());
-            repaint();
-          }
 
     }
 
@@ -52,8 +41,14 @@ public class MousePanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        down = false;
-        System.out.println("Mouse released");
+        anchorEND = e.getPoint();        
+            int x = Math.min(anchor.x, e.getX());
+            int y = Math.min(anchor.y, e.getY());
+            int width = Math.abs(e.getX() - anchor.x);
+            int height = Math.abs(e.getY() - anchor.y);
+            selection = new Rectangle(x, y, width, height);
+            System.out.println(selection.getSize());
+            repaint();
     }
 
     @Override
