@@ -9,6 +9,13 @@
             "name": "Andie",
             "request": "launch",
             "mainClass": "cosc202.andie.Andie",
+            "projectName": "andie_235f623d"
+        },
+        {
+            "type": "java",
+            "name": "Andie",
+            "request": "launch",
+            "mainClass": "cosc202.andie.Andie",
             "projectName": "andie_45230720"
         },
         {

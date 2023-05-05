@@ -70,7 +70,7 @@ public class ImagePanel extends JPanel{
      */
     private double scale;
 
-
+    
     /**
      * <p>
      * Create a new ImagePanel.

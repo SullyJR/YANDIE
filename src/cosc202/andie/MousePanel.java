@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -23,7 +24,6 @@ public class MousePanel extends JPanel implements MouseListener{
     @Override
     public void mousePressed(MouseEvent e) {
         anchor = e.getPoint();
-        System.out.println("!!!!!!!!!!!!!!!!!!THIS IS OLD COORD " + anchor);
     }
 
     public double getMX() {
@@ -46,14 +46,26 @@ public class MousePanel extends JPanel implements MouseListener{
         int width = Math.abs(e.getX() - anchor.x);
         int height = Math.abs(e.getY() - anchor.y);
         selection = new Rectangle(x, y, width, height);
-        System.out.println("THIS IS NEW COORD " + anchorEND);
         System.out.println(selection.getSize());
         repaint();
       }
 
     @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if(selection!= null) {
+            g.setColor(Color.black);
+            g.drawRect(selection.x, selection.y, selection.width, selection.height);
+        }
+    }  
+
+    /**
+     * Not used yet idk what to do with em (ANDRU)
+     * 
+     */
+    @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stubjohan372
     }
 
     @Override
@@ -65,5 +77,6 @@ public class MousePanel extends JPanel implements MouseListener{
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
     }
+
 
 }
