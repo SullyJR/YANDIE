@@ -305,7 +305,7 @@ public class ImageActions {
 
         /**
          * <p>
-         * Create a new flip vertical action.
+         * Create a new SelectRectangle action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -319,11 +319,11 @@ public class ImageActions {
 
         /**
          * <p>
-         * Callback for when the flip action is triggered.
+         * Callback for when the Select Rectangle action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FlipAction is triggered.
+         * This method is called whenever the SelectRectangle is triggered.
          * It flips the image
          * </p>
          * 

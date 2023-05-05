@@ -29,7 +29,6 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
 
     public BufferedImage apply(BufferedImage input) {
 
-        System.out.println("UISHADIUHASOID");
         BufferedImage output = new BufferedImage(input.getColorModel(),input.copyData(null),input.isAlphaPremultiplied(), null);
         
         // Changing initial brightness of image
@@ -73,7 +72,6 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
               output.setRGB(x, y, (alpha << 24) | (red << 16) | (green << 8) | blue);
           }
       }
-      System.out.println("AIUSDGUIASKHn");
       return output;
     }
 }
