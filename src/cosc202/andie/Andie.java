@@ -108,8 +108,6 @@ public class Andie {
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         
-        // MOUSEPANEL THINGS **********
-        MousePanel mouse = new MousePanel();
         
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
