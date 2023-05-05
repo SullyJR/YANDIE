@@ -80,9 +80,10 @@ public class Andie {
         int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
         int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
         frame.addMouseListener(null);
+        frame.setPreferredSize(new Dimension(420, 720));
 
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
-        // frame.setLocation(x-250, y-300);
+       // frame.setLocation(x-250, y-300);
 
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -194,6 +195,8 @@ public class Andie {
                 try {
                     createAndShowGUI();
                     // FileActions.FileOpenDefaultAction();
+                    frame.setPreferredSize(new Dimension(1000, 1500));
+                  
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

@@ -10,9 +10,9 @@ import javax.swing.*;
  * The KeyPress class implements KeyListener and lets users use keyboard
  * shortcuts to start functions automatically to the image
  */
-public class KeyPress implements KeyListener {
+public class KeyPress implements KeyListener{
 
-    ImagePanel ip = new ImagePanel();
+     ImagePanel ip = new ImagePanel();
 
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 
@@ -24,11 +24,9 @@ public class KeyPress implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        if (e.getKeyCode() == KeyEvent.VK_Z) {
-            // undo();
-        }
+      
         if (e.getKeyCode() == KeyEvent.VK_A) {
-
+            System.out.println("testing");
             boolA = true;
             boolL = false;
             boolE = false;
