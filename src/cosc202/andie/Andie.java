@@ -83,9 +83,10 @@ public class Andie {
         int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
         int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
         frame.addMouseListener(null);
+        frame.setPreferredSize(new Dimension(420, 720));
 
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
-        // frame.setLocation(x-250, y-300);
+       // frame.setLocation(x-250, y-300);
 
         frame.setIconImage(image); // ip.iconArray[19]
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,12 +108,6 @@ public class Andie {
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         
-        // MOUSEPANEL THINGS **********
-        MousePanel mouse = new MousePanel();
-        mouse.setPreferredSize(screenSize);
-        mouse.setOpaque(false);
-        
-        imagePanel.add(mouse);
         
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -133,8 +128,8 @@ public class Andie {
         EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
-        // Image actions purposedly for Rotate and flips
-        ImageActions imageActions = new ImageActions();
+        // Image actions purposedly for Rotate, flips and drawings :)
+        ImageActions imageActions = new ImageActions(imagePanel);
         menuBar.add(imageActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual
@@ -144,7 +139,7 @@ public class Andie {
 
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
-        FilterActions filterActions = new FilterActions();
+        FilterActions filterActions = new FilterActions(imagePanel);
         menuBar.add(filterActions.createMenu());
 
         // Actions that affect the representation of colour in the image
@@ -157,7 +152,7 @@ public class Andie {
 
         // Sets the frame
         frame.setJMenuBar(menuBar);
-        JToolBar toolBar = ToolBar.createToolBar();
+        JToolBar toolBar = ToolBar.createToolBar(imagePanel);
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.addKeyListener(new KeyPress());
         frame.pack();
@@ -196,6 +191,8 @@ public class Andie {
                 try {
                     createAndShowGUI();
                     // FileActions.FileOpenDefaultAction();
+                    frame.setPreferredSize(new Dimension(1000, 1500));
+                  
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

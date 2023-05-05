@@ -33,7 +33,7 @@ public class FilterActions {
 
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
-
+    private ImagePanel panel;
     /**
      * <p>
      * Create a set of Filter menu actions.
@@ -41,8 +41,8 @@ public class FilterActions {
      * 
      * @throws IOException
      */
-    public FilterActions() throws Exception {
-
+    public FilterActions(ImagePanel panel) throws Exception {
+        this.panel = panel;
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[13].setImage(ip.iconArray[13].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Blur
@@ -140,7 +140,7 @@ public class FilterActions {
 
             // Create and apply the filter
             try {
-                target.getImage().apply(new MeanFilter(radius));
+                target.getImage().apply(new MeanFilter(radius, panel));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {

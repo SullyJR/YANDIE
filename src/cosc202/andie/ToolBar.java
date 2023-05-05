@@ -14,7 +14,7 @@ public class ToolBar {
     protected static ArrayList<Action> actions;
     protected static JToolBar toolBar = new JToolBar();
 
-    public static JToolBar createToolBar() throws IOException {
+    public static JToolBar createToolBar(ImagePanel imagePanel) throws Exception {
 
         ImagePanel ip = new ImagePanel();
         FileActions fa = new FileActions();
@@ -47,8 +47,7 @@ public class ToolBar {
         actions.add(new UndoAction(null, ip.iconArray[5], null, Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(ea.new RedoAction(null, ip.iconArray[6], null, Integer.valueOf(KeyEvent.VK_Y)));
 
-        JButton[] buttons = {
-                new JButton(actions.get(0)),
+        JButton[] buttons = { new JButton(actions.get(0)),
                 new JButton(actions.get(1)),
                 new JButton(actions.get(2)),
                 new JButton(actions.get(3)),
