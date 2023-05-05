@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -21,7 +22,7 @@ public class ImageActions {
      * 
      * @throws IOException
      */
-    public ImageActions() throws Exception {
+    public ImageActions() throws IOException {
 
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
