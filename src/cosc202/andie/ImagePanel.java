@@ -2,6 +2,13 @@ package cosc202.andie;
 
 import java.awt.*;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 
 /**
@@ -30,6 +37,13 @@ public class ImagePanel extends JPanel{
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
+
+    /**
+     * Mouse Things
+     */
+    private Point anchor;
+    private Point anchorEND;
+    private Rectangle selection;
 
     /**
      * An array holding the icons.
@@ -83,6 +97,29 @@ public class ImagePanel extends JPanel{
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+
+        //
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                anchor = e.getPoint();
+                anchorEND = null;
+                repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                anchorEND = e.getPoint();
+                repaint();
+            }
+        });
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                anchorEND = e.getPoint();
+                repaint();
+            }
+        });
     }
 
     /**
@@ -173,7 +210,21 @@ public class ImagePanel extends JPanel{
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
+        //null meow
+        if (anchor != null && anchorEND != null) {
+            int x = Math.min(anchor.x, anchorEND.x);
+            int y = Math.min(anchor.y, anchorEND.y);
+            int width = Math.abs(anchorEND.x - anchor.x);
+            int height = Math.abs(anchorEND.y - anchor.y);
+            selection = new Rectangle(x, y, width, height);
+            g.setColor(Color.black);
+            g.drawRect(selection.x, selection.y, selection.width, selection.height);
+        }
+            
     }
 
+    public Rectangle getSelection() {
+        return selection;
+    }
 
 }

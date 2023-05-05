@@ -14,7 +14,7 @@ public class ImageActions {
 
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
-
+    private ImagePanel imagePanel;
     /**
      * <p>
      * Create a set of Image menu actions.
@@ -22,8 +22,8 @@ public class ImageActions {
      * 
      * @throws IOException
      */
-    public ImageActions(MousePanel mouse) throws Exception {
-
+    public ImageActions(ImagePanel imagePanel) throws Exception {
+        this.imagePanel = imagePanel;
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
@@ -41,6 +41,8 @@ public class ImageActions {
                 Language.translate("Flips image horizontally"), Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), ip.iconArray[9],
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
+        actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
+        Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));      
     }
 
     /**
@@ -294,6 +296,42 @@ public class ImageActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             target.getImage().apply(new FlipVertically());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class SelectRectangleAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new flip vertical action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        SelectRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the flip action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the FlipAction is triggered.
+         * It flips the image
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the filter
+            target.getImage().apply(new SelectRectangle(imagePanel));
             target.repaint();
             target.getParent().revalidate();
         }

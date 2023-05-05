@@ -108,12 +108,6 @@ public class Andie {
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         
-        // MOUSEPANEL THINGS **********
-        MousePanel mouse = new MousePanel();
-        mouse.setPreferredSize(screenSize);
-        mouse.setOpaque(false);
-        
-        imagePanel.add(mouse);
         
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -134,8 +128,8 @@ public class Andie {
         EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
-        // Image actions purposedly for Rotate and flips
-        ImageActions imageActions = new ImageActions(mouse);
+        // Image actions purposedly for Rotate, flips and drawings :)
+        ImageActions imageActions = new ImageActions(imagePanel);
         menuBar.add(imageActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual
@@ -158,7 +152,7 @@ public class Andie {
 
         // Sets the frame
         frame.setJMenuBar(menuBar);
-        JToolBar toolBar = ToolBar.createToolBar(mouse);
+        JToolBar toolBar = ToolBar.createToolBar(imagePanel);
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.addKeyListener(new KeyPress());
         frame.pack();
