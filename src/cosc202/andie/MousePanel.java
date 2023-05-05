@@ -15,7 +15,7 @@ public class MousePanel extends JPanel implements MouseListener{
     private Point anchor;
     private Point anchorEND;
     private Rectangle selection;
-    
+    private boolean down = false;
     public MousePanel() {
         
         addMouseListener(this);
@@ -23,7 +23,19 @@ public class MousePanel extends JPanel implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
+        down = true;
         anchor = e.getPoint();
+        while(down){
+            anchorEND = e.getPoint();        
+            int x = Math.min(anchor.x, e.getX());
+            int y = Math.min(anchor.y, e.getY());
+            int width = Math.abs(e.getX() - anchor.x);
+            int height = Math.abs(e.getY() - anchor.y);
+            selection = new Rectangle(x, y, width, height);
+            System.out.println(selection.getSize());
+            repaint();
+          }
+
     }
 
     public double getMX() {
@@ -40,15 +52,9 @@ public class MousePanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        anchorEND = e.getPoint();        
-        int x = Math.min(anchor.x, e.getX());
-        int y = Math.min(anchor.y, e.getY());
-        int width = Math.abs(e.getX() - anchor.x);
-        int height = Math.abs(e.getY() - anchor.y);
-        selection = new Rectangle(x, y, width, height);
-        System.out.println(selection.getSize());
-        repaint();
-      }
+        down = false;
+        System.out.println("Mouse released");
+    }
 
     @Override
     public void paintComponent(Graphics g) {
@@ -77,6 +83,8 @@ public class MousePanel extends JPanel implements MouseListener{
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
     }
+    
+    
 
 
 }

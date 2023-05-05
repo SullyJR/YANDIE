@@ -16,12 +16,12 @@ public class ToolBar {
     protected static ArrayList<Action> actions;
     protected static JToolBar toolBar = new JToolBar();
 
-    public static JToolBar createToolBar() throws IOException {
+    public static JToolBar createToolBar(MousePanel mouse) throws Exception {
 
         ImagePanel ip = new ImagePanel();
         FileActions fa = new FileActions();
         EditActions ea = new EditActions();
-        ImageActions ia = new ImageActions();
+        ImageActions ia = new ImageActions(mouse);
         ViewActions va = new ViewActions();
 
         ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
