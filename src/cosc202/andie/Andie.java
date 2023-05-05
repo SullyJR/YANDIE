@@ -67,11 +67,14 @@ public class Andie {
      */
     public static void createAndShowGUI() throws Exception {
 
+        ImagePanel ip = new ImagePanel();
+
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
         frame.setForeground(Color.GRAY);
 
-        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png")); // andie icon
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/alex.png")); // andie icon
+        // new File("./src/cosc202/andie/icons/icon.png"
 
         // Set the location of the frame to the center of the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -85,7 +88,7 @@ public class Andie {
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
        // frame.setLocation(x-250, y-300);
 
-        frame.setIconImage(image);
+        frame.setIconImage(image); // ip.iconArray[19]
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
             // Set the look and feel to Windows
@@ -104,20 +107,19 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
+        
+        // MOUSEPANEL THINGS **********
+        MousePanel mouse = new MousePanel();
+        mouse.setPreferredSize(screenSize);
+        mouse.setOpaque(false);
+        
+        imagePanel.add(mouse);
+        
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        Rectangle selection;
-        Point anchor;
-
-        imagePanel.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                ImageSelectionRectangle a = new ImageSelectionRectangle();
-                a.apply(image);
-            }
-        });
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
