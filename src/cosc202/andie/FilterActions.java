@@ -2,11 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.awt.Image;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -31,18 +27,28 @@ import javax.swing.*;
  */
 public class FilterActions {
 
-    /** A list of actions for the Filter menu. */
+    /**
+     * The list of actions for the file menu
+     */
     protected ArrayList<Action> actions;
+    /**
+     * The image panel
+     */
     private ImagePanel panel;
+
     /**
      * <p>
      * Create a set of Filter menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @param panel an instance of image panel
+     * 
+     * @throws Exception exception
      */
     public FilterActions(ImagePanel panel) throws Exception {
         this.panel = panel;
+
+        // Icons for Toolbar
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[13].setImage(ip.iconArray[13].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Blur
@@ -372,6 +378,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to emboss an image with a emboss filter.
+     * </p>
+     * 
+     * @see Emboss
+     */
     public class EmbossFilterAction extends ImageAction {
 
         /**
@@ -419,6 +432,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to alter the image with a median filter.
+     * </p>
+     * 
+     * @see MedianFilter
+     */
     public class MedianFilterAction extends ImageAction {
 
         /**
@@ -481,7 +501,6 @@ public class FilterActions {
             }
 
         }
-
 
     }
 
