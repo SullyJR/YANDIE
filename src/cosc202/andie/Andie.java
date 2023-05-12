@@ -189,12 +189,7 @@ public class Andie {
                 try {
                     createAndShowGUI();
                     // FileActions.FileOpenDefaultAction();
-<<<<<<< HEAD
-                    frame.setPreferredSize(new Dimension(1000, 1000));
-                  
-=======
                     frame.setPreferredSize(new Dimension(1000, 1500));
->>>>>>> 4c97ec076f1818901b8a2375eed00f543f1e082c
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
