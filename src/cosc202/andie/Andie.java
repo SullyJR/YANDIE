@@ -86,7 +86,7 @@ public class Andie {
         frame.setPreferredSize(new Dimension(420, 720));
 
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
-       // frame.setLocation(x-250, y-300);
+        // frame.setLocation(x-250, y-300);
 
         frame.setIconImage(image); // ip.iconArray[19]
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,13 +107,11 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
-        
-        
+
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
-
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -192,7 +190,6 @@ public class Andie {
                     createAndShowGUI();
                     // FileActions.FileOpenDefaultAction();
                     frame.setPreferredSize(new Dimension(1000, 1500));
-                  
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
