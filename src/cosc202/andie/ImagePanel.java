@@ -120,9 +120,6 @@ public class ImagePanel extends JPanel {
                     anchorEND = null;
                     repaint();
                 }
-                anchor = e.getPoint();
-                anchorEND = null;
-                repaint();
                 // else do nothing OR
                 // ADD MORE SELECTION SHAPES
             }
@@ -133,8 +130,6 @@ public class ImagePanel extends JPanel {
                     anchorEND = e.getPoint();
                     repaint();
                 }
-                anchorEND = e.getPoint();
-                repaint();
             }
         });
         addMouseMotionListener(new MouseAdapter() {
@@ -144,8 +139,6 @@ public class ImagePanel extends JPanel {
                     anchorEND = e.getPoint();
                     repaint();
                 }
-                anchorEND = e.getPoint();
-                repaint();
 
             }
         });
