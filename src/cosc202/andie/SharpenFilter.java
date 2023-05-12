@@ -28,7 +28,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
                 {-1 / 2.0f, 3, -1 / 2.0f},
                 {0, -1 / 2.0f, 0}
         };
-        int radius = 1;
+
         // // Make a 3x3 filter from the array
         // Kernel kernel = new Kernel(3, 3, array);
         // // Apply this as a convolution - same code as in MeanFilter

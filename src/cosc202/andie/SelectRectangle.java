@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.awt.Rectangle;
 import java.awt.image.*;
-import java.awt.Graphics2D;
 
 /**
 * Construct a SelectRectangle Class which implements ImageOperation and java.io.Serializable,

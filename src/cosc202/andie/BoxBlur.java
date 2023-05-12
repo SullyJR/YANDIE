@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 
 /**
 * Construct a Boxblur Class which implements ImageOperation and java.io.Serializable,

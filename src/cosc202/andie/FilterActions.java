@@ -2,11 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.awt.Image;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -412,7 +408,6 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             try {
-                Brightness b = new Brightness(128);
                 target.getImage().apply(new Emboss());
                 // target.getImage().apply(new Brightness(128));
                 // BufferedImage bu = getImage().apply(new Emboss());

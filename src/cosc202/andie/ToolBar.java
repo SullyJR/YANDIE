@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 

@@ -401,10 +401,10 @@ public class ImageActions {
             
             // Pop-up dialog box to inform user to make sure there is a 
             // Selection in place
-            int option;
+            
             if(imagePanel.rectToggled()) {
-                option = JOptionPane.showOptionDialog(null, "test", "Crop Image", 
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                JOptionPane.showOptionDialog(null, "test", "Crop Image", 
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                 try {
                     target.getImage().apply(new Crop(imagePanel));
                     target.repaint();

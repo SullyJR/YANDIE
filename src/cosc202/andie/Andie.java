@@ -3,12 +3,7 @@ package cosc202.andie;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.*;
-import javax.imageio.*;
 import javax.swing.UIManager.*;
 import java.io.*;
 
@@ -68,7 +63,8 @@ public class Andie {
      */
     public static void createAndShowGUI() throws Exception {
 
-        ImagePanel ip = new ImagePanel();
+        // I HAVE COMMENTED THIS (ANDREW)
+        //ImagePanel ip = new ImagePanel();
 
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
@@ -84,7 +80,7 @@ public class Andie {
         int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
         int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
         frame.addMouseListener(null);
-        frame.setPreferredSize(new Dimension(420, 720));
+        frame.setPreferredSize(new Dimension(x, y));
 
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
        // frame.setLocation(x-250, y-300);
