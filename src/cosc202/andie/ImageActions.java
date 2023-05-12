@@ -45,6 +45,8 @@ public class ImageActions {
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
                 Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));
+        actions.add(new PixelAction(Language.translate("Pixelate"), ip.iconArray[9],
+                Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));
     }
 
     /**
@@ -120,6 +122,63 @@ public class ImageActions {
 
             // Create and apply the filter
             target.getImage().apply(new Resize(percentage));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class PixelAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new resize action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        PixelAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the resize action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ResizeAction is triggered.
+         * It resizes the images based on the user input
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the radius - ask the user.
+            double percentage = 1.0;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel percentageModel = new SpinnerNumberModel(percentage, 0.01, 10.0, 0.1);
+            JSpinner percentageSpinner = new JSpinner(percentageModel);
+            int option = JOptionPane.showOptionDialog(null, percentageSpinner,
+                    Language.translate("Enter resize percentage in decimal places"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                percentage = percentageModel.getNumber().doubleValue();
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new Resize(0.2));
+            target.repaint();
+            target.getParent().revalidate();
+            target.getImage().apply(new Resize(5));
             target.repaint();
             target.getParent().revalidate();
         }
