@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.Image;
 import java.awt.event.*;
 import java.io.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -16,6 +17,8 @@ import javax.swing.*;
  * and there are several items that the user will expect to find here.
  * For the time being it will just be language support.
  * </p>
+ * 
+ * <p>
  * 
  * @version 1.0
  */
@@ -30,7 +33,7 @@ public class SettingsActions {
      * Create a set of Settings menu actions.
      * </p>
      * 
-     * @throws IOException user input exception
+     * @throws IOException
      */
 
     public SettingsActions() throws IOException {

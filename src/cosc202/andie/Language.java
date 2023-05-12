@@ -5,25 +5,16 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-/**
- * Creates a Language class that holds important variables that changes the
- * language type of all the text
- * in the GUI
- */
 public class Language {
 
     public static String language = "en";
-    /** the initial language abbreviated */
     static int getNumTexts = getNumTexts();
-    /** int that holds the number of possible texts */
     static int getNumLanguages = getNumLanguages();
-    /** int that holds the number of possible languages */
 
-    public static String[][] languageArray = new String[getNumLanguages][getNumTexts]; // the String[][] array of
-                                                                                       // languages and texts
+    public static String[][] languageArray = new String[getNumLanguages][getNumTexts];
 
     /**
-     * <p>
+     * </p>
      * Sets the value of language to what was input in the parameter.
      * This causes the value of language to globally change and after a restart all
      * texts will change
@@ -36,7 +27,7 @@ public class Language {
     }
 
     /**
-     * <p>
+     * </p>
      * Gets the number of texts changes in 'LanguageList' by scanning in the file,
      * and counting the number of lines
      * in the text file by using a while loop. Returns 0 if a file cannot be found.
@@ -62,7 +53,7 @@ public class Language {
     }
 
     /**
-     * <p>
+     * </p>
      * Gets the number of languages in the language array in Andie using length
      * </p>
      * 
@@ -73,7 +64,7 @@ public class Language {
     }
 
     /**
-     * <p>
+     * </p>
      * Creates a new 2D array called languageArray and scans the 'LanguageList'. The
      * contents of LanguageList are put into a 2D array,
      * where a row is a language and a column is the set of all possible texts in

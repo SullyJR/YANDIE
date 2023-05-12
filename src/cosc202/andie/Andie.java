@@ -1,9 +1,17 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
+import javax.imageio.*;
 import javax.swing.UIManager.*;
 import java.io.*;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -53,11 +61,13 @@ public class Andie {
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
-     * @see SettingsActions
+     * @see SettingAction
      * 
      * @throws Exception if something goes wrong.
      */
     public static void createAndShowGUI() throws Exception {
+
+        ImagePanel ip = new ImagePanel();
 
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
@@ -76,7 +86,7 @@ public class Andie {
         frame.setPreferredSize(new Dimension(420, 720));
 
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
-        // frame.setLocation(x-250, y-300);
+       // frame.setLocation(x-250, y-300);
 
         frame.setIconImage(image); // ip.iconArray[19]
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,12 +107,13 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
-        imagePanel.activateSelection();
-
+        
+        
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
+
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -132,7 +143,7 @@ public class Andie {
         menuBar.add(filterActions.createMenu());
 
         // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions(imagePanel);
+        ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
         // Changes all the texts language on the UI
@@ -181,6 +192,7 @@ public class Andie {
                     createAndShowGUI();
                     // FileActions.FileOpenDefaultAction();
                     frame.setPreferredSize(new Dimension(1000, 1500));
+                  
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

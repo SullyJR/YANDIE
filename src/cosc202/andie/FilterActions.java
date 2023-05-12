@@ -2,7 +2,11 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.awt.Image;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -27,28 +31,18 @@ import javax.swing.*;
  */
 public class FilterActions {
 
-    /**
-     * The list of actions for the file menu
-     */
+    /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
-    /**
-     * The image panel
-     */
     private ImagePanel panel;
-
     /**
      * <p>
      * Create a set of Filter menu actions.
      * </p>
      * 
-     * @param panel an instance of image panel
-     * 
-     * @throws Exception exception
+     * @throws IOException
      */
     public FilterActions(ImagePanel panel) throws Exception {
         this.panel = panel;
-
-        // Icons for Toolbar
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[13].setImage(ip.iconArray[13].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Blur
@@ -146,7 +140,7 @@ public class FilterActions {
 
             // Create and apply the filter
             try {
-                target.getImage().apply(new MeanFilter(radius));
+                target.getImage().apply(new MeanFilter(radius, panel));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
@@ -378,13 +372,6 @@ public class FilterActions {
         }
     }
 
-    /**
-     * <p>
-     * Action to emboss an image with a emboss filter.
-     * </p>
-     * 
-     * @see Emboss
-     */
     public class EmbossFilterAction extends ImageAction {
 
         /**
@@ -432,13 +419,6 @@ public class FilterActions {
         }
     }
 
-    /**
-     * <p>
-     * Action to alter the image with a median filter.
-     * </p>
-     * 
-     * @see MedianFilter
-     */
     public class MedianFilterAction extends ImageAction {
 
         /**
@@ -501,6 +481,7 @@ public class FilterActions {
             }
 
         }
+
 
     }
 

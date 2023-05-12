@@ -3,8 +3,12 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -31,16 +35,15 @@ public class ColourActions {
 
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-    private ImagePanel panel;
+
     /**
      * <p>
      * Create a set of Colour menu actions.
      * </p>
      * 
-     * @throws IOException user input exception
+     * @throws IOException
      */
-    public ColourActions(ImagePanel panel) throws IOException {
-        this.panel = panel;
+    public ColourActions() throws IOException {
 
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
@@ -112,7 +115,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().apply(new ConvertToGrey(panel));
+                target.getImage().apply(new ConvertToGrey());
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {

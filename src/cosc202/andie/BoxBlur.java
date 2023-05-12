@@ -1,19 +1,13 @@
 package cosc202.andie;
 
-import java.awt.Rectangle;
 import java.awt.image.*;
+import java.util.*;
 
-/**
- * Construct a BoxBlur Class which implements ImageOperation and
- * java.io.Serializable,
- * and creates and applies the boxblur filter
- */
+
 public class BoxBlur implements ImageOperation, java.io.Serializable {
-    private Rectangle area;
-    private ImagePanel panel;
+    
     /**
-     * The size of the filter to apply. A raduys of 1 is a 3x3 filter, radius of 2
-     * is a 5x5 filter and so forth
+     * The size of the filter to apply. A raduys of 1 is a 3x3 filter, radius of 2 is a 5x5 filter and so forth
      */
     private int radius;
 
@@ -28,7 +22,7 @@ public class BoxBlur implements ImageOperation, java.io.Serializable {
      * Larger radius give a stronger blurring effect.
      * </p>
      * 
-     * @param radius The radius of the newly constructed BoxBlur
+     * @param radius The radius of the newly constructed BoxBlur 
      */
     BoxBlur(int radius) {
         this.radius = radius;
@@ -56,7 +50,7 @@ public class BoxBlur implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * As with many filters, the BoxBlur is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.
+     * The size of the convolution kernel is specified by the {@link radius}.  
      * Larger radii lead to stronger blurring.
      * </p>
      * 
@@ -79,13 +73,11 @@ public class BoxBlur implements ImageOperation, java.io.Serializable {
                 // Get data for the kernel
                 for (int ky = -radius; ky <= radius; ky++) {
                     int iy = y + ky;
-                    if (iy < 0 || iy >= height)
-                        continue;
+                    if (iy < 0 || iy >= height) continue;
 
                     for (int kx = -radius; kx <= radius; kx++) {
                         int ix = x + kx;
-                        if (ix < 0 || ix >= width)
-                            continue;
+                        if (ix < 0 || ix >= width) continue;
 
                         int pixel = input.getRGB(ix, iy);
                         data[count++] = pixel;

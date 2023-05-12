@@ -3,7 +3,10 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -38,7 +41,7 @@ public class ViewActions {
      * Create a set of View menu actions.
      * </p>
      * 
-     * @throws IOException user input exception
+     * @throws IOException
      */
     public ViewActions() throws IOException {
 

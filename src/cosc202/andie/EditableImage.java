@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.util.*;
 import java.io.*;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.*;
 import javax.imageio.*;
 

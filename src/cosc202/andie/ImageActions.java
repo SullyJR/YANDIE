@@ -14,8 +14,7 @@ public class ImageActions {
 
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
-    private ImagePanel panel;
-
+    private ImagePanel imagePanel;
     /**
      * <p>
      * Create a set of Image menu actions.
@@ -23,8 +22,8 @@ public class ImageActions {
      * 
      * @throws IOException
      */
-    public ImageActions(ImagePanel panel) throws IOException {
-        this.panel = panel;
+    public ImageActions(ImagePanel imagePanel) throws IOException {
+        this.imagePanel = imagePanel;
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
@@ -43,11 +42,7 @@ public class ImageActions {
         actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), ip.iconArray[9],
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
-                Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));
-        actions.add(new PixelAction(Language.translate("Pixelate"), ip.iconArray[9],
-                Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));  
-        actions.add(new CropAction(Language.translate("Crop"), ip.iconArray[9],
-                Language.translate("Crop the image"), Integer.valueOf(KeyEvent.VK_V)));  
+                Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));      
     }
 
     /**
@@ -127,49 +122,6 @@ public class ImageActions {
             target.getParent().revalidate();
         }
     }
-
-    public class PixelAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new resize action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        PixelAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the resize action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ResizeAction is triggered.
-         * It resizes the images based on the user input
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            
-            // Create and apply the filter
-            target.getImage().apply(new Resize(0.2));
-            target.repaint();
-            target.getParent().revalidate();
-            target.getImage().apply(new Resize(5));
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-    
-    
-
 
     public class RotateAction extends ImageAction {
 
@@ -353,42 +305,6 @@ public class ImageActions {
 
         /**
          * <p>
-         * Create a new flip vertical action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        SelectRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the flip action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the FlipAction is triggered.
-         * It flips the image
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new SelectRectangle(panel));
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
-    public class CropAction extends ImageAction {
-
-        /**
-         * <p>
          * Create a new SelectRectangle action.
          * </p>
          * 
@@ -397,7 +313,7 @@ public class ImageActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        SelectRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -415,13 +331,10 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            
-            target.getImage().apply(new Crop(panel));
+            target.getImage().apply(new SelectRectangle(imagePanel));
             target.repaint();
             target.getParent().revalidate();
         }
     }
-
-  
 
 }
