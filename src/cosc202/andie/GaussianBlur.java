@@ -5,6 +5,7 @@
 
 package cosc202.andie;
 
+import java.awt.Rectangle;
 import java.awt.image.*;
 
 /**
@@ -22,6 +23,8 @@ import java.awt.image.*;
  */
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
+  private Rectangle area;
+  private ImagePanel panel;
   /** Size of filter to apply. */
   private int radius;
 

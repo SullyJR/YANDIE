@@ -1,4 +1,5 @@
 package cosc202.andie;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -6,7 +7,8 @@ import java.awt.image.BufferedImage;
 * and creates and applies the brightness filter
 */
 public class Brightness implements ImageOperation, java.io.Serializable {
-  
+  private Rectangle area;
+  private ImagePanel panel;
   /** Amount to change the brightness by */
   private int brightness;
 

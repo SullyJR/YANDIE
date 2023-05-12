@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.Rectangle;
 import java.awt.image.*;
 
 /**
@@ -9,6 +10,9 @@ import java.awt.image.*;
  * with a 3x3 kernel.
  */
 public class SharpenFilter implements ImageOperation, java.io.Serializable {
+
+    private Rectangle area;
+    private ImagePanel panel;
     /**
      * Constructs a new SharpenFilter object.
      */

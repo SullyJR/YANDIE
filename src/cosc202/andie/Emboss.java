@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.Rectangle;
 import java.awt.image.*;
 
 /**
@@ -8,7 +9,8 @@ import java.awt.image.*;
  * and creates and applies the emboss
  */
 public class Emboss implements ImageOperation, java.io.Serializable {
-
+  private Rectangle area;
+  private ImagePanel panel;
   /**
    * Constructs a SoftBlur filter.
    */
