@@ -140,6 +140,9 @@ public class Andie {
         FilterActions filterActions = new FilterActions(imagePanel);
         menuBar.add(filterActions.createMenu());
 
+        SelectionsActions selectionActions = new SelectionsActions(imagePanel);
+        menuBar.add(selectionActions.createMenu());
+
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions(imagePanel);
         menuBar.add(colourActions.createMenu());
