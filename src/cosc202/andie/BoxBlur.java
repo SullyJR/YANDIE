@@ -3,7 +3,10 @@ package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 
-
+/**
+* Construct a Boxblur Class which implements ImageOperation and java.io.Serializable,
+* and creates and applies the box blur filter
+*/
 public class BoxBlur implements ImageOperation, java.io.Serializable {
     
     /**

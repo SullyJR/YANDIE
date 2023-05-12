@@ -1,13 +1,13 @@
+package cosc202.andie;
+
+import java.awt.image.*;
+
 /**
 *
 * The SharpenFilter class implements the ImageOperation interface to provide a
 * filter that sharpens the given image by applying a convolution operation
 * with a 3x3 kernel.
 */
-package cosc202.andie;
-
-import java.awt.image.*;
-
 public class SharpenFilter implements ImageOperation, java.io.Serializable {
     /**
      * Constructs a new SharpenFilter object.
@@ -42,6 +42,15 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
         return applyKernelV2(input, kernel);
     }
 
+    /**
+     * <p>
+     * Apply the kernel to the image
+     * </p>
+     * 
+     * @param image The image to apply the Mean filter to.
+     * @param kernel the kernel used to apply the filter
+     * @return The resulting (blurred)) image.
+     */
     public static BufferedImage applyKernelV2(BufferedImage image, float[][] kernel) {
         int width = image.getWidth();
         int height = image.getHeight();

@@ -3,6 +3,10 @@ package cosc202.andie;
 import java.awt.image.*;
 import java.util.Arrays;
 
+/**
+* Construct a MedianFilter Class which implements ImageOperation and java.io.Serializable,
+* and creates and applies the median filter
+*/
 public class MedianFilter implements ImageOperation, java.io.Serializable  {
 
     /**
@@ -78,6 +82,12 @@ public class MedianFilter implements ImageOperation, java.io.Serializable  {
 
     /**
      * A method to get the surrounding pixels of a given pixel with a given radius.
+     * 
+     * @param input the image being altered
+     * @param x the x value
+     * @param y the y value
+     * @param radius the radius for the surrounding pixels
+     * @return the surrounding pixels are computed
      */
     public int[] getSurroundingPixels(BufferedImage input, int x, int y, int radius) {
         int[] surroundingPixels = new int[(2*radius+1) * (2*radius+1)];

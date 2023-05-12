@@ -99,19 +99,26 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
   }
 
   /**
-   * Calculates the value for the Gaussian Kernal Using the
+   * Calculates the value for the Gaussian Kernel Using the
    * 2-d gaussian equation
    * 
    * @param x     horiztonal distance from centre of kernal
    * @param y     vertical distance from centre of kernal
    * @param sigma the variation of the blur
-   * @return
+   * @return the computation returns the Gaussian kernel value
    */
   public double calculateGaussian(int x, int y, float sigma) {
     return (1 / (2 * Math.PI * Math.pow(sigma, 2))
         * Math.exp(-(Math.pow(x, 2) + Math.pow(y, 2)) / (2 * Math.pow(sigma, 2))));
   }
 
+  /**
+   * Applies kernel to the image 
+   * 
+   * @param image the image that is being affected by the filter
+   * @param kernel the kernel used to alter the image
+   * @return results of the computation
+   */
   public static BufferedImage applyKernel(BufferedImage image, float[][] kernel) {
     int width = image.getWidth();
     int height = image.getHeight();

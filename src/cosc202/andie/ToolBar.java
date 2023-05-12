@@ -6,14 +6,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
 import cosc202.andie.EditActions.*;
 
+/**
+ * A ToolBar Class creates a toolbar internally and used by calling externally for ease of use
+*/
 public class ToolBar {
 
+    /** The array of Actions for the toolbar icons */
     protected static ArrayList<Action> actions;
+    /** The instance of the toolbar */
     protected static JToolBar toolBar = new JToolBar();
 
+    /** 
+     * Creates the toolbar by stores the icons and actions of each button in a loop and adds to toolbar
+     * @param imagePanel the image panel where to toolbar will be
+     * @return the finished toolbar
+    */
     public static JToolBar createToolBar(ImagePanel imagePanel) throws Exception {
 
         ImagePanel ip = new ImagePanel();
