@@ -15,6 +15,7 @@ public class ImageActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
     private ImagePanel imagePanel;
+
     /**
      * <p>
      * Create a set of Image menu actions.
@@ -42,11 +43,9 @@ public class ImageActions {
         actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), ip.iconArray[9],
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
-        Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));      
+                Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new PixelAction(Language.translate("Pixelate"), ip.iconArray[9],
         Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));  
-        actions.add(new CropAction(Language.translate("Crop"), ip.iconArray[9],
-        Language.translate("Crop the image"), Integer.valueOf(KeyEvent.VK_V))); 
     }
 
     /**
