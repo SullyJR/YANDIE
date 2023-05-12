@@ -2,18 +2,16 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
-
 import java.awt.Rectangle;
 
 /**
  * <p>
- * ImageOperation to apply a Mean (simple blur) filter.
+ * ImageOperation to crop a rectangular area from an image.
  * </p>
  * 
  * <p>
- * A Mean filter blurs an image by replacing each pixel by the average of the
- * pixels in a surrounding neighbourhood, and can be implemented by a
- * convoloution.
+ * The Crop class allows users to select a rectangular area of an image
+ * and returns the cropped version of that area.
  * </p>
  * 
  * <p>
@@ -21,48 +19,45 @@ import java.awt.Rectangle;
  * 4.0</a>
  * </p>
  * 
- * @see java.awt.image.ConvolveOp
+ * @see java.awt.image.BufferedImage#getSubimage(int, int, int, int)
  * @author Steven Mills
  * @version 1.0
  */
 public class Crop implements ImageOperation, java.io.Serializable {
-
-    /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
-     * 5x5 filter, and so forth.
-     */
-
     private Rectangle area; // rectangle selected for cropping
     private ImagePanel panel; // the image panel
 
     /**
+     * The rectangular area to crop from the image.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * /**
      * <p>
-     * Construct a Mean filter with the given size.
+     * Construct a Crop operation with the given ImagePanel.
      * </p>
      * 
      * <p>
-     * The size of the filter is the 'radius' of the convolution kernel used.
-     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
-     * Larger filters give a stronger blurring effect.
+     * The Crop operation allows users to select a rectangular area of an image
+     * and returns the cropped version of that area.
      * </p>
      * 
-     * @param radius The radius of the newly constructed MeanFilter
+     * @param panel The ImagePanel containing the image to crop.
      */
     Crop(ImagePanel panel) {
         this.panel = panel;
-
     }
 
     /**
      * <p>
-     * Construct a Mean filter with the default size.
-     * </p
-     * >
-     * <p>
-     * By default, a Mean filter has radius 1.
+     * Construct a Crop operation with default settings.
      * </p>
      * 
-     * @see MeanFilter(int)
+     * <p>
+     * By default, the Crop operation does not crop any area.
+     * </p>
      */
     Crop() {
 
@@ -70,28 +65,29 @@ public class Crop implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Apply a Mean filter to an image.
+     * Apply the Crop operation to an image.
      * </p>
      * 
      * <p>
-     * As with many filters, the Mean filter is implemented via convolution.
-     * Larger radii lead to stronger blurring.
+     * The Crop operation allows users to select a rectangular area of an image
+     * and returns the cropped version of that area.
      * </p>
      * 
-     * @param input The image to apply the Mean filter to.
-     * @return The resulting (blurred)) image.
+     * @param input The image to apply the Crop operation to.
+     * @return The cropped version of the image.
      */
     public BufferedImage apply(BufferedImage input) {
 
+        // Get the rectangular area to crop from the ImagePanel
         area = panel.getSelection();
 
+        // If an area was selected, crop that area from the image and return it
         if (area != null) {
             BufferedImage newImg = input.getSubimage(area.x, area.y, area.width, area.height);
-
             return newImg;
-        } else {
-            // new version of code
-
+        }
+        // Otherwise, return the original image
+        else {
             return input;
         }
 

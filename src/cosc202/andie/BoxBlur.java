@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.Rectangle;
 import java.awt.image.*;
 import java.util.*;
 
@@ -9,7 +10,8 @@ import java.util.*;
  * and creates and applies the boxblur filter
  */
 public class BoxBlur implements ImageOperation, java.io.Serializable {
-
+    private Rectangle area;
+    private ImagePanel panel;
     /**
      * The size of the filter to apply. A raduys of 1 is a 3x3 filter, radius of 2
      * is a 5x5 filter and so forth

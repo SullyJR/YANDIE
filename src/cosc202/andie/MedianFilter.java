@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.Rectangle;
 import java.awt.image.*;
 import java.util.Arrays;
 
@@ -15,6 +16,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 5x5 filter, and so forth.
      */
     private int radius;
+    private Rectangle area;
+    private ImagePanel panel;
 
     /**
      * Construct Median filter with the given size.

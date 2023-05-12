@@ -2,11 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.awt.Image;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -51,6 +47,8 @@ public class FilterActions {
      */
     public FilterActions(ImagePanel panel) throws Exception {
         this.panel = panel;
+
+        // Icons for Toolbar
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[13].setImage(ip.iconArray[13].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Blur
