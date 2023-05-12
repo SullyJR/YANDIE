@@ -16,7 +16,8 @@ public class ImageActions {
 
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
-    private ImagePanel imagePanel;
+    private ImagePanel panel;
+    
 
 
     /**
@@ -26,8 +27,8 @@ public class ImageActions {
      * 
      * @throws IOException
      */
-    public ImageActions(ImagePanel imagePanel) throws IOException {
-        this.imagePanel = imagePanel;
+    public ImageActions(ImagePanel panel) throws IOException {
+        this.panel = panel;
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
@@ -382,7 +383,7 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new SelectRectangle(imagePanel));
+            target.getImage().apply(new SelectRectangle(panel));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -419,7 +420,7 @@ public class ImageActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             
-            target.getImage().apply(new Crop(imagePanel));
+            target.getImage().apply(new Crop(panel));
             target.repaint();
             target.getParent().revalidate();
         }
