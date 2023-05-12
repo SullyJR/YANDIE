@@ -19,7 +19,7 @@ public class ToolBar {
         ImagePanel ip = new ImagePanel();
         FileActions fa = new FileActions();
         EditActions ea = new EditActions();
-        ImageActions ia = new ImageActions();
+        ImageActions ia = new ImageActions(imagePanel);
         ViewActions va = new ViewActions();
 
         ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
