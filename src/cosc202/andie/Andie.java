@@ -191,7 +191,7 @@ public class Andie {
                 try {
                     createAndShowGUI();
                     // FileActions.FileOpenDefaultAction();
-                    frame.setPreferredSize(new Dimension(1000, 1500));
+                    frame.setPreferredSize(new Dimension(1000, 1000));
                   
 
                 } catch (Exception ex) {

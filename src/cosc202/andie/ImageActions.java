@@ -22,8 +22,8 @@ public class ImageActions {
      * 
      * @throws IOException
      */
-    public ImageActions() throws IOException {
-
+    public ImageActions(ImagePanel imagePanel) throws IOException {
+        this.imagePanel = imagePanel;
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
@@ -45,6 +45,8 @@ public class ImageActions {
         Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));      
         actions.add(new PixelAction(Language.translate("Pixelate"), ip.iconArray[9],
         Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));  
+        actions.add(new CropAction(Language.translate("Crop"), ip.iconArray[9],
+        Language.translate("Crop the image"), Integer.valueOf(KeyEvent.VK_V))); 
     }
 
     /**
@@ -171,6 +173,56 @@ public class ImageActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 percentage = percentageModel.getNumber().doubleValue();
             }
+
+            // Create and apply the filter
+            target.getImage().apply(new Resize(0.2));
+            target.repaint();
+            target.getParent().revalidate();
+            target.getImage().apply(new Resize(5));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+    
+    
+    public class CropAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new resize action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the resize action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ResizeAction is triggered.
+         * It resizes the images based on the user input
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the radius - ask the user.
+            double percentage = 1.0;
+
+            // Pop-up dialog box to ask for the radius value.
+           
+
+            // Check the return value from the dialog box.
+           
 
             // Create and apply the filter
             target.getImage().apply(new Resize(0.2));
