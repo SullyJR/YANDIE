@@ -84,6 +84,20 @@ public class ImagePanel extends JPanel{
      */
     private double scale;
 
+    /**
+     * <p>
+     * A boolean flag that indicates whether the Selection feature is currently active or not.
+     * When this flag is true, the mouse listener in the ImagePanel will create a Selection rectangle
+     * when the mouse is pressed. When this flag is false, the mouse listener will do nothing.
+     * This flag is initially set to false.
+     * </p>
+     * 
+     * <p>
+     * Note that this datafield should only be true when a certain
+     * button is clicked. Or else always false;
+     * </p>
+     */
+    private boolean selectionActive = false;
     
     /**
      * <p>
@@ -102,22 +116,31 @@ public class ImagePanel extends JPanel{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                anchor = e.getPoint();
-                anchorEND = null;
-                repaint();
+                if(selectionActive) {
+                    anchor = e.getPoint();
+                    anchorEND = null;
+                    repaint();
+                }
+                // else do nothing OR
+                // ADD MORE SELECTION SHAPES
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                anchorEND = e.getPoint();
-                repaint();
+                if(selectionActive) {
+                    anchorEND = e.getPoint();
+                    repaint();
+                }
             }
         });
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                anchorEND = e.getPoint();
-                repaint();
+                if(selectionActive) {
+                    anchorEND = e.getPoint();
+                    repaint();                    
+                }
+                
             }
         });
     }
@@ -223,8 +246,32 @@ public class ImagePanel extends JPanel{
             
     }
 
+    /**
+     * <p>
+     * A method to return the Rectangle selected using mouselistener in ImagePanel
+     * </p>
+     * 
+     * @return selection The rectangle calculated in MouseListener
+     */
     public Rectangle getSelection() {
         return selection;
     }
 
-}
+    /**
+     * <p>
+     * A method that activates the MouseListener
+     * </p>
+     */
+    public void activateSelection() {
+        selectionActive = true;
+    }
+
+    /**
+     * <p>
+     * A method that deactivates the MouseListner
+     * </p>
+     */
+    public void deactivateSelection() {
+        selectionActive = false;
+    }
+}   
