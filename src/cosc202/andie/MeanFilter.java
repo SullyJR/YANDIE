@@ -2,7 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
-
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle; 
 /**
  * <p>
@@ -84,25 +85,39 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         
         area = panel.getSelection();
         
-        if(area != null) {
-            BufferedImage newImg = input.getSubimage(area.x, area.y, area.width, area.height);
-            int size = (2 * radius + 1) * (2 * radius + 1);
+        if (area != null) {
+            // get the selected area
+            BufferedImage selectedImg = input.getSubimage(area.x, area.y, area.width, area.height);
+    
+            // apply filter to the selected area
             float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
+            int size = (2 * radius + 1) * (2 * radius + 1);
             for (float[] array : kernelValues) {
                 Arrays.fill(array, 1.0f / size);
             }
-            return applyKernelV2(newImg, kernelValues);    
+            BufferedImage filteredImg = applyKernelV2(selectedImg, kernelValues);
+    
+            // create a new BufferedImage object to hold the filtered result
+            BufferedImage newImg = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
+            
+            // draw the filtered result onto the new image at the correct location
+            Graphics2D g2d = newImg.createGraphics();
+            g2d.drawImage(input, 0, 0, null);
+            g2d.drawImage(filteredImg, area.x, area.y, null);
+            g2d.dispose();
+            System.out.println("done");
+            return newImg;
         } else {
-            //new version of code
-            int size = (2 * radius + 1) * (2 * radius + 1);
+            // apply filter to the whole input image
             float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
+            int size = (2 * radius + 1) * (2 * radius + 1);
             for (float[] array : kernelValues) {
                 Arrays.fill(array, 1.0f / size);
             }
             return applyKernelV2(input, kernelValues);
         }
-        
     }
+    
 
     public static BufferedImage applyKernelV2(BufferedImage image, float[][] kernel) {
         int width = image.getWidth();
