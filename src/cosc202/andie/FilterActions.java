@@ -146,7 +146,7 @@ public class FilterActions {
 
             // Create and apply the filter
             try {
-                target.getImage().apply(new MeanFilter(radius, panel));
+                target.getImage().apply(new MeanFilter(radius));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {

@@ -2,8 +2,6 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 /**
@@ -33,9 +31,6 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 5x5 filter, and so forth.
      */
     private int radius;
-    private Rectangle area;
-    private ImagePanel panel;
-
     /**
      * <p>
      * Construct a Mean filter with the given size.
@@ -49,8 +44,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 
      * @param radius The radius of the newly constructed MeanFilter
      */
-    MeanFilter(int radius, ImagePanel panel) {
-        this.panel = panel;
+    MeanFilter(int radius) {
         this.radius = radius;
     }
 
@@ -66,6 +60,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @see MeanFilter(int)
      */
     MeanFilter() {
+        this(1);
     }
 
     /**
@@ -84,39 +79,23 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         
-        area = panel.getSelection();
         
-        if (area != null) {
-            // get the selected area
-            BufferedImage selectedImg = input.getSubimage(area.x, area.y, area.width, area.height);
-    
-            // apply filter to the selected area
-            float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
-            int size = (2 * radius + 1) * (2 * radius + 1);
-            for (float[] array : kernelValues) {
-                Arrays.fill(array, 1.0f / size);
-            }
-            BufferedImage filteredImg = applyKernelV2(selectedImg, kernelValues);
-    
-            // create a new BufferedImage object to hold the filtered result
-            BufferedImage newImg = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
-            
-            // draw the filtered result onto the new image at the correct location
-            Graphics2D g2d = newImg.createGraphics();
-            g2d.drawImage(input, 0, 0, null);
-            g2d.drawImage(filteredImg, area.x, area.y, null);
-            g2d.dispose();
-            
-            return newImg;
-        } else {
-            // apply filter to the whole input image
-            float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
-            int size = (2 * radius + 1) * (2 * radius + 1);
-            for (float[] array : kernelValues) {
-                Arrays.fill(array, 1.0f / size);
-            }
-            return applyKernelV2(input, kernelValues);
+
+        //this is the orginal code, keeping incase I need to revert
+        // float[] kernelValues2 = new float[size];
+        // Arrays.fill(kernelValues2, 1.0f / size);
+        // Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, kernelValues2);
+        // ConvolveOp convOp = new ConvolveOp(kernel);
+        // BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),input.isAlphaPremultiplied(), null);
+        // convOp.filter(input, output);
+
+        //new version of code
+        int size = (2 * radius + 1) * (2 * radius + 1);
+        float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
+        for (float[] array : kernelValues) {
+            Arrays.fill(array, 1.0f / size);
         }
+        return applyKernelV2(input, kernelValues);
     }
     
 
@@ -124,6 +103,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         int width = image.getWidth();
         int height = image.getHeight();
         BufferedImage result = new BufferedImage(width, height, image.getType());
+    
         int kernelWidth = kernel.length;
         int kernelHeight = kernel[0].length;
         int kernelXOffset = (kernelWidth - 1) / 2;
