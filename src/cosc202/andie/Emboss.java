@@ -1,6 +1,10 @@
 package cosc202.andie;
 import java.awt.image.*;
 
+/**
+* Construct a Emboss Class which implements ImageOperation and java.io.Serializable,
+* and creates and applies the emboss filter
+*/
 public class Emboss implements ImageOperation, java.io.Serializable {
     
 

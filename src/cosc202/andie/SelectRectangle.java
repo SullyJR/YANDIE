@@ -4,12 +4,19 @@ import java.awt.Rectangle;
 import java.awt.image.*;
 import java.awt.Graphics2D;
 
+/**
+* Construct a SelectRectangle Class which implements ImageOperation and java.io.Serializable,
+* and creates and holds values for the rectangle selection feature
+*/
 public class SelectRectangle implements ImageOperation, java.io.Serializable{
     
     /** Private data fields */
     
+    /** The selected area of rectangle */
     private Rectangle selectedArea;
+    /** The initial brightness*/
     private int brightness = -50;
+    /** The image panel*/
     private ImagePanel imagePanel;
 
     /**

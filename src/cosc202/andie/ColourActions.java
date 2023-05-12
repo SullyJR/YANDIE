@@ -41,7 +41,7 @@ public class ColourActions {
      * Create a set of Colour menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @throws IOException user input exception
      */
     public ColourActions() throws IOException {
 

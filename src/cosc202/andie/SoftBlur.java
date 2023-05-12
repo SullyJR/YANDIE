@@ -2,6 +2,10 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+/**
+* Construct a SoftBlur Class which implements ImageOperation and java.io.Serializable,
+* and creates and applies the soft blur
+*/
 public class SoftBlur implements ImageOperation, java.io.Serializable {
     
     /**

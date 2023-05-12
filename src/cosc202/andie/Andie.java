@@ -61,7 +61,7 @@ public class Andie {
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
-     * @see SettingAction
+     * @see SettingsActions
      * 
      * @throws Exception if something goes wrong.
      */

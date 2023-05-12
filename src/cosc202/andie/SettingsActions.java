@@ -18,8 +18,6 @@ import javax.swing.*;
  * For the time being it will just be language support.
  * </p>
  * 
- * <p>
- * 
  * @version 1.0
  */
 
@@ -33,8 +31,8 @@ public class SettingsActions {
      * Create a set of Settings menu actions.
      * </p>
      * 
-     * @throws IOException
-     */
+     * @throws IOException user input exception
+     */ 
 
     public SettingsActions() throws IOException {
 

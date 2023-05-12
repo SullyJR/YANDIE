@@ -10,6 +10,17 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * <p>
+ * Actions provided by the Image menu.
+ * </p>
+ * 
+ * <p>
+ * The Image menu contains actions that alters an image without changing 
+ * the image itself such as, rotation, flip, and resizing. 
+ * </p>
+ * 
+ */
 public class ImageActions {
 
     /** A list of actions for the Filter menu. */
@@ -19,8 +30,9 @@ public class ImageActions {
      * <p>
      * Create a set of Image menu actions.
      * </p>
+     * @param imagePanel the image panel
      * 
-     * @throws IOException
+     * @throws IOException user input exception
      */
     public ImageActions(ImagePanel imagePanel) throws IOException {
         this.imagePanel = imagePanel;
@@ -123,6 +135,12 @@ public class ImageActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to rotate an image
+     * </p>
+     * 
+     */
     public class RotateAction extends ImageAction {
 
         /**
@@ -222,6 +240,9 @@ public class ImageActions {
 
         }
 
+        /**
+        * Executes the rotation using the degrees from the user
+        */
         private void rotateImage(double degree) {
             // Apply the filter to the target image
             target.getImage().apply(new Rotate(degree));
@@ -229,6 +250,12 @@ public class ImageActions {
 
     }
 
+    /**
+     * <p>
+     * Action to horizontally flip an image
+     * </p>
+     * 
+     */
     public class FlipHorizontallyAction extends ImageAction {
 
         /**
@@ -265,6 +292,12 @@ public class ImageActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to vertically flip an image
+     * </p>
+     * 
+     */
     public class FlipVerticallyAction extends ImageAction {
 
         /**
@@ -301,6 +334,12 @@ public class ImageActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to select a rectangular area to edit
+     * </p>
+     * 
+     */
     public class SelectRectangleAction extends ImageAction {
 
         /**

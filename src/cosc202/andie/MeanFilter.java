@@ -31,7 +31,9 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 5x5 filter, and so forth.
      */
     private int radius;
+    /** To be fixed */
     private Rectangle area;
+    /** To be fixed */
     private ImagePanel panel;
     /**
      * <p>
@@ -104,6 +106,15 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         
     }
 
+    /**
+     * <p>
+     * Apply the kernel to the image
+     * </p>
+     * 
+     * @param image The image to apply the Mean filter to.
+     * @param kernel the kernel used to apply the filter
+     * @return The resulting (blurred)) image.
+     */
     public static BufferedImage applyKernelV2(BufferedImage image, float[][] kernel) {
         int width = image.getWidth();
         int height = image.getHeight();

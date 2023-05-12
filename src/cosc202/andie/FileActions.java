@@ -33,6 +33,7 @@ public class FileActions {
 
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
+    /** A String of the original extension */
     protected String oriExtension;
 
     /**
@@ -40,7 +41,7 @@ public class FileActions {
      * Create a set of File menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @throws IOException user input exception
      */
     public FileActions() throws IOException {
 

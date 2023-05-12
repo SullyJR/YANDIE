@@ -38,8 +38,9 @@ public class FilterActions {
      * <p>
      * Create a set of Filter menu actions.
      * </p>
+     * @param panel the image panel
      * 
-     * @throws IOException
+     * @throws Exception error handling exception
      */
     public FilterActions(ImagePanel panel) throws Exception {
         this.panel = panel;
@@ -372,6 +373,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to emboss an image with a emboss filter.
+     * </p>
+     * 
+     * @see Emboss
+     */
     public class EmbossFilterAction extends ImageAction {
 
         /**
@@ -419,6 +427,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to alter an image with a median filter.
+     * </p>
+     * 
+     * @see MedianFilter
+     */
     public class MedianFilterAction extends ImageAction {
 
         /**

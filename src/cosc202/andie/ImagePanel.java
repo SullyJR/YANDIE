@@ -38,11 +38,11 @@ public class ImagePanel extends JPanel{
      */
     private EditableImage image;
 
-    /**
-     * Mouse Things
-     */
+    /** The initial Point of mouse */
     private Point anchor;
+    /** The last Point of mouse */
     private Point anchorEND;
+    /** The rectangular selection created by the anchors */
     private Rectangle selection;
 
     /**
@@ -223,6 +223,12 @@ public class ImagePanel extends JPanel{
             
     }
 
+    /**
+     * <p>
+     * Accesor method that gets the rectangular selection
+     * </p>
+     * @return rectanglular selection
+     */
     public Rectangle getSelection() {
         return selection;
     }
