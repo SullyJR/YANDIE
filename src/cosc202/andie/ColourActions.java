@@ -35,15 +35,16 @@ public class ColourActions {
 
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-
+    private ImagePanel panel;
     /**
      * <p>
      * Create a set of Colour menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @throws IOException user input exception
      */
-    public ColourActions() throws IOException {
+    public ColourActions(ImagePanel panel) throws IOException {
+        this.panel = panel;
 
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
@@ -115,7 +116,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().apply(new ConvertToGrey());
+                target.getImage().apply(new ConvertToGrey(panel));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {

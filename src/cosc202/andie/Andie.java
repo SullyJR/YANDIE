@@ -61,7 +61,7 @@ public class Andie {
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
-     * @see SettingAction
+     * @see SettingsAction
      * 
      * @throws Exception if something goes wrong.
      */
@@ -144,7 +144,7 @@ public class Andie {
         menuBar.add(selectionActions.createMenu());
 
         // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions();
+        ColourActions colourActions = new ColourActions(imagePanel);
         menuBar.add(colourActions.createMenu());
 
         // Changes all the texts language on the UI
