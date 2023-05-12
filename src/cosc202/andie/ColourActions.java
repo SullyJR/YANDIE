@@ -41,7 +41,7 @@ public class ColourActions {
      * Create a set of Colour menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @throws IOException user input exception
      */
     public ColourActions(ImagePanel panel) throws IOException {
         this.panel = panel;

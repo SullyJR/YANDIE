@@ -97,7 +97,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
    * @param x     horiztonal distance from centre of kernal
    * @param y     vertical distance from centre of kernal
    * @param sigma the variation of the blur
-   * @return
+   * @return the computation for the kernel
    */
   public double calculateGaussian(int x, int y, float sigma) {
     return (1 / (2 * Math.PI * Math.pow(sigma, 2))

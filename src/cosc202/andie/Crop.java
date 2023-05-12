@@ -24,17 +24,15 @@ import java.awt.Rectangle;
  * @version 1.0
  */
 public class Crop implements ImageOperation, java.io.Serializable {
-
+    private Rectangle area; // rectangle selected for cropping
+    private ImagePanel panel; // the image panel
     /**
      * The rectangular area to crop from the image.
-     */
-    private Rectangle area;
+
     
-    /**
-     * The ImagePanel containing the image to crop.
-     */
-    private ImagePanel panel;
+
     
+
     /**
      * <p>
      * Construct a Crop operation with the given ImagePanel.
@@ -91,7 +89,15 @@ public class Crop implements ImageOperation, java.io.Serializable {
         else {
             return input;
         }
-        
+
+    }
+
+    public static BufferedImage applyKernelV2(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        BufferedImage result = new BufferedImage(width, height, image.getType());
+
+        return result;
     }
 
 }

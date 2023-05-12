@@ -41,7 +41,7 @@ public class ViewActions {
      * Create a set of View menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @throws IOException user input exception
      */
     public ViewActions() throws IOException {
 

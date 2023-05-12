@@ -31,15 +31,17 @@ import javax.swing.*;
  */
 public class FilterActions {
 
-    /** A list of actions for the Filter menu. */
-    protected ArrayList<Action> actions;
-    private ImagePanel panel;
+    protected ArrayList<Action> actions; // A list of actions for the Filter menu
+    private ImagePanel panel; // the image panel
+
     /**
      * <p>
      * Create a set of Filter menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @param panel an instance of image panel
+     * 
+     * @throws Exception exception
      */
     public FilterActions(ImagePanel panel) throws Exception {
         this.panel = panel;
@@ -372,6 +374,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to emboss an image with a emboss filter.
+     * </p>
+     * 
+     * @see Emboss
+     */
     public class EmbossFilterAction extends ImageAction {
 
         /**
@@ -419,6 +428,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to alter the image with a median filter.
+     * </p>
+     * 
+     * @see MedianFilter
+     */
     public class MedianFilterAction extends ImageAction {
 
         /**
@@ -481,7 +497,6 @@ public class FilterActions {
             }
 
         }
-
 
     }
 
