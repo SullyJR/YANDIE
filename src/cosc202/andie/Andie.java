@@ -37,6 +37,7 @@ public class Andie {
 
     static String[] languages = { "English", "French", "Malay" };
     static JFrame frame;
+    static JToggleButton toggleButton;
 
     /**
      * <p>
@@ -114,6 +115,20 @@ public class Andie {
         scrollPane.setBackground(Color.gray);
         frame.add(scrollPane, BorderLayout.CENTER);
 
+        // Created a toggle button just for Selection and add it to the edit menu
+        toggleButton = new JToggleButton("Enable Selection");
+        toggleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (imagePanel.rectToggled()) {
+                    imagePanel.deactivateRect();
+                    toggleButton.setText("Enable Selection");
+                } else {
+                    imagePanel.activateRect();
+                    toggleButton.setText("Disable Selection");
+                }
+            }
+        });
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -149,6 +164,13 @@ public class Andie {
         // Changes all the texts language on the UI
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());
+
+        // New menu just for toggle button
+        JMenu editMenu = new JMenu("Edit");
+        editMenu.add(toggleButton);
+
+        // Adds Button into MenuBar
+        menuBar.add(editMenu);
 
         // Sets the frame
         frame.setJMenuBar(menuBar);

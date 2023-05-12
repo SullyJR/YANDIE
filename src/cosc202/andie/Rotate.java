@@ -4,9 +4,9 @@ import java.awt.image.*;
 import java.awt.Graphics2D;
 
 /**
+ * <p>
  * Image Operation to rotate the images 
- * 
- * 
+ * </p>
  */
 
 public class Rotate implements ImageOperation, java.io.Serializable {

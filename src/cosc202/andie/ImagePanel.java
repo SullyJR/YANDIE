@@ -30,20 +30,34 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel{
-    
-    
+public class ImagePanel extends JPanel {
+
     /**
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
 
     /**
-     * Mouse Things
+     * Anchor represents the starting point when Mouse is Pressed
      */
     private Point anchor;
+
+    /**
+     * AnchorEND represents the end point when the mouse is released
+     */
     private Point anchorEND;
+
+    /**
+     * Selection is the rectangle created when anchor and anchorEND exist
+     * Used in many features
+     */
     private Rectangle selection;
+
+    /**
+     * toggleSelection will be a Boolean Variable to determine whether 
+     * the selected Rectangle will be shown or not
+     */
+    private boolean toggleRect;
 
     /**
      * An array holding the icons.
@@ -84,7 +98,6 @@ public class ImagePanel extends JPanel{
      */
     private double scale;
 
-    
     /**
      * <p>
      * Create a new ImagePanel.
@@ -92,32 +105,49 @@ public class ImagePanel extends JPanel{
      * 
      * <p>
      * Newly created ImagePanels have a default zoom level of 100%
+     * Newly created ImagePanels also have toggleSelection false on default
      * </p>
      */
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        toggleRect = false;
 
         //
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                anchor = e.getPoint();
-                anchorEND = null;
-                repaint();
+                if(toggleRect) {
+                    anchor = e.getPoint();
+                    anchorEND = null;
+                    repaint();
+                } else {
+                    System.out.println("MOUSE pressed :)");
+                    // potentially more items here
+                }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                anchorEND = e.getPoint();
-                repaint();
+                if(toggleRect) {
+                   anchorEND = e.getPoint();
+                    repaint(); 
+                } else {
+                    System.out.println("mouse released");
+                    // potentially more items here
+                }
             }
         });
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                anchorEND = e.getPoint();
-                repaint();
+                if(toggleRect) {
+                   anchorEND = e.getPoint();
+                    repaint(); 
+                } else {
+                    System.out.println("mouseDRAGGED");
+                    // potentially more items here
+                }
             }
         });
     }
@@ -210,7 +240,6 @@ public class ImagePanel extends JPanel{
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
-        //null meow
         if (anchor != null && anchorEND != null) {
             int x = Math.min(anchor.x, anchorEND.x);
             int y = Math.min(anchor.y, anchorEND.y);
@@ -220,11 +249,52 @@ public class ImagePanel extends JPanel{
             g.setColor(Color.black);
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
-            
-    }
 
+    }
+    /**
+     * <p>
+     * Method that returns the rectangle when called
+     * Used mainly to apply crop and other features
+     * </p>
+     * @return
+     */
     public Rectangle getSelection() {
         return selection;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggleRect to true so
+     * that it shows the drawing and also calculates
+     * the rectangle
+     * </p>
+     * 
+     */
+    public void activateRect() {
+        toggleRect = true;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggleRect to false so
+     * that it doesn't show the drawing and not
+     * calculate the rectangle
+     * </p>
+     * 
+     */
+    public void deactivateRect() {
+        toggleRect = false;
+    }
+
+    /**
+     * <p>
+     * Method that returns the status of toggleRect
+     * </p>
+     * 
+     * @return toggleRect Which will be either true or false
+     */
+    public boolean rectToggled() {
+        return toggleRect;
     }
 
 }
