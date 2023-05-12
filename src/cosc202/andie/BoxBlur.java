@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.awt.Rectangle;
 import java.awt.image.*;
-import java.util.*;
 
 /**
  * Construct a BoxBlur Class which implements ImageOperation and

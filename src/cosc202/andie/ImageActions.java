@@ -2,12 +2,10 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,8 +15,6 @@ public class ImageActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
     private ImagePanel panel;
-    
-
 
     /**
      * <p>
@@ -49,9 +45,9 @@ public class ImageActions {
         actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
                 Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new PixelAction(Language.translate("Pixelate"), ip.iconArray[9],
-        Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));  
+                Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));  
         actions.add(new CropAction(Language.translate("Crop"), ip.iconArray[9],
-        Language.translate("Crop the image"), Integer.valueOf(KeyEvent.VK_V)));  
+                Language.translate("Crop the image"), Integer.valueOf(KeyEvent.VK_V)));  
     }
 
     /**

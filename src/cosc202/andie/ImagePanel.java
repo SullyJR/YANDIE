@@ -120,30 +120,30 @@ public class ImagePanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (selectionActive) {
+                //if (selectionActive) {
                     anchor = e.getPoint();
                     anchorEND = null;
                     repaint();
-                }
+                //}
                 // else do nothing OR
                 // ADD MORE SELECTION SHAPES
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (selectionActive) {
+                //if (selectionActive) {
                     anchorEND = e.getPoint();
                     repaint();
-                }
+                //}
             }
         });
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (selectionActive) {
+                //if (selectionActive) {
                     anchorEND = e.getPoint();
                     repaint();
-                }
+                //}
 
             }
         });

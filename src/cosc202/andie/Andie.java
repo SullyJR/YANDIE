@@ -1,17 +1,9 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.*;
-import javax.imageio.*;
 import javax.swing.UIManager.*;
 import java.io.*;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -67,8 +59,6 @@ public class Andie {
      */
     public static void createAndShowGUI() throws Exception {
 
-        ImagePanel ip = new ImagePanel();
-
         // Set up the main GUI frame
         frame = new JFrame("ANDIE");
         frame.setForeground(Color.GRAY);
@@ -107,6 +97,7 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
+        imagePanel.activateSelection();
 
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -139,9 +130,6 @@ public class Andie {
         // window
         FilterActions filterActions = new FilterActions(imagePanel);
         menuBar.add(filterActions.createMenu());
-
-        SelectionsActions selectionActions = new SelectionsActions(imagePanel);
-        menuBar.add(selectionActions.createMenu());
 
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions(imagePanel);
