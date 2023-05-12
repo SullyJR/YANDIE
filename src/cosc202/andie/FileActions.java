@@ -31,8 +31,14 @@ import javax.swing.*;
  */
 public class FileActions {
 
-    protected ArrayList<Action> actions; // A list of actions for the File menu.
-    protected String oriExtension; // A String of the original extension
+    /**
+     * The list of actions for the file menu
+     */
+    protected ArrayList<Action> actions;
+    /**
+     * A String of the original extension
+     */
+    protected String oriExtension;
 
     /**
      * <p>

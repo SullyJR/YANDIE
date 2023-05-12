@@ -36,10 +36,15 @@ public class ImagePanel extends JPanel {
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
-
-    private Point anchor; // the anchor
-    private Point anchorEND; // the end of the anchor
-    private Rectangle selection; // the rectangle being selected
+    /**
+     * The image to display in the ImagePanel.
+     */
+    private Point anchor;
+    /** the anchor */
+    private Point anchorEND;
+    /** the end of the anchor */
+    private Rectangle selection;
+    /** the rectangle being selected */
 
     /**
      * An array holding the icons.

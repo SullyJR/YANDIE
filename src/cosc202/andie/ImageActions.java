@@ -2,32 +2,43 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * <p>
+ * Actions provided by the Image menu.
+ * </p>
+ * 
+ * <p>
+ * The Image menu contains actions that alter the image without changing the
+ * image itself
+ * This includes a flip, resize and rotate action.
+ * </p>
+ * 
+ */
 public class ImageActions {
 
-    /** A list of actions for the Filter menu. */
-    protected ArrayList<Action> actions;
-    private ImagePanel imagePanel;
-
+    protected ArrayList<Action> actions; // A list of actions for the Filter menu.
+    private ImagePanel imagePanel; // an image panel
 
     /**
      * <p>
      * Create a set of Image menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @param imagePanel a image panel
+     * 
+     * @throws IOException user input exception
      */
     public ImageActions(ImagePanel imagePanel) throws IOException {
         this.imagePanel = imagePanel;
+
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
@@ -48,9 +59,7 @@ public class ImageActions {
         actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
                 Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));
         actions.add(new PixelAction(Language.translate("Pixelate"), ip.iconArray[9],
-        Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));  
-        actions.add(new CropAction(Language.translate("Crop"), ip.iconArray[9],
-        Language.translate("Crop the image"), Integer.valueOf(KeyEvent.VK_V)));  
+                Language.translate("Pixelate the image"), Integer.valueOf(KeyEvent.VK_V)));
     }
 
     /**
@@ -131,6 +140,9 @@ public class ImageActions {
         }
     }
 
+    /**
+     * Action to pixelate an image.
+     */
     public class PixelAction extends ImageAction {
 
         /**
@@ -160,7 +172,24 @@ public class ImageActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            
+
+            // Determine the radius - ask the user.
+            double percentage = 1.0;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel percentageModel = new SpinnerNumberModel(percentage, 0.01, 10.0, 0.1);
+            JSpinner percentageSpinner = new JSpinner(percentageModel);
+            int option = JOptionPane.showOptionDialog(null, percentageSpinner,
+                    Language.translate("Enter resize percentage in decimal places"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                percentage = percentageModel.getNumber().doubleValue();
+            }
+
             // Create and apply the filter
             target.getImage().apply(new Resize(0.2));
             target.repaint();
@@ -170,10 +199,11 @@ public class ImageActions {
             target.getParent().revalidate();
         }
     }
-    
-    
 
-
+    /**
+     * Action to rotate an image.
+     * 
+     */
     public class RotateAction extends ImageAction {
 
         /**
@@ -273,6 +303,12 @@ public class ImageActions {
 
         }
 
+        /**
+         * <p>
+         * Executes image rotation to the image
+         * </p>
+         * 
+         */
         private void rotateImage(double degree) {
             // Apply the filter to the target image
             target.getImage().apply(new Rotate(degree));
@@ -280,6 +316,12 @@ public class ImageActions {
 
     }
 
+    /**
+     * <p>
+     * Action to horizontally flip an image.
+     * </p>
+     * 
+     */
     public class FlipHorizontallyAction extends ImageAction {
 
         /**
@@ -316,6 +358,12 @@ public class ImageActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to vertically flip an image.
+     * </p>
+     * 
+     */
     public class FlipVerticallyAction extends ImageAction {
 
         /**
@@ -352,6 +400,12 @@ public class ImageActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to select a highlighted image from using the cursor
+     * </p>
+     * 
+     */
     public class SelectRectangleAction extends ImageAction {
 
         /**
@@ -387,44 +441,5 @@ public class ImageActions {
             target.getParent().revalidate();
         }
     }
-
-    public class CropAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new SelectRectangle action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the Select Rectangle action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the SelectRectangle is triggered.
-         * It flips the image
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            
-            target.getImage().apply(new Crop(imagePanel));
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
-  
 
 }

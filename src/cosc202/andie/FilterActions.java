@@ -31,8 +31,14 @@ import javax.swing.*;
  */
 public class FilterActions {
 
-    protected ArrayList<Action> actions; // A list of actions for the Filter menu
-    private ImagePanel panel; // the image panel
+    /**
+     * The list of actions for the file menu
+     */
+    protected ArrayList<Action> actions;
+    /**
+     * The image panel
+     */
+    private ImagePanel panel;
 
     /**
      * <p>

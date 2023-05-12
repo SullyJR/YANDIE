@@ -86,10 +86,10 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     /**
      * A method to get the surrounding pixels of a given pixel with a given radius.
      * 
-     * @param input the original image
-     * @param x     the x value
-     * @param y     the y value
-     * @param z     the z value
+     * @param input  the original image
+     * @param x      the x value
+     * @param y      the y value
+     * @param radius the radius of the pixels
      * @return the variable which is a array of the surrounding pixels
      */
     public int[] getSurroundingPixels(BufferedImage input, int x, int y, int radius) {

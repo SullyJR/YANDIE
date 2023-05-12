@@ -14,8 +14,11 @@ import cosc202.andie.EditActions.*;
  */
 public class ToolBar {
 
-    protected static ArrayList<Action> actions; // an array of the actions
-    protected static JToolBar toolBar = new JToolBar(); // the created toolbar
+    protected static ArrayList<Action> actions;
+    /** an array of the actions */
+    protected static JToolBar toolBar = new JToolBar();
+
+    /** the created toolbar */
 
     /**
      * <p>

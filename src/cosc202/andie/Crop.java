@@ -75,7 +75,6 @@ public class Crop implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * As with many filters, the Mean filter is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.
      * Larger radii lead to stronger blurring.
      * </p>
      * 
@@ -98,6 +97,12 @@ public class Crop implements ImageOperation, java.io.Serializable {
 
     }
 
+    /**
+     * Applies the kernel to the given BufferedImage image version 2.
+     *
+     * @param image the original image
+     * @return result
+     */
     public static BufferedImage applyKernelV2(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();

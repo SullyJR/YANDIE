@@ -12,9 +12,12 @@ import java.net.URL;
  */
 public class Language {
 
-    public static String language = "en"; // the initial language abbreviated
-    static int getNumTexts = getNumTexts(); // int that holds the number of possible texts
-    static int getNumLanguages = getNumLanguages(); // int that holds the number of possible languages
+    public static String language = "en";
+    /** the initial language abbreviated */
+    static int getNumTexts = getNumTexts();
+    /** int that holds the number of possible texts */
+    static int getNumLanguages = getNumLanguages();
+    /** int that holds the number of possible languages */
 
     public static String[][] languageArray = new String[getNumLanguages][getNumTexts]; // the String[][] array of
                                                                                        // languages and texts
