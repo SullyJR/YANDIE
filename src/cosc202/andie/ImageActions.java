@@ -22,8 +22,8 @@ public class ImageActions {
      * 
      * @throws IOException
      */
-    public ImageActions(ImagePanel imagePanel) throws Exception {
-        this.imagePanel = imagePanel;
+    public ImageActions() throws IOException {
+
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
@@ -364,7 +364,7 @@ public class ImageActions {
 
         /**
          * <p>
-         * Create a new flip vertical action.
+         * Create a new SelectRectangle action.
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -378,11 +378,11 @@ public class ImageActions {
 
         /**
          * <p>
-         * Callback for when the flip action is triggered.
+         * Callback for when the Select Rectangle action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FlipAction is triggered.
+         * This method is called whenever the SelectRectangle is triggered.
          * It flips the image
          * </p>
          * 

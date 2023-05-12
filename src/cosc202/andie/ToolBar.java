@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
-// import cosc202.andie.FileActions.*;
-// //import cosc202.andie.FileActions.FileSaveAction;
+
 import cosc202.andie.EditActions.*;
-// //import cosc202.andie.EditActions.RedoAction;
 
 public class ToolBar {
 
@@ -21,7 +19,7 @@ public class ToolBar {
         ImagePanel ip = new ImagePanel();
         FileActions fa = new FileActions();
         EditActions ea = new EditActions();
-        ImageActions ia = new ImageActions(imagePanel);
+        ImageActions ia = new ImageActions();
         ViewActions va = new ViewActions();
 
         ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
@@ -30,11 +28,12 @@ public class ToolBar {
         ip.iconArray[5].setImage(ip.iconArray[5].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Undo
         ip.iconArray[6].setImage(ip.iconArray[6].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Redo
         ip.iconArray[10].setImage(ip.iconArray[10].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom in
-        ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom
-                                                                                                              // out
+        ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom  out
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
+
+
 
         actions = new ArrayList<Action>();
         actions.add(fa.new FileOpenAction(null, ip.iconArray[0], null, Integer.valueOf(KeyEvent.VK_O)));
@@ -58,7 +57,6 @@ public class ToolBar {
                 new JButton(actions.get(7)),
                 new JButton(actions.get(8)),
                 new JButton(actions.get(9))
-
         };
 
         for (int i = 0; i < buttons.length; i++) {

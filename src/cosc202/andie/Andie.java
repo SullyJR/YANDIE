@@ -139,7 +139,7 @@ public class Andie {
 
         // Filters apply a per-pixel operation to the image, generally based on a local
         // window
-        FilterActions filterActions = new FilterActions();
+        FilterActions filterActions = new FilterActions(imagePanel);
         menuBar.add(filterActions.createMenu());
 
         // Actions that affect the representation of colour in the image
