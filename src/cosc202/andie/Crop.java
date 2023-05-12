@@ -3,7 +3,8 @@ package cosc202.andie;
 import java.awt.image.*;
 import java.util.*;
 
-import java.awt.Rectangle; 
+import java.awt.Rectangle;
+
 /**
  * <p>
  * ImageOperation to apply a Mean (simple blur) filter.
@@ -30,9 +31,10 @@ public class Crop implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
      * 5x5 filter, and so forth.
      */
-   
-    private Rectangle area;
-    private ImagePanel panel;
+
+    private Rectangle area; // rectangle selected for cropping
+    private ImagePanel panel; // the image panel
+
     /**
      * <p>
      * Construct a Mean filter with the given size.
@@ -48,7 +50,7 @@ public class Crop implements ImageOperation, java.io.Serializable {
      */
     Crop(ImagePanel panel) {
         this.panel = panel;
-        
+
     }
 
     /**
@@ -81,26 +83,26 @@ public class Crop implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        
+
         area = panel.getSelection();
-        
-        if(area != null) {
+
+        if (area != null) {
             BufferedImage newImg = input.getSubimage(area.x, area.y, area.width, area.height);
-           
-            return newImg;    
+
+            return newImg;
         } else {
-            //new version of code
-           
+            // new version of code
+
             return input;
         }
-        
+
     }
 
     public static BufferedImage applyKernelV2(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
         BufferedImage result = new BufferedImage(width, height, image.getType());
-    
+
         return result;
     }
 

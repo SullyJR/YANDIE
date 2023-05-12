@@ -39,7 +39,7 @@ public class EditActions {
      * Create a set of Edit menu actions.
      * </p>
      * 
-     * @throws IOException
+     * @throws IOException user input exception
      */
     public EditActions() throws IOException {
 

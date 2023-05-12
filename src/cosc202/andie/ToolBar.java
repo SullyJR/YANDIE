@@ -8,11 +8,24 @@ import javax.swing.*;
 
 import cosc202.andie.EditActions.*;
 
+/**
+ * Construct a ToolBar Class which is used to create a toolbar externally and
+ * implement it internally later
+ */
 public class ToolBar {
 
-    protected static ArrayList<Action> actions;
-    protected static JToolBar toolBar = new JToolBar();
+    protected static ArrayList<Action> actions; // an array of the actions
+    protected static JToolBar toolBar = new JToolBar(); // the created toolbar
 
+    /**
+     * <p>
+     * Creates a toolbar
+     * </p>
+     * 
+     * 
+     * @param imagePanel the image panel
+     * @return the updated filled toolbar
+     */
     public static JToolBar createToolBar(ImagePanel imagePanel) throws Exception {
 
         ImagePanel ip = new ImagePanel();

@@ -30,20 +30,16 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel{
-    
-    
+public class ImagePanel extends JPanel {
+
     /**
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
 
-    /**
-     * Mouse Things
-     */
-    private Point anchor;
-    private Point anchorEND;
-    private Rectangle selection;
+    private Point anchor; // the anchor
+    private Point anchorEND; // the end of the anchor
+    private Rectangle selection; // the rectangle being selected
 
     /**
      * An array holding the icons.
@@ -86,9 +82,12 @@ public class ImagePanel extends JPanel{
 
     /**
      * <p>
-     * A boolean flag that indicates whether the Selection feature is currently active or not.
-     * When this flag is true, the mouse listener in the ImagePanel will create a Selection rectangle
-     * when the mouse is pressed. When this flag is false, the mouse listener will do nothing.
+     * A boolean flag that indicates whether the Selection feature is currently
+     * active or not.
+     * When this flag is true, the mouse listener in the ImagePanel will create a
+     * Selection rectangle
+     * when the mouse is pressed. When this flag is false, the mouse listener will
+     * do nothing.
      * This flag is initially set to false.
      * </p>
      * 
@@ -98,7 +97,7 @@ public class ImagePanel extends JPanel{
      * </p>
      */
     private boolean selectionActive = false;
-    
+
     /**
      * <p>
      * Create a new ImagePanel.
@@ -116,38 +115,38 @@ public class ImagePanel extends JPanel{
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if(selectionActive) {
+                if (selectionActive) {
                     anchor = e.getPoint();
                     anchorEND = null;
                     repaint();
                 }
                 anchor = e.getPoint();
-                    anchorEND = null;
-                    repaint();
+                anchorEND = null;
+                repaint();
                 // else do nothing OR
                 // ADD MORE SELECTION SHAPES
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(selectionActive) {
+                if (selectionActive) {
                     anchorEND = e.getPoint();
                     repaint();
                 }
                 anchorEND = e.getPoint();
-                    repaint();
+                repaint();
             }
         });
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if(selectionActive) {
+                if (selectionActive) {
                     anchorEND = e.getPoint();
-                    repaint();                    
+                    repaint();
                 }
                 anchorEND = e.getPoint();
-                    repaint();    
-                
+                repaint();
+
             }
         });
     }
@@ -240,7 +239,7 @@ public class ImagePanel extends JPanel{
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
-        //null meow
+        // null meow
         if (anchor != null && anchorEND != null) {
             int x = Math.min(anchor.x, anchorEND.x);
             int y = Math.min(anchor.y, anchorEND.y);
@@ -250,7 +249,7 @@ public class ImagePanel extends JPanel{
             g.setColor(Color.black);
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
-            
+
     }
 
     /**
@@ -281,4 +280,4 @@ public class ImagePanel extends JPanel{
     public void deactivateSelection() {
         selectionActive = false;
     }
-}   
+}
