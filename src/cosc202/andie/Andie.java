@@ -32,7 +32,8 @@ public class Andie {
 
     static String[] languages = { "English", "French", "Malay" };
     static JFrame frame;
-    static JToggleButton toggleButton;
+    static JToggleButton toggleSelectButton;
+    static JToggleButton toggleDrawButton;
 
     /**
      * <p>
@@ -112,18 +113,35 @@ public class Andie {
         frame.add(scrollPane, BorderLayout.CENTER);
 
         // Created a toggle button just for Selection and add it to the edit menu
-        toggleButton = new JToggleButton("Enable Selection");
-        toggleButton.addActionListener(new ActionListener() {
+        toggleSelectButton = new JToggleButton("Enable Selection");
+        toggleSelectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (imagePanel.rectToggled()) {
                     imagePanel.deactivateRect();
-                    toggleButton.setText("Enable Selection");
+                    toggleSelectButton.setText("Enable Selection");
                 } else {
+                    imagePanel.deactivateDraw();
                     imagePanel.activateRect();
-                    toggleButton.setText("Disable Selection");
+                    toggleSelectButton.setText("Disable Selection");
                 }
             }
+        });
+
+        // Created a toggle button for drawing and add it to the edit menu
+        toggleDrawButton = new JToggleButton("Enable Drawing");
+        toggleDrawButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(imagePanel.drawToggled()) {
+                    imagePanel.deactivateDraw();
+                    toggleDrawButton.setText("Enable Drawing");
+                } else {
+                    imagePanel.deactivateRect();
+                    imagePanel.activateDraw();
+                    toggleDrawButton.setText("Disable Drawing");
+                }
+            } 
         });
 
         // Add in menus for various types of action the user may perform.
@@ -162,8 +180,9 @@ public class Andie {
         menuBar.add(settingsActions.createMenu());
 
         // New menu just for toggle button
-        JMenu editMenu = new JMenu("Edit");
-        editMenu.add(toggleButton);
+        JMenu editMenu = new JMenu("Drawing & Select tool");
+        editMenu.add(toggleSelectButton);
+        editMenu.add(toggleDrawButton);
 
         // Adds Button into MenuBar
         menuBar.add(editMenu);

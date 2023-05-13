@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 
 import javax.swing.*;
 
@@ -58,6 +59,18 @@ public class ImagePanel extends JPanel {
      * the selected Rectangle will be shown or not
      */
     private boolean toggleRect;
+    
+    /**
+     * drawPath will be a General Path object that store
+     * the path of the user's drawing
+     */
+    private GeneralPath drawPath;
+
+    /**
+     * toggleDraw will be a Boolean Variable to determine whether
+     * the drawing functionality will activate or not
+     */
+    private boolean toggleDraw;
 
     /**
      * An array holding the icons.
@@ -119,23 +132,28 @@ public class ImagePanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if(toggleRect) {
+                    // Rectangle Selection
                     anchor = e.getPoint();
                     anchorEND = null;
                     repaint();
                 } else {
-                    System.out.println("MOUSE pressed :)");
-                    // potentially more items here
+                    // Create a new GeneralPath object to store the user's drawing
+                    drawPath = new GeneralPath();
+                    drawPath.moveTo(e.getX(), e.getY());
                 }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 if(toggleRect) {
-                   anchorEND = e.getPoint();
+                    // Rectangle Selection
+                    anchorEND = e.getPoint();
                     repaint(); 
-                } else {
+                } else if(toggleDraw) {
                     System.out.println("mouse released");
-                    // potentially more items here
+                    
+                } else{
+                    // potentially more items?
                 }
             }
         });
@@ -143,11 +161,13 @@ public class ImagePanel extends JPanel {
             @Override
             public void mouseDragged(MouseEvent e) {
                 if(toggleRect) {
-                   anchorEND = e.getPoint();
+                    // Rectangle Selection
+                    anchorEND = e.getPoint();
                     repaint(); 
                 } else {
                     System.out.println("mouseDRAGGED");
-                    // potentially more items here
+                    drawPath.lineTo(e.getX(), e.getY());
+                    repaint();
                 }
             }
         });
@@ -250,6 +270,12 @@ public class ImagePanel extends JPanel {
             g.setColor(Color.black);
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
+        if(drawPath != null) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(Color.CYAN);
+            g2.draw(drawPath);
+            g2.dispose();
+        }
 
     }
     /**
@@ -298,4 +324,34 @@ public class ImagePanel extends JPanel {
         return toggleRect;
     }
 
+    /**
+     * <p>
+     * Method that sets toggle draw to true so
+     * It enables the drawing funciionality
+     * </p>
+     */
+    public void activateDraw() {
+        toggleDraw = true;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggle draw to false so
+     * It disables the drawing funciionality
+     * </p>
+     */
+    public void deactivateDraw() {
+        toggleDraw = false;
+    }
+
+    /**
+     * <p>
+     * Method that returns the status of toggleDraw
+     * </p>
+     * 
+     * @return toggleDraw which will either be true or false
+     */
+    public boolean drawToggled() {
+        return toggleDraw;
+    }
 }
