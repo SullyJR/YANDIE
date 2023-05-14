@@ -2,8 +2,8 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
-
 import java.awt.Rectangle; 
+
 /**
  * <p>
  * ImageOperation to apply a Mean (simple blur) filter.

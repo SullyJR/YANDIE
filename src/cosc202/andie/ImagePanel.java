@@ -126,6 +126,7 @@ public class ImagePanel extends JPanel {
         image = new EditableImage();
         scale = 1.0;
         toggleRect = false;
+        toggleDraw = false;
 
         //
         addMouseListener(new MouseAdapter() {
@@ -136,7 +137,7 @@ public class ImagePanel extends JPanel {
                     anchor = e.getPoint();
                     anchorEND = null;
                     repaint();
-                } else {
+                } else if(toggleDraw){
                     // Create a new GeneralPath object to store the user's drawing
                     drawPath = new GeneralPath();
                     drawPath.moveTo(e.getX(), e.getY());
@@ -164,8 +165,7 @@ public class ImagePanel extends JPanel {
                     // Rectangle Selection
                     anchorEND = e.getPoint();
                     repaint(); 
-                } else {
-                    System.out.println("mouseDRAGGED");
+                } else if(toggleDraw){
                     drawPath.lineTo(e.getX(), e.getY());
                     repaint();
                 }
@@ -278,15 +278,27 @@ public class ImagePanel extends JPanel {
         }
 
     }
+
     /**
      * <p>
      * Method that returns the rectangle when called
      * Used mainly to apply crop and other features
      * </p>
-     * @return
+     * @return selection A Rectangle which the user selected
      */
     public Rectangle getSelection() {
         return selection;
+    }
+
+    /**
+     * <p>
+     * Method that returns the actual area of the rectangle
+     * Used mainly for avoiding bugs in some features
+     * </p>
+     * @return area The area of the selected rectangle
+     */
+    public double getRectArea() {
+        return selection.x * selection.y;
     }
 
     /**

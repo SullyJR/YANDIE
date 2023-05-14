@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.GridLayout;
 import java.awt.Image;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -16,21 +15,24 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * The Image menu contains actions that alters an image without changing 
- * the image itself such as, rotation, flip, and resizing. 
+ * The Image menu contains actions that alters an image without changing
+ * the image itself such as, rotation, flip, and resizing.
  * </p>
  * 
  */
 public class ImageActions {
 
-    /** A list of actions for the Filter menu. */
+    /** A list of actions for the Image menu. */
     protected ArrayList<Action> actions;
+
+    /** A image panel that serves as a linkage to use imagePanel from andie */
     private ImagePanel imagePanel;
 
     /**
      * <p>
      * Create a set of Image menu actions.
      * </p>
+     * 
      * @param imagePanel the image panel
      * 
      * @throws IOException user input exception
@@ -54,10 +56,7 @@ public class ImageActions {
                 Language.translate("Flips image horizontally"), Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), ip.iconArray[9],
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
-        actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
-                Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_V)));
-        actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[9],
-                Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_V)));
+
     }
 
     /**
@@ -69,13 +68,13 @@ public class ImageActions {
      */
     public JMenu createMenu() {
 
-        JMenu fileMenu = new JMenu(Language.translate("Image"));
+        JMenu imageMenu = new JMenu(Language.translate("Image"));
 
         for (Action action : actions) {
-            fileMenu.add(new JMenuItem(action));
+            imageMenu.add(new JMenuItem(action));
         }
 
-        return fileMenu;
+        return imageMenu;
     }
 
     /**
@@ -230,8 +229,8 @@ public class ImageActions {
         }
 
         /**
-        * Executes the rotation using the degrees from the user
-        */
+         * Executes the rotation using the degrees from the user
+         */
         private void rotateImage(double degree) {
             // Apply the filter to the target image
             target.getImage().apply(new Rotate(degree));
@@ -320,102 +319,6 @@ public class ImageActions {
             target.getImage().apply(new FlipVertically());
             target.repaint();
             target.getParent().revalidate();
-        }
-    }
-
-    /**
-     * <p>
-     * Action to select a rectangular area to edit
-     * </p>
-     * 
-     */
-    public class SelectRectangleAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new SelectRectangle action.
-         * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-         */
-        SelectRectangleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the Select Rectangle action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the SelectRectangle is triggered.
-         * It flips the image
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            // Create and apply the filter
-            target.getImage().apply(new SelectRectangle(imagePanel));
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
-
-    /**
-     * <p>
-     * Action to Crop an image {@link ImageAction}
-     * </p>
-     */
-    public class CropAction extends ImageAction {
-        /**
-         * <p>
-         * Create a new Crop action.
-         * </p>
-         * 
-         * @param name
-         * @param icon
-         * @param desc
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if nul)
-         */
-        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when the crop action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the CropAction is triggered.
-         * It crops the images based on the user input
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            
-            // Pop-up dialog box to inform user to make sure there is a 
-            // Selection in place
-            
-            if(imagePanel.rectToggled()) {
-                JOptionPane.showOptionDialog(null, "test", "Crop Image", 
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-                try {
-                    target.getImage().apply(new Crop(imagePanel));
-                    target.repaint();
-                    target.getParent().revalidate();    
-                } catch (Exception ea) {
-                    // TODO: handle exception
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please make a selection before Cropping", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
         }
     }
 
