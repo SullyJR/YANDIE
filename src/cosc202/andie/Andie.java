@@ -50,6 +50,7 @@ public class Andie {
      * @see FileActions
      * @see EditActions
      * @see ImageActions
+     * @see SelectActions
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
@@ -63,7 +64,7 @@ public class Andie {
         //ImagePanel ip = new ImagePanel();
 
         // Set up the main GUI frame
-        frame = new JFrame("ANDIE");
+        frame = new JFrame("YANDIE");
         frame.setForeground(Color.GRAY);
 
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/alex.png")); // andie icon

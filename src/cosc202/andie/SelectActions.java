@@ -3,6 +3,8 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.*;
 
@@ -31,6 +33,9 @@ public class SelectActions {
 
   /** A toggle button to toggle on and off Draw */
   private JToggleButton toggleDrawButton;
+
+  /** A color variable to remember what color the user has picked */
+  private Color selectedColor;
 
   /**
    * <p>
@@ -106,9 +111,47 @@ public class SelectActions {
       }
     });
 
+    // Create new JDialog object which serve as the color picker window
+    JDialog colorPicker = new JDialog();
+
+    // Created a new JColorChooser object to serve as the color picker component
+    JColorChooser chooser = new JColorChooser();
+
+    // Add chooser to colorpicker dialog
+    colorPicker.add(chooser);
+
+    // Set Modal to true to prevent interaction with main application window
+    colorPicker.setModal(true);
+
+    // ok Button literally does as the name suggest
+    // can put icons in as well
+    JButton okButton = new JButton("OK");
+    okButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        selectedColor = chooser.getColor();
+
+        colorPicker.dispose();
+      }
+    });
+
+    // Adds the okbutton to 
+    colorPicker.add(okButton, BorderLayout.SOUTH);
+
+    // Adds a button to the main Select menu so that it will open the color picker when clicked
+    JButton colorPickerButton = new JButton("Pick Color");
+colorPickerButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        colorPicker.pack(); // Resize the color picker window
+        colorPicker.setLocationRelativeTo(null); // Center the window on the screen
+        colorPicker.setVisible(true); // Show the color picker window
+    }
+});
+
     selectMenu.add(toggleSelectButton); // Button for Select Tool
     selectMenu.add(toggleDrawButton); // Button for Drawing tool
-
+    selectMenu.add(colorPickerButton); // Button for color picker
     for (Action action : actions) {
       selectMenu.add(new JMenuItem(action));
     }
@@ -263,7 +306,7 @@ public class SelectActions {
         JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
-          target.getImage().apply(new FillRect(imagePanel));
+          target.getImage().apply(new FillRect(imagePanel, selectedColor));
           target.repaint();
           target.getParent().revalidate();
         } catch (Exception ea) {

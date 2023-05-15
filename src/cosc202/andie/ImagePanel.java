@@ -272,7 +272,7 @@ public class ImagePanel extends JPanel {
         }
         if(drawPath != null) {
             Graphics2D g2 = (Graphics2D) g.create();
-            g2.setColor(Color.CYAN);
+            g2.setColor(Color.BLACK);
             g2.draw(drawPath);
             g2.dispose();
         }
