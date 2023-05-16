@@ -33,6 +33,8 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * Create a new CovertToGrey operation.
      * </p>
      */
+
+
     ConvertToGrey(ImagePanel panel) {
         this.panel = panel;
     }

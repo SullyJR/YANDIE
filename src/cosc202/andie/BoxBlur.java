@@ -107,7 +107,7 @@ public class BoxBlur implements ImageOperation, java.io.Serializable {
                 output.setRGB(x, y, value);
             }
         }
-
+        System.out.println("TESTING 123");
         return output;
     }
 }
