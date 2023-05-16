@@ -23,7 +23,7 @@ public class ToolBar {
      * @return the finished toolbar
     */
     public static JToolBar createToolBar(ImagePanel imagePanel) throws Exception {
-
+        toolBar = new JToolBar();
         ImagePanel ip = new ImagePanel();
         FileActions fa = new FileActions();
         EditActions ea = new EditActions();

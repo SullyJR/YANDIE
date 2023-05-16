@@ -1,13 +1,9 @@
 package cosc202.andie;
 
 import java.awt.*;
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 
 import javax.swing.*;
@@ -50,16 +46,30 @@ public class ImagePanel extends JPanel {
 
     /**
      * Selection is the rectangle created when anchor and anchorEND exist
+     * and also when toggleRect is true
      * Used in many features
      */
     private Rectangle selection;
 
     /**
-     * toggleSelection will be a Boolean Variable to determine whether 
+     * toggleSelection will be a Boolean Variable to determine whether
      * the selected Rectangle will be shown or not
      */
     private boolean toggleRect;
-    
+
+    /**
+     * selectCircle is the Circle created when anchor and anchorEND exist
+     * and also when toggleCir is true
+     * Used in many features as well
+     */
+    private Ellipse2D.Double selectCircle;
+
+    /**
+     * toggleCir will be a Boolean Variable to determine whether
+     * the selected Circle will be shown or not
+     */
+    private boolean toggleCir;
+
     /**
      * drawPath will be a General Path object that store
      * the path of the user's drawing
@@ -111,7 +121,6 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
-
     /**
      * <p>
      * Create a new ImagePanel.
@@ -132,12 +141,12 @@ public class ImagePanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if(toggleRect) {
-                    // Rectangle Selection
+                if (toggleRect || toggleCir) {
+                    // Rectangle Selection & Circle
                     anchor = e.getPoint();
                     anchorEND = null;
                     repaint();
-                } else if(toggleDraw){
+                } else if (toggleDraw) {
                     // Create a new GeneralPath object to store the user's drawing
                     drawPath = new GeneralPath();
                     drawPath.moveTo(e.getX(), e.getY());
@@ -146,14 +155,15 @@ public class ImagePanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(toggleRect) {
-                    // Rectangle Selection
+                if (toggleRect || toggleCir) {
+                    // Rectangle Selection & Circle
                     anchorEND = e.getPoint();
-                    repaint(); 
-                } else if(toggleDraw) {
+                    repaint();
+                } else if (toggleDraw) {
+                    // Create a new GeneralPath object to store the user's drawing
                     System.out.println("mouse released");
-                    
-                } else{
+
+                } else {
                     // potentially more items?
                 }
             }
@@ -161,14 +171,15 @@ public class ImagePanel extends JPanel {
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if(toggleRect) {
-                    // Rectangle Selection
+                if (toggleRect || toggleCir) {
+                    // Rectangle Selection & Circle
                     anchorEND = e.getPoint();
-                    repaint(); 
-                } else if(toggleDraw){
+                    repaint();
+                } else if (toggleDraw) {
+                    // Create a new GeneralPath object to store the user's drawing
                     drawPath.lineTo(e.getX(), e.getY());
                     repaint();
-                }
+                } 
             }
         });
     }
@@ -261,7 +272,7 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
-        if (anchor != null && anchorEND != null) {
+        if (toggleRect && anchor != null && anchorEND != null) {
             int x = Math.min(anchor.x, anchorEND.x);
             int y = Math.min(anchor.y, anchorEND.y);
             int width = Math.abs(anchorEND.x - anchor.x);
@@ -270,11 +281,21 @@ public class ImagePanel extends JPanel {
             g.setColor(Color.black);
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
-        if(drawPath != null) {
+        if (toggleDraw) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setColor(Color.BLACK);
             g2.draw(drawPath);
             g2.dispose();
+        }
+        if(toggleCir && anchor != null && anchorEND != null) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            selectCircle = new Ellipse2D.Double(
+                Math.min(anchor.x, anchorEND.x),
+                Math.min(anchor.y, anchorEND.y),
+                Math.abs(anchorEND.x - anchor.x),
+                Math.abs(anchorEND.y - anchor.y));
+            g2.setColor(Color.BLACK);
+            g2.draw(selectCircle);       
         }
 
     }
@@ -284,21 +305,11 @@ public class ImagePanel extends JPanel {
      * Method that returns the rectangle when called
      * Used mainly to apply crop and other features
      * </p>
+     * 
      * @return selection A Rectangle which the user selected
      */
     public Rectangle getSelection() {
         return selection;
-    }
-
-    /**
-     * <p>
-     * Method that returns the actual area of the rectangle
-     * Used mainly for avoiding bugs in some features
-     * </p>
-     * @return area The area of the selected rectangle
-     */
-    public double getRectArea() {
-        return selection.x * selection.y;
     }
 
     /**
@@ -365,5 +376,51 @@ public class ImagePanel extends JPanel {
      */
     public boolean drawToggled() {
         return toggleDraw;
+    }
+
+    /**
+     * <p>
+     * Method that returns the circle when called
+     * Could also be used with alot of features
+     * <p>
+     * 
+     * @return selectCir The Circle created when the user drew one
+     */
+    public Ellipse2D.Double getCircle() {
+        return selectCircle;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggleCir to true so
+     * that it shows the drawing and also calculates the circle
+     * </p>
+     * 
+     */
+    public void activateCir() {
+        toggleCir = true;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggleCir to false so
+     * that it doesn't show the drawing and
+     * not calculate the circle
+     * </p>
+     * 
+     */
+    public void deactivateCir() {
+        toggleCir = false;
+    }
+    
+    /**
+     * <p>
+     * Method that returns the status of toggleCir
+     * </p>
+     * 
+     * @return toggleCir Which will be either true of false
+     */
+    public boolean cirToggled() {
+        return toggleCir;
     }
 }

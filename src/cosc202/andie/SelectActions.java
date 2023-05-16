@@ -28,11 +28,14 @@ public class SelectActions {
   /** A image panel that serves as a linkage to use imagePanel from andie */
   private ImagePanel imagePanel;
 
-  /** A toggle button to toggle on and off Select */
+  /** A toggle button to toggle on and off Select Rectangle*/
   private JToggleButton toggleSelectButton;
 
   /** A toggle button to toggle on and off Draw */
   private JToggleButton toggleDrawButton;
+
+  /** A toggle button to toggle on and off Select Circle */
+  private JToggleButton toggleCirButton;
 
   /** A color variable to remember what color the user has picked */
   private Color selectedColor;
@@ -85,8 +88,11 @@ public class SelectActions {
           toggleSelectButton.setText("Enable Selection");
         } else {
           imagePanel.deactivateDraw();
+          imagePanel.deactivateCir();
           imagePanel.activateRect();
           toggleDrawButton.setSelected(false);
+          toggleCirButton.setSelected(false);
+          toggleCirButton.setText("Enable Circle");
           toggleSelectButton.setText("Disable Selection");
           toggleDrawButton.setText("Enable Drawing");
         }
@@ -103,10 +109,34 @@ public class SelectActions {
           toggleDrawButton.setText("Enable Drawing");
         } else {
           imagePanel.deactivateRect();
+          imagePanel.deactivateCir();
           imagePanel.activateDraw();
           toggleSelectButton.setSelected(false);
+          toggleCirButton.setSelected(false);
+          toggleCirButton.setText("Enable Circle");
           toggleDrawButton.setText("Disable Drawing");
           toggleSelectButton.setText("Enable Selection");
+        }
+      }
+    });
+
+    // Created a toggle button for Circle and add it to the edit menu
+    toggleCirButton = new JToggleButton("Enable Circle");
+    toggleCirButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if(imagePanel.cirToggled()) {
+          imagePanel.deactivateCir();
+          toggleCirButton.setText("Enable Circle");
+        } else {
+          imagePanel.deactivateRect();
+          imagePanel.deactivateDraw();
+          imagePanel.activateCir();
+          toggleDrawButton.setSelected(false);
+          toggleSelectButton.setSelected(false);
+          toggleDrawButton.setText("Enable Drawing");
+          toggleSelectButton.setText("Enable Selection");
+          toggleCirButton.setText("Disable Circle");
         }
       }
     });
@@ -150,6 +180,7 @@ colorPickerButton.addActionListener(new ActionListener() {
 });
 
     selectMenu.add(toggleSelectButton); // Button for Select Tool
+    selectMenu.add(toggleCirButton); // Button for Circle Tool
     selectMenu.add(toggleDrawButton); // Button for Drawing tool
     selectMenu.add(colorPickerButton); // Button for color picker
     for (Action action : actions) {
@@ -198,7 +229,7 @@ colorPickerButton.addActionListener(new ActionListener() {
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
 
-      if (imagePanel.rectToggled() && imagePanel.getRectArea() != 0.0) {
+      if (imagePanel.rectToggled()) {
         JOptionPane.showOptionDialog(null, "Press Yes to Proceed", "Select Rectangle",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
@@ -252,7 +283,7 @@ colorPickerButton.addActionListener(new ActionListener() {
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
 
-      if (imagePanel.rectToggled() && imagePanel.getRectArea() != 0.0) {
+      if (imagePanel.rectToggled()) {
         JOptionPane.showOptionDialog(null, "test", "Crop Image",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
@@ -302,7 +333,7 @@ colorPickerButton.addActionListener(new ActionListener() {
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
 
-      if (imagePanel.rectToggled() && imagePanel.getRectArea() != 0.0) {
+      if (imagePanel.rectToggled()) {
         JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {

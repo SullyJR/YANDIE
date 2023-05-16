@@ -29,8 +29,8 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      */
 
 
-    ConvertToGrey(ImagePanel panel) {
-       // this.panel = panel;
+    ConvertToGrey() {
+        
     }
 
     /**

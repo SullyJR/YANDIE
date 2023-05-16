@@ -29,9 +29,16 @@ public class FillRect implements ImageOperation, java.io.Serializable {
   /**
    * <p>
    * A color data field to store the user's picked color
-   * </p>  
+   * </p>
    */
   private Color choosedColor;
+
+  /**
+   * <p>
+   * 
+   * </p>
+   */
+  private Rectangle area;
 
   /**
    * <p>
@@ -43,6 +50,7 @@ public class FillRect implements ImageOperation, java.io.Serializable {
   FillRect(ImagePanel imagePanel, Color choosedColor) {
     this.imagePanel = imagePanel;
     this.choosedColor = choosedColor;
+    this.area = null;
   }
 
   /**
@@ -56,7 +64,11 @@ public class FillRect implements ImageOperation, java.io.Serializable {
    */
   public BufferedImage apply(BufferedImage input) {
     BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
-    Rectangle area = imagePanel.getSelection();
+    if (area == null) {
+      area = imagePanel.getSelection();
+    }
+      
+    
     Graphics2D g = output.createGraphics();
     g.drawImage(input, 0, 0, null);
 
