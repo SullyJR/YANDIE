@@ -15,6 +15,11 @@ import cosc202.andie.EditActions.*;
 */
 public class ToolBar extends JToolBar {
     
+ * A ToolBar Class creates a toolbar internally and used by calling externally
+ * for ease of use
+ */
+public class ToolBar {
+
     /** The array of Actions for the toolbar icons */
     protected ArrayList<Action> actions;
     /** The instance of the toolbar */
@@ -34,6 +39,7 @@ public class ToolBar extends JToolBar {
         FileActions fa = new FileActions();
         EditActions ea = new EditActions();
         ImageActions ia = new ImageActions(imagePanel);
+        SelectActions sa = new SelectActions(imagePanel);
         ViewActions va = new ViewActions();
         MacroRecorder ma = new MacroRecorder();
         
@@ -43,13 +49,18 @@ public class ToolBar extends JToolBar {
         ip.iconArray[5].setImage(ip.iconArray[5].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Undo
         ip.iconArray[6].setImage(ip.iconArray[6].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Redo
         ip.iconArray[10].setImage(ip.iconArray[10].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom in
-        ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom  out
+        ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom
+                                                                                                              // out
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
-        
-        
-        
+
+        ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
+        // ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16,
+        // 16, Image.SCALE_SMOOTH)); // Paint
+        // ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16,
+        // 16, Image.SCALE_SMOOTH)); // Draw
+
         actions = new ArrayList<Action>();
         actions.add(fa.new FileOpenAction(null, ip.iconArray[0], null, Integer.valueOf(KeyEvent.VK_O)));
         actions.add(fa.new FileSaveAction(null, ip.iconArray[2], null, Integer.valueOf(KeyEvent.VK_S)));
