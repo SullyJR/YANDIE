@@ -1,17 +1,9 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.*;
-import javax.imageio.*;
 import javax.swing.UIManager.*;
 import java.io.*;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -58,19 +50,21 @@ public class Andie {
      * @see FileActions
      * @see EditActions
      * @see ImageActions
+     * @see SelectActions
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
-     * @see SettingsAction
+     * @see SettingsActions
      * 
      * @throws Exception if something goes wrong.
      */
     public static void createAndShowGUI() throws Exception {
 
-        ImagePanel ip = new ImagePanel();
+        // I HAVE COMMENTED THIS (ANDREW)
+        //ImagePanel ip = new ImagePanel();
 
         // Set up the main GUI frame
-        frame = new JFrame("ANDIE");
+        frame = new JFrame("YANDIE");
         frame.setForeground(Color.GRAY);
 
         Image image = ImageIO.read(new File("./src/cosc202/andie/icons/alex.png")); // andie icon
@@ -83,10 +77,10 @@ public class Andie {
         int x = (screenSize.width - frame.getWidth()) / 2; // center horizontally
         int y = (screenSize.height - frame.getHeight()) / 2 - 50; // center vertically and shift upwards
         frame.addMouseListener(null);
-        frame.setPreferredSize(new Dimension(420, 720));
+        frame.setPreferredSize(new Dimension(x, y));
 
         // Set the location of the frame to the center ADD IF YOU WANT (sam)
-        // frame.setLocation(x-250, y-300);
+       // frame.setLocation(x-250, y-300);
 
         frame.setIconImage(image); // ip.iconArray[19]
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,7 +101,8 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
-
+        
+        
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         scrollPane.setBackground(Color.gray);
@@ -130,6 +125,10 @@ public class Andie {
         ImageActions imageActions = new ImageActions(imagePanel);
         menuBar.add(imageActions.createMenu());
 
+        // Add in Select menu here
+        SelectActions selectActions = new SelectActions(imagePanel);
+        menuBar.add(selectActions.createMenu());
+        
         // View actions control how the image is displayed, but do not alter its actual
         // content
         ViewActions viewActions = new ViewActions();
@@ -140,11 +139,8 @@ public class Andie {
         FilterActions filterActions = new FilterActions(imagePanel);
         menuBar.add(filterActions.createMenu());
 
-        SelectionsActions selectionActions = new SelectionsActions(imagePanel);
-        menuBar.add(selectionActions.createMenu());
-
         // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions(imagePanel);
+        ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
         // Changes all the texts language on the UI
@@ -193,6 +189,7 @@ public class Andie {
                     createAndShowGUI();
                     // FileActions.FileOpenDefaultAction();
                     frame.setPreferredSize(new Dimension(1000, 1500));
+                  
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

@@ -27,22 +27,19 @@ import javax.swing.*;
  */
 public class FilterActions {
 
-    protected ArrayList<Action> actions; // A list of actions for the Filter menu
-    private ImagePanel panel; // the image panel
-
+    /** A list of actions for the Filter menu. */
+    protected ArrayList<Action> actions;
+    private ImagePanel panel;
     /**
      * <p>
      * Create a set of Filter menu actions.
      * </p>
+     * @param panel the image panel
      * 
-     * @param panel an instance of image panel
-     * 
-     * @throws Exception exception
+     * @throws Exception error handling exception
      */
     public FilterActions(ImagePanel panel) throws Exception {
         this.panel = panel;
-
-        // Icons for Toolbar
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[13].setImage(ip.iconArray[13].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Blur
@@ -411,7 +408,6 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
             try {
-                Brightness b = new Brightness(128);
                 target.getImage().apply(new Emboss());
                 // target.getImage().apply(new Brightness(128));
                 // BufferedImage bu = getImage().apply(new Emboss());
@@ -428,7 +424,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to alter the image with a median filter.
+     * Action to alter an image with a median filter.
      * </p>
      * 
      * @see MedianFilter
@@ -495,6 +491,7 @@ public class FilterActions {
             }
 
         }
+
 
     }
 

@@ -5,19 +5,22 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+
 /**
- * Creates a Language class that holds important variables that changes the
- * language type of all the text
- * in the GUI
- */
+ * The Language Class holds important variables and language arrays that lets the user easily
+ * change language through the SettingsActions menu
+*/
 public class Language {
 
-    public static String language = "en"; // the initial language abbreviated
-    static int getNumTexts = getNumTexts(); // int that holds the number of possible texts
-    static int getNumLanguages = getNumLanguages(); // int that holds the number of possible languages
 
-    public static String[][] languageArray = new String[getNumLanguages][getNumTexts]; // the String[][] array of
-                                                                                       // languages and texts
+    /** The initial abbreviated language implemented */
+    public static String language = "en";
+    /** An int that gets the number of texts possible for a language */
+    static int getNumTexts = getNumTexts();
+    /** An int that gets the number of possible languages */
+    static int getNumLanguages = getNumLanguages();
+    /** The language array containing every possible text of every language */
+    public static String[][] languageArray = new String[getNumLanguages][getNumTexts];
 
     /**
      * <p>

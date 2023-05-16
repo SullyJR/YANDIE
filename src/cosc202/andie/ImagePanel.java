@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
 
 import javax.swing.*;
 
@@ -37,9 +38,39 @@ public class ImagePanel extends JPanel {
      */
     private EditableImage image;
 
-    private Point anchor; // the anchor
-    private Point anchorEND; // the end of the anchor
-    private Rectangle selection; // the rectangle being selected
+    /**
+     * Anchor represents the starting point when Mouse is Pressed
+     */
+    private Point anchor;
+
+    /**
+     * AnchorEND represents the end point when the mouse is released
+     */
+    private Point anchorEND;
+
+    /**
+     * Selection is the rectangle created when anchor and anchorEND exist
+     * Used in many features
+     */
+    private Rectangle selection;
+
+    /**
+     * toggleSelection will be a Boolean Variable to determine whether 
+     * the selected Rectangle will be shown or not
+     */
+    private boolean toggleRect;
+    
+    /**
+     * drawPath will be a General Path object that store
+     * the path of the user's drawing
+     */
+    private GeneralPath drawPath;
+
+    /**
+     * toggleDraw will be a Boolean Variable to determine whether
+     * the drawing functionality will activate or not
+     */
+    private boolean toggleDraw;
 
     /**
      * An array holding the icons.
@@ -80,23 +111,6 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
-    /**
-     * <p>
-     * A boolean flag that indicates whether the Selection feature is currently
-     * active or not.
-     * When this flag is true, the mouse listener in the ImagePanel will create a
-     * Selection rectangle
-     * when the mouse is pressed. When this flag is false, the mouse listener will
-     * do nothing.
-     * This flag is initially set to false.
-     * </p>
-     * 
-     * <p>
-     * Note that this datafield should only be true when a certain
-     * button is clicked. Or else always false;
-     * </p>
-     */
-    private boolean selectionActive = false;
 
     /**
      * <p>
@@ -105,41 +119,56 @@ public class ImagePanel extends JPanel {
      * 
      * <p>
      * Newly created ImagePanels have a default zoom level of 100%
+     * Newly created ImagePanels also have toggleSelection false on default
      * </p>
      */
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        toggleRect = false;
+        toggleDraw = false;
 
         //
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (selectionActive) {
+                if(toggleRect) {
+                    // Rectangle Selection
                     anchor = e.getPoint();
                     anchorEND = null;
                     repaint();
+                } else if(toggleDraw){
+                    // Create a new GeneralPath object to store the user's drawing
+                    drawPath = new GeneralPath();
+                    drawPath.moveTo(e.getX(), e.getY());
                 }
-                // else do nothing OR
-                // ADD MORE SELECTION SHAPES
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (selectionActive) {
+                if(toggleRect) {
+                    // Rectangle Selection
                     anchorEND = e.getPoint();
-                    repaint();
+                    repaint(); 
+                } else if(toggleDraw) {
+                    System.out.println("mouse released");
+                    
+                } else{
+                    // potentially more items?
                 }
             }
         });
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (selectionActive) {
+                if(toggleRect) {
+                    // Rectangle Selection
                     anchorEND = e.getPoint();
+                    repaint(); 
+                } else if(toggleDraw){
+                    drawPath.lineTo(e.getX(), e.getY());
                     repaint();
                 }
-
             }
         });
     }
@@ -232,7 +261,6 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
-        // null meow
         if (anchor != null && anchorEND != null) {
             int x = Math.min(anchor.x, anchorEND.x);
             int y = Math.min(anchor.y, anchorEND.y);
@@ -242,15 +270,21 @@ public class ImagePanel extends JPanel {
             g.setColor(Color.black);
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
+        if(drawPath != null) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(Color.BLACK);
+            g2.draw(drawPath);
+            g2.dispose();
+        }
 
     }
 
     /**
      * <p>
-     * A method to return the Rectangle selected using mouselistener in ImagePanel
+     * Method that returns the rectangle when called
+     * Used mainly to apply crop and other features
      * </p>
-     * 
-     * @return selection The rectangle calculated in MouseListener
+     * @return selection A Rectangle which the user selected
      */
     public Rectangle getSelection() {
         return selection;
@@ -258,19 +292,78 @@ public class ImagePanel extends JPanel {
 
     /**
      * <p>
-     * A method that activates the MouseListener
+     * Method that returns the actual area of the rectangle
+     * Used mainly for avoiding bugs in some features
      * </p>
+     * @return area The area of the selected rectangle
      */
-    public void activateSelection() {
-        selectionActive = true;
+    public double getRectArea() {
+        return selection.x * selection.y;
     }
 
     /**
      * <p>
-     * A method that deactivates the MouseListner
+     * Method that sets toggleRect to true so
+     * that it shows the drawing and also calculates
+     * the rectangle
+     * </p>
+     * 
+     */
+    public void activateRect() {
+        toggleRect = true;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggleRect to false so
+     * that it doesn't show the drawing and not
+     * calculate the rectangle
+     * </p>
+     * 
+     */
+    public void deactivateRect() {
+        toggleRect = false;
+    }
+
+    /**
+     * <p>
+     * Method that returns the status of toggleRect
+     * </p>
+     * 
+     * @return toggleRect Which will be either true or false
+     */
+    public boolean rectToggled() {
+        return toggleRect;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggle draw to true so
+     * It enables the drawing funciionality
      * </p>
      */
-    public void deactivateSelection() {
-        selectionActive = false;
+    public void activateDraw() {
+        toggleDraw = true;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggle draw to false so
+     * It disables the drawing funciionality
+     * </p>
+     */
+    public void deactivateDraw() {
+        toggleDraw = false;
+    }
+
+    /**
+     * <p>
+     * Method that returns the status of toggleDraw
+     * </p>
+     * 
+     * @return toggleDraw which will either be true or false
+     */
+    public boolean drawToggled() {
+        return toggleDraw;
     }
 }

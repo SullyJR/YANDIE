@@ -2,30 +2,26 @@ package cosc202.andie;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
 import cosc202.andie.EditActions.*;
 
 /**
- * Construct a ToolBar Class which is used to create a toolbar externally and
- * implement it internally later
- */
+ * A ToolBar Class creates a toolbar internally and used by calling externally for ease of use
+*/
 public class ToolBar {
 
-    protected static ArrayList<Action> actions; // an array of the actions
-    protected static JToolBar toolBar = new JToolBar(); // the created toolbar
+    /** The array of Actions for the toolbar icons */
+    protected static ArrayList<Action> actions;
+    /** The instance of the toolbar */
+    protected static JToolBar toolBar = new JToolBar();
 
-    /**
-     * <p>
-     * Creates a toolbar
-     * </p>
-     * 
-     * 
-     * @param imagePanel the image panel
-     * @return the updated filled toolbar
-     */
+    /** 
+     * Creates the toolbar by stores the icons and actions of each button in a loop and adds to toolbar
+     * @param imagePanel the image panel where to toolbar will be
+     * @return the finished toolbar
+    */
     public static JToolBar createToolBar(ImagePanel imagePanel) throws Exception {
 
         ImagePanel ip = new ImagePanel();
@@ -40,11 +36,12 @@ public class ToolBar {
         ip.iconArray[5].setImage(ip.iconArray[5].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Undo
         ip.iconArray[6].setImage(ip.iconArray[6].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Redo
         ip.iconArray[10].setImage(ip.iconArray[10].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom in
-        ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom
-                                                                                                              // out
+        ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom  out
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
+
+
 
         actions = new ArrayList<Action>();
         actions.add(fa.new FileOpenAction(null, ip.iconArray[0], null, Integer.valueOf(KeyEvent.VK_O)));

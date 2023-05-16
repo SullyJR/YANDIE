@@ -18,11 +18,12 @@ public class LanguageTest {
 
     @Test
     void getInitialNumTextsValue() {
-        Assertions.assertEquals(65, Language.getNumTexts());
+        Assertions.assertEquals(72, Language.getNumTexts());
     }
 
     @Test
     void getInitialLanguageValue() {
+        Language.setLanguage("en");
         Assertions.assertEquals("en", Language.language);
     }
 

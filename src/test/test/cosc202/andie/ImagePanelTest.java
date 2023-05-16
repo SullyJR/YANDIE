@@ -24,10 +24,4 @@ public class ImagePanelTest {
         Assertions.assertFalse(testPanel.getZoom() == 100.0);
         Assertions.assertTrue(testPanel.getZoom() >= 50.0);
     }
-
-    @Test
-    void getIconLength() {
-        ImagePanel testPanel = new ImagePanel();
-        Assertions.assertTrue(testPanel.iconArray.length == 20);
-    }
 }
