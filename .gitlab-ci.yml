@@ -73,6 +73,8 @@ junit-test-job: # JUnit testing
   stage: test
   script:
     - echo "Attempting to run unit tests..."
+    - ls -a bin/
+    - ls -a lib/
     - javac -d bin src/cosc202/andie/*.java
     - javac -d bin -classpath
       bin:lib/junit-platform-console-standalone-1.9.2.jar
