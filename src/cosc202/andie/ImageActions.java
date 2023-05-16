@@ -25,9 +25,6 @@ public class ImageActions {
     /** A list of actions for the Image menu. */
     protected ArrayList<Action> actions;
 
-    /** A image panel that serves as a linkage to use imagePanel from andie */
-    private ImagePanel imagePanel;
-
     /**
      * <p>
      * Create a set of Image menu actions.
@@ -38,7 +35,6 @@ public class ImageActions {
      * @throws IOException user input exception
      */
     public ImageActions(ImagePanel imagePanel) throws IOException {
-        this.imagePanel = imagePanel;
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize

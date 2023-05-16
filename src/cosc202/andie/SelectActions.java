@@ -68,6 +68,8 @@ public class SelectActions {
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
     actions.add(new FillRectAction(Language.translate("Draw Rectangle"), ip.iconArray[22],
         Language.translate("Draw a Rectangle"), Integer.valueOf(KeyEvent.VK_R)));
+    actions.add(new FillCirAction(Language.translate("Draw Circle"), ip.iconArray[22], 
+        Language.translate("Draw a Circle"), Integer.valueOf(KeyEvent.VK_R)));   
   }
 
   /**
@@ -314,7 +316,7 @@ colorPickerButton.addActionListener(new ActionListener() {
      * @param name
      * @param icon
      * @param desc
-     * @param mnemonic A mnemonic key to use as a shortcut (ignored if nul)
+     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null)
      */
     FillRectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
       super(name, icon, desc, mnemonic);
@@ -351,6 +353,51 @@ colorPickerButton.addActionListener(new ActionListener() {
         JOptionPane.showMessageDialog(null, "Please make a selection!", "Error", JOptionPane.ERROR_MESSAGE);
         return;
       }
+    }
+  }
+
+  public class FillCirAction extends ImageAction {
+    /**
+     * <p>
+     * Create a new FillCir action
+     * </p>
+     * 
+     * @param name
+     * @param icon
+     * @param desc
+     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null)
+     */
+    FillCirAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+      super(name, icon, desc, mnemonic);
+    }
+
+    /**
+     * <p>
+     * Callback for when the fillCir action is triggered
+     * </p>
+     * 
+     * <p>
+     * This method is called whenever the FillCirAction is triggered.
+     * It draws a circle on the images based on the user input
+     * </p>
+     * 
+     * @param e The event triggering this callback
+     */
+    public void actionPerformed(ActionEvent e) {
+      if (imagePanel.cirToggled()) {
+        JOptionPane.showOptionDialog(null, "test", "Draw a Circle",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        try {
+          target.getImage().apply(new FillCir(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // TODO: handle exception
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, "Please make a circle!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+      }  
     }
   }
 }
