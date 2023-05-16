@@ -28,7 +28,7 @@ public class SelectActions {
   /** A image panel that serves as a linkage to use imagePanel from andie */
   private ImagePanel imagePanel;
 
-  /** A toggle button to toggle on and off Select Rectangle*/
+  /** A toggle button to toggle on and off Select Rectangle */
   private JToggleButton toggleSelectButton;
 
   /** A toggle button to toggle on and off Draw */
@@ -128,7 +128,7 @@ public class SelectActions {
     toggleCirButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        if(imagePanel.cirToggled()) {
+        if (imagePanel.cirToggled()) {
           imagePanel.deactivateCir();
           toggleCirButton.setText("Enable Circle");
         } else {
@@ -144,44 +144,44 @@ public class SelectActions {
       }
     });
 
-    // Create new JDialog object which serve as the color picker window
-    JDialog colorPicker = new JDialog();
+ // Create new JDialog object which serve as the color picker window
+ JDialog colorPicker = new JDialog();
 
-    // Created a new JColorChooser object to serve as the color picker component
-    JColorChooser chooser = new JColorChooser();
+ // Created a new JColorChooser object to serve as the color picker component
+ JColorChooser chooser = new JColorChooser();
 
-    // Add chooser to colorpicker dialog
-    colorPicker.add(chooser);
+ // Add chooser to colorpicker dialog
+ colorPicker.add(chooser);
 
-    // Set Modal to true to prevent interaction with main application window
-    colorPicker.setModal(true);
+ // Set Modal to true to prevent interaction with main application window
+ colorPicker.setModal(true);
 
-    // ok Button literally does as the name suggest
-    // can put icons in as well
-    JButton okButton = new JButton("OK");
-    okButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        selectedColor = chooser.getColor();
+ // ok Button literally does as the name suggest
+ // can put icons in as well
+ JButton okButton = new JButton("OK");
+ okButton.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+     selectedColor = chooser.getColor();
 
-        colorPicker.dispose();
-      }
-    });
+     colorPicker.dispose();
+   }
+ });
 
-    // Adds the okbutton to 
-    // 
-    colorPicker.add(okButton, BorderLayout.SOUTH);
-    
-      // Adds a
-      JButton colorPickerButton = new JButton("Pick Color");
+ // Adds the okbutton to 
+ colorPicker.add(okButton, BorderLayout.SOUTH);
+
+ // Adds a button to the main Select menu so that it will open the color picker when clicked
+ JButton colorPickerButton = new JButton("Pick Color");
 colorPickerButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-       
-            colorPicker.setLocationRelativeTo(null); // Center the window on the screen
-        colorPicker.setVisible(true); // Show the color picker window
-    }
+ @Override
+ public void actionPerformed(ActionEvent e) {
+     colorPicker.pack(); // Resize the color picker window
+     colorPicker.setLocationRelativeTo(null); // Center the window on the screen
+     colorPicker.setVisible(true); // Show the color picker window
+ }
 });
+
 
     selectMenu.add(toggleSelectButton); // Button for Select Tool
     selectMenu.add(toggleCirButton); // Button for Circle Tool
