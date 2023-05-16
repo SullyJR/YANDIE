@@ -149,7 +149,7 @@ public class Andie {
 
         // Sets the frame
         frame.setJMenuBar(menuBar);
-        JToolBar toolBar = ToolBar.createToolBar(imagePanel);
+        ToolBar toolBar = new ToolBar(imagePanel);
         frame.add(toolBar, BorderLayout.PAGE_START);
         frame.addKeyListener(new KeyPress());
         frame.pack();

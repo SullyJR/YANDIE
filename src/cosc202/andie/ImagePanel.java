@@ -1,11 +1,6 @@
 package cosc202.andie;
 
 import java.awt.*;
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.GeneralPath;
@@ -32,6 +27,8 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
+    private List actions;
+    private boolean isRecording;
 
     /**
      * The image to display in the ImagePanel.
@@ -365,5 +362,33 @@ public class ImagePanel extends JPanel {
      */
     public boolean drawToggled() {
         return toggleDraw;
+    }
+
+    
+
+    public void startRecording() {
+       
+        actions.clear();
+        isRecording = true;
+    }
+
+    public void stopRecording() {
+        isRecording = false;
+    }
+
+    public void addAction(String input) {
+        if (isRecording) {
+            actions.add(input);
+            System.out.println("HI "+actions);
+        }
+    }
+
+    public void saveMacroToFile(String filePath) {
+        // Code to save the macro actions to a file
+        // ...
+    }
+
+    public boolean isRecording() {
+        return isRecording;
     }
 }
