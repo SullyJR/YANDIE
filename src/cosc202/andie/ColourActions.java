@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -31,6 +33,7 @@ public class ColourActions {
 
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
+    private MacroRecorder macroRecorder;
 
     /**
      * <p>
@@ -48,12 +51,14 @@ public class ColourActions {
         ip.iconArray[17].setImage(ip.iconArray[17].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Contrast
 
         actions = new ArrayList<Action>();
+        actions.add(new BrightnessAction(Language.translate("Brightness and Contrast"), ip.iconArray[16],
+                Language.translate("Adjust the Brightness and Contrast"), Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new ConvertToGreyAction(Language.translate("Greyscale"), ip.iconArray[15],
                 Language.translate("Convert to greyscale"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BrightnessAction(Language.translate("Brightness"), ip.iconArray[16],
-                Language.translate("Adjust the brightness"), Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new ContrastAction(Language.translate("Contrast"), ip.iconArray[17],
-                Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
+
+        // actions.add(new ContrastAction(Language.translate("Contrast"),
+        // ip.iconArray[17],
+        // Language.translate("Adjust the contrast"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -111,6 +116,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
+               // macroRecorder.addAction("Greyscale");
                 target.getImage().apply(new ConvertToGrey());
                 target.repaint();
                 target.getParent().revalidate();
@@ -157,30 +163,58 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            // Create sliders for brightness and contrast
+            JSlider brightnessSlider = new JSlider(-100, 100, 0);
+            JSlider contrastSlider = new JSlider(-100, 100, 0);
 
-            int bright = 10; // creates initial value
+            // Set tick marks for the sliders
+            brightnessSlider.setPaintTicks(true);
+            brightnessSlider.setMajorTickSpacing(50);
+            brightnessSlider.setMinorTickSpacing(10);
+            brightnessSlider.setPaintLabels(true);
 
-            // Create a slider with minimum value 0, maximum value 100, and initial value 50
-            JSlider slider = new JSlider(-100, 100, 0);
-            // Create a label to display the current value of the slider
-            JLabel label = new JLabel("Selected value: " + slider.getValue());
+            contrastSlider.setPaintTicks(true);
+            contrastSlider.setMajorTickSpacing(50);
+            contrastSlider.setMinorTickSpacing(10);
+            contrastSlider.setPaintLabels(true);
 
-            // Show a message dialog with the slider and label
+            // Create labels to display the current values of the sliders
+            JLabel brightnessLabel = new JLabel("Brightness: " + brightnessSlider.getValue());
+            JLabel contrastLabel = new JLabel("Contrast: " + contrastSlider.getValue());
+
+            // Create a change listener for the brightness slider
+            ChangeListener brightnessChangeListener = new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    int selectedBrightness = brightnessSlider.getValue();
+                    brightnessLabel.setText("Brightness: " + selectedBrightness);
+                }
+            };
+
+            // Create a change listener for the contrast slider
+            ChangeListener contrastChangeListener = new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    int selectedContrast = contrastSlider.getValue();
+                    contrastLabel.setText("Contrast: " + selectedContrast);
+                }
+            };
+
+            // Add the change listeners to the sliders
+            brightnessSlider.addChangeListener(brightnessChangeListener);
+            contrastSlider.addChangeListener(contrastChangeListener);
+
+            // Create a panel to hold the sliders and labels
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-            panel.add(slider);
-            panel.add(label);
+            panel.add(brightnessLabel);
+            panel.add(brightnessSlider);
+            panel.add(contrastLabel);
+            panel.add(contrastSlider);
 
-            slider.setPaintTicks(true);
-            slider.setMajorTickSpacing(50);
-            slider.setMinorTickSpacing(10);
-            slider.setPaintLabels(true);
-
-            // Show a message dialog with the slider
+            // Show a message dialog with the panel
             int result = JOptionPane.showOptionDialog(
                     null, // parent component
-                    slider, // message
-                    "Select a value", // title
+                    panel, // message
+                    "Adjust Brightness and Contrast", // title
                     JOptionPane.OK_CANCEL_OPTION, // option type
                     JOptionPane.PLAIN_MESSAGE, // message type
                     null, // icon
@@ -188,35 +222,23 @@ public class ColourActions {
                     null // default option
             );
 
-            // If the user clicked OK, get the selected value from the slider
+            // If the user clicked OK, get the selected values from the sliders
             if (result == JOptionPane.OK_OPTION) {
-                int selectedValue = slider.getValue();
-                System.out.println("Selected value: " + selectedValue);
+                int brightnessValue = brightnessSlider.getValue();
+                int contrastValue = contrastSlider.getValue();
+                System.out.println("Brightness: " + brightnessValue);
+                System.out.println("Contrast: " + contrastValue);
 
+                try {
+                    // Apply the brightness and contrast filters to the image
+                    target.getImage().apply(new Brightness(brightnessValue));
+                    target.getImage().apply(new Contrast(contrastValue));
+                    target.repaint();
+                    target.getParent().revalidate();
+                } catch (java.lang.NullPointerException err) {
+                    // Cannot initiate filter without image
+                }
             }
-
-            // SpinnerNumberModel brightModel = new SpinnerNumberModel(bright, -100, 100,
-            // 1);
-
-            // JSpinner brightSpinner = new JSpinner(brightModel);
-            // int option = JOptionPane.showOptionDialog(null, brightSpinner,
-            // Language.translate("Enter filter brightness"), JOptionPane.OK_CANCEL_OPTION,
-            // JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-            // Check the return value from the dialog box.
-            if (result == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (result == JOptionPane.OK_OPTION) {
-                bright = slider.getValue();
-            }
-            try {
-                target.getImage().apply(new Brightness(bright));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (java.lang.NullPointerException err) {
-                // cannot initiate filter without image
-            }
-
         }
 
     }

@@ -30,6 +30,7 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
     private ImagePanel panel;
+    private MacroRecorder macroRecorder;
     /**
      * <p>
      * Create a set of Filter menu actions.
@@ -61,6 +62,7 @@ public class FilterActions {
                 Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
         actions.add(new EmbossFilterAction(Language.translate("Emboss Filter"), ip.iconArray[14],
                 Language.translate("Apply an emboss filter"), Integer.valueOf(KeyEvent.VK_E)));
+
     }
 
     /**
@@ -87,7 +89,7 @@ public class FilterActions {
      * 
      * @see MeanFilter
      */
-
+   
     public class MeanFilterAction extends ImageAction {
 
         /**
@@ -137,15 +139,18 @@ public class FilterActions {
 
             // Create and apply the filter
             try {
+                //ImagePanel.addAction("Mean Filter");
                 target.getImage().apply(new MeanFilter(radius, panel));
                 target.repaint();
                 target.getParent().revalidate();
-            } catch (java.lang.NullPointerException err) {
-            }
+                
+                
+            
+        }catch (java.lang.NullPointerException err) {
         }
 
     }
-
+    }
     /**
      * <p>
      * Action to sharpen an image with a sharpen filter.

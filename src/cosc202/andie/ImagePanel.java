@@ -28,6 +28,8 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
+    private List actions;
+    private boolean isRecording;
 
     /**
      * The image to display in the ImagePanel.
@@ -105,7 +107,12 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/brightness.png", "Brightness"),
             new ImageIcon("./src/cosc202/andie/icons/contrast.png", "Contrast"),
             new ImageIcon("./src/cosc202/andie/icons/language.png", "Language"),
-            new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex") };
+            new ImageIcon("./src/cosc202/andie/icons/crop.png", "Crop"),
+            new ImageIcon("./src/cosc202/andie/icons/select.png", "Select"),
+            new ImageIcon("./src/cosc202/andie/icons/paint.png", "Paint"),
+            new ImageIcon("./src/cosc202/andie/icons/draw.png", "Draw"),
+            new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
+    };
 
     /**
      * <p>
