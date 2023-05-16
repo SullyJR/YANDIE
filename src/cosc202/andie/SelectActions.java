@@ -51,16 +51,19 @@ public class SelectActions {
 
     ImagePanel ip = new ImagePanel(); // For ICONS
     // Adds Icons and Scales them down to fit in the box
-    ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Temp icon
+    ip.iconArray[19].setImage(ip.iconArray[19].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Crop
+    ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
+    ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Paint
+    ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
 
     // Creates a new Actions array list
     actions = new ArrayList<Action>();
     // Adds actions into the arraylist which will then look like buttons
-    actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[9],
+    actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[20],
         Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
-    actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[9],
+    actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[19],
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
-    actions.add(new FillRectAction(Language.translate("Draw Rectangle"), ip.iconArray[9],
+    actions.add(new FillRectAction(Language.translate("Draw Rectangle"), ip.iconArray[22],
         Language.translate("Draw a Rectangle"), Integer.valueOf(KeyEvent.VK_R)));
   }
 
@@ -136,15 +139,16 @@ public class SelectActions {
     });
 
     // Adds the okbutton to 
+    // 
     colorPicker.add(okButton, BorderLayout.SOUTH);
-
-    // Adds a button to the main Select menu so that it will open the color picker when clicked
-    JButton colorPickerButton = new JButton("Pick Color");
+    
+      // Adds a
+      JButton colorPickerButton = new JButton("Pick Color");
 colorPickerButton.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        colorPicker.pack(); // Resize the color picker window
-        colorPicker.setLocationRelativeTo(null); // Center the window on the screen
+       
+            colorPicker.setLocationRelativeTo(null); // Center the window on the screen
         colorPicker.setVisible(true); // Show the color picker window
     }
 });

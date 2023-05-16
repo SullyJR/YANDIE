@@ -55,11 +55,11 @@ public class ImagePanel extends JPanel {
     private Rectangle selection;
 
     /**
-     * toggleSelection will be a Boolean Variable to determine whether 
+     * toggleSelection will be a Boolean Variable to determine whether
      * the selected Rectangle will be shown or not
      */
     private boolean toggleRect;
-    
+
     /**
      * drawPath will be a General Path object that store
      * the path of the user's drawing
@@ -95,7 +95,12 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/brightness.png", "Brightness"),
             new ImageIcon("./src/cosc202/andie/icons/contrast.png", "Contrast"),
             new ImageIcon("./src/cosc202/andie/icons/language.png", "Language"),
-            new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex") };
+            new ImageIcon("./src/cosc202/andie/icons/crop.png", "Crop"),
+            new ImageIcon("./src/cosc202/andie/icons/select.png", "Select"),
+            new ImageIcon("./src/cosc202/andie/icons/paint.png", "Paint"),
+            new ImageIcon("./src/cosc202/andie/icons/draw.png", "Draw"),
+            new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
+    };
 
     /**
      * <p>
@@ -110,7 +115,6 @@ public class ImagePanel extends JPanel {
      * </p>
      */
     private double scale;
-
 
     /**
      * <p>
@@ -132,12 +136,12 @@ public class ImagePanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if(toggleRect) {
+                if (toggleRect) {
                     // Rectangle Selection
                     anchor = e.getPoint();
                     anchorEND = null;
                     repaint();
-                } else if(toggleDraw){
+                } else if (toggleDraw) {
                     // Create a new GeneralPath object to store the user's drawing
                     drawPath = new GeneralPath();
                     drawPath.moveTo(e.getX(), e.getY());
@@ -146,14 +150,14 @@ public class ImagePanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(toggleRect) {
+                if (toggleRect) {
                     // Rectangle Selection
                     anchorEND = e.getPoint();
-                    repaint(); 
-                } else if(toggleDraw) {
+                    repaint();
+                } else if (toggleDraw) {
                     System.out.println("mouse released");
-                    
-                } else{
+
+                } else {
                     // potentially more items?
                 }
             }
@@ -161,11 +165,11 @@ public class ImagePanel extends JPanel {
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if(toggleRect) {
+                if (toggleRect) {
                     // Rectangle Selection
                     anchorEND = e.getPoint();
-                    repaint(); 
-                } else if(toggleDraw){
+                    repaint();
+                } else if (toggleDraw) {
                     drawPath.lineTo(e.getX(), e.getY());
                     repaint();
                 }
@@ -270,7 +274,7 @@ public class ImagePanel extends JPanel {
             g.setColor(Color.black);
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
-        if(drawPath != null) {
+        if (drawPath != null) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setColor(Color.BLACK);
             g2.draw(drawPath);
@@ -284,6 +288,7 @@ public class ImagePanel extends JPanel {
      * Method that returns the rectangle when called
      * Used mainly to apply crop and other features
      * </p>
+     * 
      * @return selection A Rectangle which the user selected
      */
     public Rectangle getSelection() {
@@ -295,6 +300,7 @@ public class ImagePanel extends JPanel {
      * Method that returns the actual area of the rectangle
      * Used mainly for avoiding bugs in some features
      * </p>
+     * 
      * @return area The area of the selected rectangle
      */
     public double getRectArea() {
