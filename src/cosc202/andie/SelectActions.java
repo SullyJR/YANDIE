@@ -70,6 +70,8 @@ public class SelectActions {
         Language.translate("Draw a Rectangle"), Integer.valueOf(KeyEvent.VK_R)));
     actions.add(new FillCirAction(Language.translate("Draw Circle"), ip.iconArray[22], 
         Language.translate("Draw a Circle"), Integer.valueOf(KeyEvent.VK_R)));   
+    actions.add(new CustomFillAction(Language.translate("Make a Drawing"), ip.iconArray[22], 
+        Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
   }
 
   /**
@@ -289,7 +291,7 @@ colorPickerButton.addActionListener(new ActionListener() {
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
 
-      if (imagePanel.rectToggled()) {
+      if (imagePanel.rectToggled() || imagePanel.cirToggled() || imagePanel.drawToggled()) {
         JOptionPane.showOptionDialog(null, "test", "Crop Image",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
@@ -400,4 +402,49 @@ colorPickerButton.addActionListener(new ActionListener() {
       }  
     }
   }
+
+  public class CustomFillAction extends ImageAction {
+    /**
+     * <p>
+     * Create a new CustomFillAction
+     * </p>
+     * 
+     * @param name
+     * @param icon
+     * @param desc
+     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null)
+     */
+    CustomFillAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+      super(name, icon, desc, mnemonic);
+    }
+
+    /**
+     * <p>
+     * Callback for when the CustomFillAction is triggered
+     * </p>
+     * 
+     * <p>
+     * This method is called whenever the CustomFillAction is triggered.
+     * It draws a circle on the images based on the user input
+     * </p>
+     * 
+     * @param e The event triggering this callback
+     */
+    public void actionPerformed(ActionEvent e) {
+      if (imagePanel.drawToggled()) {
+        JOptionPane.showOptionDialog(null, "test", "Draw a shape",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        try {
+          target.getImage().apply(new CustomFill(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // TODO: handle exception
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, "Please enable Drawing", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+      }  
+    }
+  }  
 }

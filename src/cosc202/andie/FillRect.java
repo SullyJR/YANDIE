@@ -42,7 +42,7 @@ public class FillRect implements ImageOperation, java.io.Serializable {
 
   /**
    * <p>
-   * Construct a FillRect constructor using the given ImagePanel abd also choosen Color
+   * Construct a FillRect constructor using the given ImagePanel and also choosen Color
    * </p>
    * 
    * @param imagePanel An Imagepanel to call selection methods
