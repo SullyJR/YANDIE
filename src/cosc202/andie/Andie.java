@@ -161,7 +161,7 @@ public class Andie {
         menuBar.setBackground(Color.GRAY);
 
         // Sets the toolbar
-        Dimension toolBarSize = new Dimension(400, 18);
+        Dimension toolBarSize = new Dimension(400, 40);
         toolBar.setPreferredSize(toolBarSize);
         toolBar.setFloatable(false);
 
