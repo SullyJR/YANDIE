@@ -29,13 +29,13 @@ public class SelectActions {
   private ImagePanel imagePanel;
 
   /** A toggle button to toggle on and off Select Rectangle */
-  private JToggleButton toggleSelectButton;
+  private JCheckBoxMenuItem toggleSelectButton;
 
   /** A toggle button to toggle on and off Draw */
-  private JToggleButton toggleDrawButton;
+  private JCheckBoxMenuItem toggleDrawButton;
 
   /** A toggle button to toggle on and off Select Circle */
-  private JToggleButton toggleCirButton;
+  private JCheckBoxMenuItem toggleCirButton;
 
   /** A color variable to remember what color the user has picked */
   private Color selectedColor;
@@ -61,6 +61,7 @@ public class SelectActions {
 
     // Creates a new Actions array list
     actions = new ArrayList<Action>();
+
     // Adds actions into the arraylist which will then look like buttons
     actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[20],
         Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
@@ -86,7 +87,7 @@ public class SelectActions {
     JMenu selectMenu = new JMenu(Language.translate("Select"));
 
     // Created a toggle button just for Selection and add it to the edit menu
-    toggleSelectButton = new JToggleButton("Enable Selection");
+    toggleSelectButton = new JCheckBoxMenuItem("Enable Selection");
     toggleSelectButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -107,7 +108,7 @@ public class SelectActions {
     });
 
     // Created a toggle button for drawing and add it to the edit menu
-    toggleDrawButton = new JToggleButton("Enable Drawing");
+    toggleDrawButton = new JCheckBoxMenuItem("Enable Drawing");
     toggleDrawButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -128,7 +129,7 @@ public class SelectActions {
     });
 
     // Created a toggle button for Circle and add it to the edit menu
-    toggleCirButton = new JToggleButton("Enable Circle");
+    toggleCirButton = new JCheckBoxMenuItem("Enable Circle");
     toggleCirButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -166,9 +167,11 @@ public class SelectActions {
  okButton.addActionListener(new ActionListener() {
    @Override
    public void actionPerformed(ActionEvent e) {
-     selectedColor = chooser.getColor();
-
-     colorPicker.dispose();
+    selectedColor = chooser.getColor();
+    ToolBar tb = new ToolBar();
+    tb.updateColour(selectedColor);
+    System.out.println(selectedColor);
+    colorPicker.dispose();
    }
  });
 
@@ -176,7 +179,7 @@ public class SelectActions {
  colorPicker.add(okButton, BorderLayout.SOUTH);
 
  // Adds a button to the main Select menu so that it will open the color picker when clicked
- JButton colorPickerButton = new JButton("Pick Color");
+ JMenuItem colorPickerButton = new JMenuItem("Pick Color");
 colorPickerButton.addActionListener(new ActionListener() {
  @Override
  public void actionPerformed(ActionEvent e) {
@@ -185,8 +188,6 @@ colorPickerButton.addActionListener(new ActionListener() {
      colorPicker.setVisible(true); // Show the color picker window
  }
 });
-
-
     selectMenu.add(toggleSelectButton); // Button for Select Tool
     selectMenu.add(toggleCirButton); // Button for Circle Tool
     selectMenu.add(toggleDrawButton); // Button for Drawing tool
