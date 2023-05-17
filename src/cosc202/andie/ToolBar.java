@@ -5,42 +5,28 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.*;
 
+
 import cosc202.andie.EditActions.*;
 
-/**
- * A ToolBar Class creates a toolbar internally and used by calling externally
- * for ease of use
- */
 public class ToolBar {
 
-    /** The array of Actions for the toolbar icons */
     protected static ArrayList<Action> actions;
-    /** The instance of the toolbar */
     protected static JToolBar toolBar = new JToolBar();
-    /** The coloured label */
     protected static JLabel colourLabel;
 
-    /**
-     * Creates the toolbar by stores the icons and actions of each button in a loop
-     * and adds to toolbar
-     * 
-     * @param imagePanel the image panel where to toolbar will be
-     * @return the finished toolbar
-     */
-    public static JToolBar createToolBar(ImagePanel imagePanel) throws Exception {
-	    toolBar = new JToolBar();		
+    public static JToolBar createToolBar(ImagePanel imagePanel, SelectActions sActions) throws Exception {
+        toolBar = new JToolBar();		
         ImagePanel ip = new ImagePanel();
         FileActions fa = new FileActions();
         EditActions ea = new EditActions();
         ImageActions ia = new ImageActions(imagePanel);
-        SelectActions sa = new SelectActions(imagePanel);
         ViewActions va = new ViewActions();
 
+        // Image scaling
         ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
         ip.iconArray[2].setImage(ip.iconArray[2].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
         ip.iconArray[3].setImage(ip.iconArray[3].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save as
@@ -53,12 +39,12 @@ public class ToolBar {
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
 
-        ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
-        // ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16,
-        // 16, Image.SCALE_SMOOTH)); // Paint
-        // ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16,
-        // 16, Image.SCALE_SMOOTH)); // Draw
+        ip.iconArray[23].setImage(ip.iconArray[23].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Circle
+        ip.iconArray[24].setImage(ip.iconArray[24].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Line
+        ip.iconArray[25].setImage(ip.iconArray[25].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rectangle
 
+
+        // Create actions list
         actions = new ArrayList<Action>();
         actions.add(fa.new FileOpenAction(null, ip.iconArray[0], null, Integer.valueOf(KeyEvent.VK_O)));
         actions.add(fa.new FileSaveAction(null, ip.iconArray[2], null, Integer.valueOf(KeyEvent.VK_S)));
@@ -71,11 +57,7 @@ public class ToolBar {
         actions.add(new UndoAction(null, ip.iconArray[5], null, Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(ea.new RedoAction(null, ip.iconArray[6], null, Integer.valueOf(KeyEvent.VK_Y)));
 
-
-        actions.add(sa.new SelectRectangleAction(null, ip.iconArray[20], null, Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(sa.new CropAction(null, ip.iconArray[20], null, Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(sa.new SelectRectangleAction(null, ip.iconArray[20], null, Integer.valueOf(KeyEvent.VK_S)));
-
+        // Create buttons array
         JButton[] buttons = {
                 new JButton(actions.get(0)),
                 new JButton(actions.get(1)),
@@ -89,27 +71,21 @@ public class ToolBar {
                 new JButton(actions.get(9))
         };
 
-        JToggleButton[] toggleButton = { new JToggleButton(actions.get(10)) };
-
-        // Create the left-aligned buttons panel with FlowLayout
+        // Create left and right panels
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        // Create the right-aligned buttons panel with FlowLayout
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        // Add the left and right panels to the toolbar panel
-        toolBar.add(leftPanel, BorderLayout.WEST);
-        toolBar.add(rightPanel, BorderLayout.EAST);
-
-        /** Adds non-togglable buttons to the toolbar */
+        // Add buttons to the left panel
         for (int i = 0; i < buttons.length; i++) {
             leftPanel.add(buttons[i]);
         }
 
-        /** Adds togglable buttons to the toolbar */
-        for (int i = 0; i < toggleButton.length; i++) {
-            leftPanel.add(toggleButton[i]);
-        }
+        // Add toggle buttons from SelectionActions to the right panel
+        rightPanel.add(sActions.getToggleSelect());
+        rightPanel.add(sActions.getToggleCircle());
+        rightPanel.add(sActions.getToggleDraw());
+        rightPanel.add(sActions.getPaint());
+
         colourLabel = new JLabel();
         colourLabel.setPreferredSize(new Dimension(30, 30));
         colourLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -117,16 +93,15 @@ public class ToolBar {
         rightPanel.add(new JLabel("Selected Colour: "));
         rightPanel.add(colourLabel);
 
-        // Add the left and right panels to the toolbar panel
+        // Add left and right panels to the toolbar
         toolBar.add(leftPanel, BorderLayout.WEST);
+        toolBar.addSeparator();
         toolBar.add(rightPanel, BorderLayout.EAST);
 
         return toolBar;
-
     }
 
     public void updateColour(Color selectedColor){
         colourLabel.setBackground(selectedColor);
     }
-
 }
