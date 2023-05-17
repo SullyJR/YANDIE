@@ -144,7 +144,7 @@ public class ImagePanel extends JPanel {
         toggleRect = false;
         toggleDraw = false;
 
-        //
+        // Adding a global mouselistener 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -354,6 +354,17 @@ public class ImagePanel extends JPanel {
         return toggleRect;
     }
 
+    /**
+     * <p>
+     * Method that returns the drawpath created by the user
+     * </p>
+     * 
+     * @return drawPath Which is the path created by the user
+     */
+    public GeneralPath drawingPath() {
+        return drawPath;
+    }
+    
     /**
      * <p>
      * Method that sets toggle draw to true so
