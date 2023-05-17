@@ -85,6 +85,12 @@ public class ImagePanel extends JPanel {
     private boolean toggleDraw;
 
     /**
+     * toggleLine will be a Boolean Variable to determine whether
+     * the line drawing functionality will activate or not
+     */
+    private boolean toggleLine;
+
+    /**
      * An array holding the icons.
      */
     public ImageIcon[] iconArray = {
@@ -141,8 +147,12 @@ public class ImagePanel extends JPanel {
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+
+        // Making sure all is untoggled so weird things dont happen
         toggleRect = false;
         toggleDraw = false;
+        toggleCir = false;
+        toggleLine = false;
 
         // Adding a global mouselistener 
         addMouseListener(new MouseAdapter() {
@@ -167,9 +177,7 @@ public class ImagePanel extends JPanel {
                     anchorEND = e.getPoint();
                     repaint();
                 } else if (toggleDraw) {
-                    // Create a new GeneralPath object to store the user's drawing
-                    System.out.println("mouse released");
-
+                    // Does it need anything in here?
                 } else {
                     // potentially more items?
                 }
@@ -440,5 +448,38 @@ public class ImagePanel extends JPanel {
      */
     public boolean cirToggled() {
         return toggleCir;
+    }
+
+    /**
+     * <p>
+     * Method that returns the status of toggleLine
+     * </p>
+     * 
+     * @return toggleLine Which will be either true of false
+     */
+    public boolean lineToggled() {
+        return toggleLine;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggleLine to true so
+     * the user is able to draw a line on the imagepanel
+     * </p>
+     * 
+     */
+    public void activateLine() {
+        toggleLine = true;
+    }
+
+    /**
+     * <p>
+     * Method that sets toggleLine to false so
+     * the user is not able to draw a line on the imagepanel
+     * </p>
+     * 
+     */
+    public void deactivateLine() {
+        toggleLine = false;
     }
 }
