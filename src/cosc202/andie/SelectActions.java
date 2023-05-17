@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.*;
+import javax.swing.Box.Filler;
 
 /**
  * <p>
@@ -69,11 +70,7 @@ public class SelectActions {
         Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
     actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[19],
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
-    actions.add(new FillRectAction(Language.translate("Draw Rectangle"), ip.iconArray[22],
-        Language.translate("Draw a Rectangle"), Integer.valueOf(KeyEvent.VK_R)));
-    actions.add(new FillCirAction(Language.translate("Draw Circle"), ip.iconArray[22], 
-        Language.translate("Draw a Circle"), Integer.valueOf(KeyEvent.VK_R)));   
-    actions.add(new CustomFillAction(Language.translate("Make a Drawing"), ip.iconArray[22], 
+    actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22], 
         Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
   }
 
@@ -344,10 +341,10 @@ colorPickerButton.addActionListener(new ActionListener() {
     }
   }
 
-  public class FillRectAction extends ImageAction {
+  public class FillColorAction extends ImageAction {
     /**
      * <p>
-     * Create a new FillRect action.
+     * Create a new FillColorAction
      * </p>
      * 
      * @param name
@@ -355,117 +352,27 @@ colorPickerButton.addActionListener(new ActionListener() {
      * @param desc
      * @param mnemonic A mnemonic key to use as a shortcut (ignored if null)
      */
-    FillRectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    FillColorAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
       super(name, icon, desc, mnemonic);
     }
 
     /**
      * <p>
-     * Callback for when the fillRect action is triggered.
+     * Callback for when the FillColorAction is triggered
      * </p>
      * 
      * <p>
-     * This method is called whenever the FillRectAction is triggered.
-     * It draws a rectangle on the images based on the user input
-     * </p>
-     * 
-     * @param e The event triggering this callback.
-     */
-    public void actionPerformed(ActionEvent e) {
-
-      // Pop-up dialog box to inform user to make sure there is a
-      // Selection in place
-
-      if (imagePanel.rectToggled()) {
-        JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new FillRect(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
-        }
-      } else {
-        JOptionPane.showMessageDialog(null, "Please make a selection!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-      }
-    }
-  }
-
-  public class FillCirAction extends ImageAction {
-    /**
-     * <p>
-     * Create a new FillCir action
-     * </p>
-     * 
-     * @param name
-     * @param icon
-     * @param desc
-     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null)
-     */
-    FillCirAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-      super(name, icon, desc, mnemonic);
-    }
-
-    /**
-     * <p>
-     * Callback for when the fillCir action is triggered
-     * </p>
-     * 
-     * <p>
-     * This method is called whenever the FillCirAction is triggered.
-     * It draws a circle on the images based on the user input
+     * This method is called whenever the FillColorAction is triggered.
+     * It draws a rectangle or circle or custom shaped
+     * based on the toggled button.
+     * The shape is then applied
+     * on the images based on the user input.
      * </p>
      * 
      * @param e The event triggering this callback
      */
     public void actionPerformed(ActionEvent e) {
-      if (imagePanel.cirToggled()) {
-        JOptionPane.showOptionDialog(null, "test", "Draw a Circle",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new FillCir(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
-        }
-      } else {
-        JOptionPane.showMessageDialog(null, "Please make a circle!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-      }  
-    }
-  }
-
-  public class CustomFillAction extends ImageAction {
-    /**
-     * <p>
-     * Create a new CustomFillAction
-     * </p>
-     * 
-     * @param name
-     * @param icon
-     * @param desc
-     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null)
-     */
-    CustomFillAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-      super(name, icon, desc, mnemonic);
-    }
-
-    /**
-     * <p>
-     * Callback for when the CustomFillAction is triggered
-     * </p>
-     * 
-     * <p>
-     * This method is called whenever the CustomFillAction is triggered.
-     * It draws a circle on the images based on the user input
-     * </p>
-     * 
-     * @param e The event triggering this callback
-     */
-    public void actionPerformed(ActionEvent e) {
+      // if draw is toggled
       if (imagePanel.drawToggled()) {
         JOptionPane.showOptionDialog(null, "test", "Draw a shape",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -476,10 +383,30 @@ colorPickerButton.addActionListener(new ActionListener() {
         } catch (Exception ea) {
           // TODO: handle exception
         }
+      } else if(imagePanel.rectToggled()){ // if Rectangle is toggled
+        JOptionPane.showOptionDialog(null, "test", "Draw a Circle",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        try {
+          target.getImage().apply(new FillRect(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // TODO: handle exception
+        }
+      } else if(imagePanel.cirToggled()) { // if Circle is toggled
+        JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        try {
+          target.getImage().apply(new FillCir(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // TODO: handle exception
+        }
       } else {
-        JOptionPane.showMessageDialog(null, "Please enable Drawing", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Please enable any Selection", "Error", JOptionPane.ERROR_MESSAGE);
         return;
-      }  
+      }
     }
   }  
 
