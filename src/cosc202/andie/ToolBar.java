@@ -88,6 +88,7 @@ public class ToolBar {
 
         colourLabel = new JLabel();
         colourLabel.setPreferredSize(new Dimension(30, 30));
+        colourLabel.setBackground(Color.WHITE);
         colourLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         colourLabel.setOpaque(true);
         rightPanel.add(new JLabel("Selected Colour: "));
