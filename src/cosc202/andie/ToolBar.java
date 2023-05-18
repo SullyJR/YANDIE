@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
 import cosc202.andie.EditActions.*;
 
 public class ToolBar {
@@ -19,7 +18,7 @@ public class ToolBar {
     protected static JLabel colourLabel;
 
     public static JToolBar createToolBar(ImagePanel imagePanel, SelectActions sActions) throws Exception {
-        toolBar = new JToolBar();		
+        toolBar = new JToolBar();
         ImagePanel ip = new ImagePanel();
         FileActions fa = new FileActions();
         EditActions ea = new EditActions();
@@ -39,10 +38,11 @@ public class ToolBar {
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
 
+        ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
+        ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Paint
+        ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
         ip.iconArray[23].setImage(ip.iconArray[23].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Circle
         ip.iconArray[24].setImage(ip.iconArray[24].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Line
-        ip.iconArray[25].setImage(ip.iconArray[25].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rectangle
-
 
         // Create actions list
         actions = new ArrayList<Action>();
@@ -101,7 +101,7 @@ public class ToolBar {
         return toolBar;
     }
 
-    public void updateColour(Color selectedColor){
+    public void updateColour(Color selectedColor) {
         colourLabel.setBackground(selectedColor);
     }
 }

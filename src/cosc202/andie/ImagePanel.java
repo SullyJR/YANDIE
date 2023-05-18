@@ -115,10 +115,11 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/language.png", "Language"),
             new ImageIcon("./src/cosc202/andie/icons/crop.png", "Crop"),
             new ImageIcon("./src/cosc202/andie/icons/select.png", "Select"),
-            new ImageIcon("./src/cosc202/andie/icons/paint.png", "Paint"),
+            new ImageIcon("./src/cosc202/andie/icons/fill.png", "Paint"),
             new ImageIcon("./src/cosc202/andie/icons/draw.png", "Draw"),
             new ImageIcon("./src/cosc202/andie/icons/circle.png", "Circle"),
             new ImageIcon("./src/cosc202/andie/icons/line.png", "Line"),
+            new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"),
             new ImageIcon("./src/cosc202/andie/icons/rectangle.png", "Rectangle"),
             new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
     };
@@ -157,7 +158,7 @@ public class ImagePanel extends JPanel {
         toggleCir = false;
         toggleLine = false;
 
-        // Adding a global mouselistener 
+        // Adding a global mouselistener
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -197,7 +198,7 @@ public class ImagePanel extends JPanel {
                     // Create a new GeneralPath object to store the user's drawing
                     drawPath.lineTo(e.getX(), e.getY());
                     repaint();
-                } 
+                }
             }
         });
     }
@@ -305,15 +306,15 @@ public class ImagePanel extends JPanel {
             g2.draw(drawPath);
             g2.dispose();
         }
-        if(toggleCir && anchor != null && anchorEND != null) {
+        if (toggleCir && anchor != null && anchorEND != null) {
             Graphics2D g2 = (Graphics2D) g.create();
             selectCircle = new Ellipse2D.Double(
-                Math.min(anchor.x, anchorEND.x),
-                Math.min(anchor.y, anchorEND.y),
-                Math.abs(anchorEND.x - anchor.x),
-                Math.abs(anchorEND.y - anchor.y));
+                    Math.min(anchor.x, anchorEND.x),
+                    Math.min(anchor.y, anchorEND.y),
+                    Math.abs(anchorEND.x - anchor.x),
+                    Math.abs(anchorEND.y - anchor.y));
             g2.setColor(Color.BLACK);
-            g2.draw(selectCircle);       
+            g2.draw(selectCircle);
         }
 
     }
@@ -375,7 +376,7 @@ public class ImagePanel extends JPanel {
     public GeneralPath drawingPath() {
         return drawPath;
     }
-    
+
     /**
      * <p>
      * Method that sets toggle draw to true so
@@ -441,7 +442,7 @@ public class ImagePanel extends JPanel {
     public void deactivateCir() {
         toggleCir = false;
     }
-    
+
     /**
      * <p>
      * Method that returns the status of toggleCir

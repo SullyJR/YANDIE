@@ -38,7 +38,7 @@ public class SelectActions {
   /** A toggle button to toggle on and off Select Circle */
   private JToggleButton toggleCirButton;
 
-  private JToggleButton colorPickerButton;
+  private JButton colorPickerButton;
 
   /** A color variable to remember what color the user has picked */
   private Color selectedColor;
@@ -70,7 +70,7 @@ public class SelectActions {
         Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
     actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[19],
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
-    actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22], 
+    actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22],
         Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
   }
 
@@ -84,109 +84,120 @@ public class SelectActions {
   public JMenu createMenu() {
 
     JMenu selectMenu = new JMenu(Language.translate("Select"));
-
+    ImagePanel ip = new ImagePanel();
     // Created a toggle button just for Selection and add it to the edit menu
-    toggleSelectButton = new JToggleButton("Enable Selection");
+    // ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16,
+    // 16, Image.SCALE_SMOOTH)); // Select
+    Image resizedImage = ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+    Icon smallIcon = new ImageIcon(resizedImage);
+    toggleSelectButton = new JToggleButton(smallIcon);
     toggleSelectButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.rectToggled()) {
           imagePanel.deactivateRect();
-          toggleSelectButton.setText("Enable Selection");
+          // toggleSelectButton.setText("Enable Selection");
         } else {
           imagePanel.deactivateDraw();
           imagePanel.deactivateCir();
           imagePanel.activateRect();
           toggleDrawButton.setSelected(false);
           toggleCirButton.setSelected(false);
-          toggleCirButton.setText("Enable Circle");
-          toggleSelectButton.setText("Disable Selection");
-          toggleDrawButton.setText("Enable Drawing");
+          // toggleCirButton.setText("Enable Circle");
+          // toggleSelectButton.setText("Disable Selection");
+          // toggleDrawButton.setText("Enable Drawing");
         }
       }
     });
-    
+
     // Created a toggle button for drawing and add it to the edit menu
-    toggleDrawButton = new JToggleButton("Enable Drawing");
+    resizedImage = ip.iconArray[24].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+    smallIcon = new ImageIcon(resizedImage);
+    toggleDrawButton = new JToggleButton(smallIcon);
     toggleDrawButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.drawToggled()) {
           imagePanel.deactivateDraw();
-          toggleDrawButton.setText("Enable Drawing");
+          // toggleDrawButton.setText("Enable Drawing");
         } else {
           imagePanel.deactivateRect();
           imagePanel.deactivateCir();
           imagePanel.activateDraw();
           toggleSelectButton.setSelected(false);
           toggleCirButton.setSelected(false);
-          toggleCirButton.setText("Enable Circle");
-          toggleDrawButton.setText("Disable Drawing");
-          toggleSelectButton.setText("Enable Selection");
+          // toggleCirButton.setText("Enable Circle");
+          // toggleDrawButton.setText("Disable Drawing");
+          // toggleSelectButton.setText("Enable Selection");
         }
       }
     });
 
     // Created a toggle button for Circle and add it to the edit menu
-    toggleCirButton = new JToggleButton("Enable Circle");
+    resizedImage = ip.iconArray[23].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+    smallIcon = new ImageIcon(resizedImage);
+    toggleCirButton = new JToggleButton(smallIcon);
     toggleCirButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.cirToggled()) {
           imagePanel.deactivateCir();
-          toggleCirButton.setText("Enable Circle");
+          // toggleCirButton.setText("Enable Circle");
         } else {
           imagePanel.deactivateRect();
           imagePanel.deactivateDraw();
           imagePanel.activateCir();
           toggleDrawButton.setSelected(false);
           toggleSelectButton.setSelected(false);
-          toggleDrawButton.setText("Enable Drawing");
-          toggleSelectButton.setText("Enable Selection");
-          toggleCirButton.setText("Disable Circle");
+          // toggleDrawButton.setText("Enable Drawing");
+          // toggleSelectButton.setText("Enable Selection");
+          // toggleCirButton.setText("Disable Circle");
         }
       }
     });
 
- // Create new JDialog object which serve as the color picker window
- JDialog colorPicker = new JDialog();
+    // Create new JDialog object which serve as the color picker window
+    JDialog colorPicker = new JDialog();
 
- // Created a new JColorChooser object to serve as the color picker component
- JColorChooser chooser = new JColorChooser();
+    // Created a new JColorChooser object to serve as the color picker component
+    JColorChooser chooser = new JColorChooser();
 
- // Add chooser to colorpicker dialog
- colorPicker.add(chooser);
+    // Add chooser to colorpicker dialog
+    colorPicker.add(chooser);
 
- // Set Modal to true to prevent interaction with main application window
- colorPicker.setModal(true);
+    // Set Modal to true to prevent interaction with main application window
+    colorPicker.setModal(true);
 
- // ok Button literally does as the name suggest
- // can put icons in as well
- JButton okButton = new JButton("OK");
- okButton.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-    selectedColor = chooser.getColor();
-    ToolBar tb = new ToolBar();
-    tb.updateColour(selectedColor);
-    System.out.println(selectedColor);
-    colorPicker.dispose();
-   }
- });
+    // ok Button literally does as the name suggest
+    // can put icons in as well
+    JButton okButton = new JButton("OK");
+    okButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        selectedColor = chooser.getColor();
+        ToolBar tb = new ToolBar();
+        tb.updateColour(selectedColor);
+        System.out.println(selectedColor);
+        colorPicker.dispose();
+      }
+    });
 
- // Adds the okbutton to 
- colorPicker.add(okButton, BorderLayout.SOUTH);
+    // Adds the okbutton to
+    colorPicker.add(okButton, BorderLayout.SOUTH);
 
- // Adds a button to the main Select menu so that it will open the color picker when clicked
- colorPickerButton = new JToggleButton("Pick Color");
-colorPickerButton.addActionListener(new ActionListener() {
- @Override
- public void actionPerformed(ActionEvent e) {
-     colorPicker.pack(); // Resize the color picker window
-     colorPicker.setLocationRelativeTo(null); // Center the window on the screen
-     colorPicker.setVisible(true); // Show the color picker window
- }
-});
+    // Adds a button to the main Select menu so that it will open the color picker
+    // when clicked
+    resizedImage = ip.iconArray[25].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+    smallIcon = new ImageIcon(resizedImage);
+    colorPickerButton = new JButton(smallIcon);
+    colorPickerButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        colorPicker.pack(); // Resize the color picker window
+        colorPicker.setLocationRelativeTo(null); // Center the window on the screen
+        colorPicker.setVisible(true); // Show the color picker window
+      }
+    });
     selectMenu.add(toggleSelectButton); // Button for Select Tool
     selectMenu.add(toggleCirButton); // Button for Circle Tool
     selectMenu.add(toggleDrawButton); // Button for Drawing tool
@@ -200,33 +211,37 @@ colorPickerButton.addActionListener(new ActionListener() {
 
   /**
    * Accessor method for toggleselectbutton
+   * 
    * @return the button
-  */
-  public JToggleButton getToggleSelect(){
+   */
+  public JToggleButton getToggleSelect() {
     return toggleSelectButton;
   }
 
   /**
    * Accessor method for toggledrawbutton
+   * 
    * @return the button
-  */
-  public JToggleButton getToggleDraw(){
+   */
+  public JToggleButton getToggleDraw() {
     return toggleDrawButton;
   }
 
   /**
    * Accessor method for togglecircbutton
+   * 
    * @return the button
-  */
-  public JToggleButton getToggleCircle(){
+   */
+  public JToggleButton getToggleCircle() {
     return toggleCirButton;
   }
 
   /**
    * Accessor method for colorpickerbutton
+   * 
    * @return the button
-  */
-  public JToggleButton getPaint(){
+   */
+  public JButton getPaint() {
     return colorPickerButton;
   }
 
@@ -383,7 +398,7 @@ colorPickerButton.addActionListener(new ActionListener() {
         } catch (Exception ea) {
           // TODO: handle exception
         }
-      } else if(imagePanel.rectToggled()){ // if Rectangle is toggled
+      } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
         JOptionPane.showOptionDialog(null, "test", "Draw a Circle",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
@@ -393,7 +408,7 @@ colorPickerButton.addActionListener(new ActionListener() {
         } catch (Exception ea) {
           // TODO: handle exception
         }
-      } else if(imagePanel.cirToggled()) { // if Circle is toggled
+      } else if (imagePanel.cirToggled()) { // if Circle is toggled
         JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
@@ -408,6 +423,6 @@ colorPickerButton.addActionListener(new ActionListener() {
         return;
       }
     }
-  }  
+  }
 
 }
