@@ -71,7 +71,6 @@ public class FillRect implements ImageOperation, java.io.Serializable {
       
     Graphics2D g = output.createGraphics();
     g.drawImage(input, 0, 0, null);
-
     g.setColor(choosedColor);
     g.fillRect(area.x, area.y, area.width, area.height);
     g.dispose();

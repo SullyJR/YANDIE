@@ -83,6 +83,7 @@ public class ToolBar {
         // Add toggle buttons from SelectionActions to the right panel
         rightPanel.add(sActions.getToggleSelect());
         rightPanel.add(sActions.getToggleCircle());
+        rightPanel.add(sActions.getToggleLine());
         rightPanel.add(sActions.getToggleDraw());
         rightPanel.add(sActions.getPaint());
 

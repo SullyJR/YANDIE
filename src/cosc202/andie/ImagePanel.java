@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
 
 import javax.swing.*;
 
@@ -83,6 +84,13 @@ public class ImagePanel extends JPanel {
      * the drawing functionality will activate or not
      */
     private boolean toggleDraw;
+    
+    /**
+     * selectLine is the Line create when anchor and anchorEND exist
+     * and also when toggleLine is true. 
+     * Only used in drawing lines
+     */
+    private Line2D selectLine;
 
     /**
      * toggleLine will be a Boolean Variable to determine whether
@@ -162,7 +170,7 @@ public class ImagePanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (toggleRect || toggleCir) {
+                if (toggleRect || toggleCir || toggleLine) {
                     // Rectangle Selection & Circle
                     anchor = e.getPoint();
                     anchorEND = null;
@@ -176,7 +184,7 @@ public class ImagePanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (toggleRect || toggleCir) {
+                if (toggleRect || toggleCir || toggleLine) {
                     // Rectangle Selection & Circle
                     anchorEND = e.getPoint();
                     repaint();
@@ -190,7 +198,7 @@ public class ImagePanel extends JPanel {
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (toggleRect || toggleCir) {
+                if (toggleRect || toggleCir || toggleLine) {
                     // Rectangle Selection & Circle
                     anchorEND = e.getPoint();
                     repaint();
@@ -300,12 +308,6 @@ public class ImagePanel extends JPanel {
             g.setColor(Color.black);
             g.drawRect(selection.x, selection.y, selection.width, selection.height);
         }
-        if (toggleDraw) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setColor(Color.BLACK);
-            g2.draw(drawPath);
-            g2.dispose();
-        }
         if (toggleCir && anchor != null && anchorEND != null) {
             Graphics2D g2 = (Graphics2D) g.create();
             selectCircle = new Ellipse2D.Double(
@@ -316,7 +318,19 @@ public class ImagePanel extends JPanel {
             g2.setColor(Color.BLACK);
             g2.draw(selectCircle);
         }
-
+        if(toggleLine && anchor != null && anchorEND != null) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            selectLine = new Line2D.Double(anchor, anchorEND);
+            g2.setColor(Color.BLACK);
+            g2.draw(selectLine);
+            g2.dispose();    
+        }
+        if (toggleDraw) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(Color.BLACK);
+            g2.draw(drawPath);
+            g2.dispose();
+        }
     }
 
     /**
@@ -452,6 +466,17 @@ public class ImagePanel extends JPanel {
      */
     public boolean cirToggled() {
         return toggleCir;
+    }
+
+    /**
+     * <p>
+     * Method that returns the line plotted by user
+     * </p>
+     * 
+     * @return selectLine The line created
+     */
+    public Line2D getLine() {
+        return selectLine;
     }
 
     /**

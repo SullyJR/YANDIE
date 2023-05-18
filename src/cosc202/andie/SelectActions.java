@@ -32,12 +32,16 @@ public class SelectActions {
   /** A toggle button to toggle on and off Select Rectangle */
   private JToggleButton toggleSelectButton;
 
-  /** A toggle button to toggle on and off Draw */
+  /** A toggle button to toggle on and off Free Draw */
   private JToggleButton toggleDrawButton;
 
   /** A toggle button to toggle on and off Select Circle */
   private JToggleButton toggleCirButton;
 
+  /** A toggle button to toggle on and off Draw Line */
+  private JToggleButton toggleLineButton;
+
+  /** A button for the user to choose a color */
   private JButton colorPickerButton;
 
   /** A color variable to remember what color the user has picked */
@@ -96,16 +100,14 @@ public class SelectActions {
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.rectToggled()) {
           imagePanel.deactivateRect();
-          // toggleSelectButton.setText("Enable Selection");
         } else {
           imagePanel.deactivateDraw();
           imagePanel.deactivateCir();
+          imagePanel.deactivateLine();
           imagePanel.activateRect();
           toggleDrawButton.setSelected(false);
           toggleCirButton.setSelected(false);
-          // toggleCirButton.setText("Enable Circle");
-          // toggleSelectButton.setText("Disable Selection");
-          // toggleDrawButton.setText("Enable Drawing");
+          toggleLineButton.setSelected(false);
         }
       }
     });
@@ -119,16 +121,14 @@ public class SelectActions {
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.drawToggled()) {
           imagePanel.deactivateDraw();
-          // toggleDrawButton.setText("Enable Drawing");
         } else {
           imagePanel.deactivateRect();
           imagePanel.deactivateCir();
           imagePanel.activateDraw();
+          imagePanel.deactivateLine();
           toggleSelectButton.setSelected(false);
           toggleCirButton.setSelected(false);
-          // toggleCirButton.setText("Enable Circle");
-          // toggleDrawButton.setText("Disable Drawing");
-          // toggleSelectButton.setText("Enable Selection");
+          toggleLineButton.setSelected(false);
         }
       }
     });
@@ -142,20 +142,38 @@ public class SelectActions {
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.cirToggled()) {
           imagePanel.deactivateCir();
-          // toggleCirButton.setText("Enable Circle");
         } else {
           imagePanel.deactivateRect();
           imagePanel.deactivateDraw();
+          imagePanel.deactivateLine();
           imagePanel.activateCir();
           toggleDrawButton.setSelected(false);
           toggleSelectButton.setSelected(false);
-          // toggleDrawButton.setText("Enable Drawing");
-          // toggleSelectButton.setText("Enable Selection");
-          // toggleCirButton.setText("Disable Circle");
+          toggleLineButton.setSelected(false);
         }
       }
     });
 
+    // Created a toggle button for Line and add it to the edit menu
+    resizedImage = ip.iconArray[23].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+    smallIcon = new ImageIcon(resizedImage);
+    toggleLineButton = new JToggleButton(smallIcon);
+    toggleLineButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (imagePanel.lineToggled()) {
+          imagePanel.deactivateLine();
+        } else {
+          imagePanel.activateLine();
+          imagePanel.deactivateCir();
+          imagePanel.deactivateDraw();
+          imagePanel.deactivateRect();
+          toggleDrawButton.setSelected(false);
+          toggleCirButton.setSelected(false);
+          toggleSelectButton.setSelected(false);
+        }
+      }
+    });
     // Create new JDialog object which serve as the color picker window
     JDialog colorPicker = new JDialog();
 
@@ -201,6 +219,7 @@ public class SelectActions {
     selectMenu.add(toggleSelectButton); // Button for Select Tool
     selectMenu.add(toggleCirButton); // Button for Circle Tool
     selectMenu.add(toggleDrawButton); // Button for Drawing tool
+    selectMenu.add(toggleLineButton); // Button for Line Tool
     selectMenu.add(colorPickerButton); // Button for color picker
     for (Action action : actions) {
       selectMenu.add(new JMenuItem(action));
@@ -234,6 +253,15 @@ public class SelectActions {
    */
   public JToggleButton getToggleCircle() {
     return toggleCirButton;
+  }
+
+  /**
+   * Accessor method for toggleLineButton
+   * 
+   * @return the button
+   */
+  public JToggleButton getToggleLine() {
+    return toggleLineButton;
   }
 
   /**
@@ -338,11 +366,32 @@ public class SelectActions {
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
 
-      if (imagePanel.rectToggled() || imagePanel.cirToggled() || imagePanel.drawToggled()) {
-        JOptionPane.showOptionDialog(null, "test", "Crop Image",
+      // if draw is toggled
+      if (imagePanel.drawToggled()) {
+        JOptionPane.showOptionDialog(null, "test", "Crop",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
-          target.getImage().apply(new Crop(imagePanel));
+          target.getImage().apply(new Lasso(imagePanel));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // TODO: handle exception
+        }
+      } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
+        JOptionPane.showOptionDialog(null, "test", "Crop",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        try {
+          target.getImage().apply(new CropRect(imagePanel));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // TODO: handle exception
+        }
+      } else if (imagePanel.cirToggled()) { // if Circle is toggled
+        JOptionPane.showOptionDialog(null, "test", "Crop",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        try {
+          target.getImage().apply(new CropCir(imagePanel));
           target.repaint();
           target.getParent().revalidate();
         } catch (Exception ea) {
@@ -378,7 +427,7 @@ public class SelectActions {
      * 
      * <p>
      * This method is called whenever the FillColorAction is triggered.
-     * It draws a rectangle or circle or custom shaped
+     * It draws a rectangle or circle or custom shaped or line
      * based on the toggled button.
      * The shape is then applied
      * on the images based on the user input.
@@ -399,7 +448,7 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a Circle",
+        JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new FillRect(imagePanel, selectedColor));
@@ -409,10 +458,20 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
+        JOptionPane.showOptionDialog(null, "test", "Draw a circle/oval",
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new FillCir(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // TODO: handle exception
+        }
+      } else if (imagePanel.lineToggled()) { // if Line is toggled
+        JOptionPane.showOptionDialog(null, "test", "Draw a line",
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        try {
+          target.getImage().apply(new DrawLine(imagePanel, selectedColor));
           target.repaint();
           target.getParent().revalidate();
         } catch (Exception ea) {
