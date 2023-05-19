@@ -46,6 +46,8 @@ public class SelectActions {
   /** A color variable to remember what color the user has picked */
   private Color selectedColor;
 
+  private MacroRecorder macro;
+
   /**
    * <p>
    * Create a set of Select menu actions
@@ -58,7 +60,7 @@ public class SelectActions {
   public SelectActions(ImagePanel imagePanel) throws IOException {
     this.imagePanel = imagePanel;
 
-    ImagePanel ip = new ImagePanel(); // For ICONS
+    ImagePanel ip = new ImagePanel(macro); // For ICONS
     // Adds Icons and Scales them down to fit in the box
     ip.iconArray[19].setImage(ip.iconArray[19].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Crop
     ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
@@ -87,7 +89,7 @@ public class SelectActions {
   public JMenu createMenu() {
 
     JMenu selectMenu = new JMenu(Language.translate("Select"));
-    ImagePanel ip = new ImagePanel();
+    ImagePanel ip = new ImagePanel(macro);
     // Created a toggle button just for Selection and add it to the edit menu
     // ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16,
     // 16, Image.SCALE_SMOOTH)); // Select

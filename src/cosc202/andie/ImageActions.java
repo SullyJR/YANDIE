@@ -25,6 +25,8 @@ public class ImageActions {
     /** A list of actions for the Image menu. */
     protected ArrayList<Action> actions;
 
+    private MacroRecorder macro;
+
     /**
      * <p>
      * Create a set of Image menu actions.
@@ -35,7 +37,7 @@ public class ImageActions {
      * @throws IOException user input exception
      */
     public ImageActions(ImagePanel imagePanel) throws IOException {
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate

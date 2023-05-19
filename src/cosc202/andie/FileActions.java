@@ -36,6 +36,8 @@ public class FileActions {
     /** A String of the original extension */
     protected String oriExtension;
 
+    private MacroRecorder macro;
+
     /**
      * <p>
      * Create a set of File menu actions.
@@ -47,7 +49,7 @@ public class FileActions {
 
         // Adds Icons and Scales them down to fit in the box
         // Adds Icons and Scales them down to fit in the box
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
 
         ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
         ip.iconArray[1].setImage(ip.iconArray[1].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open def

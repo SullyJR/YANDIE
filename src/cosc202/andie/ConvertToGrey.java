@@ -30,8 +30,7 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * </p>
      */
 
-    ConvertToGrey(MacroRecorder macroRecorder) {
-        this.macroRecorder = macroRecorder;
+    ConvertToGrey() {
 
     }  
 

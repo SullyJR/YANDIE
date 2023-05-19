@@ -45,10 +45,12 @@ public class MacroRecorder {
 
     public void startRecording() {
         macroOn = true;
+        System.out.println("Macro is on");
     }
 
     public void stopRecording() {
         macroOn = false;
+        System.out.println("Macro is off");
     }
 
     public boolean isRecording() {

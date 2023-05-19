@@ -43,7 +43,7 @@ class EditableImage {
     // public static final String ImageIO = null;
     /** The original image. This should never be altered by ANDIE. */
     private BufferedImage original;
-    private MacroRecorder macro = new MacroRecorder();
+    private MacroRecorder macro;
     /**
      * The current image, the result of applying {@link ops} to {@link original}.
      */
@@ -56,8 +56,6 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
-    /** Stack of Ops for Macros */
-    private Stack<ImageOperation> macroOps;
 
     /**
      * <p>
@@ -69,7 +67,8 @@ class EditableImage {
      * of operations.
      * </p>
      */
-    public EditableImage() {
+    public EditableImage(MacroRecorder macro) {
+        this.macro = macro;
         original = null;
         current = null;
         ops = new Stack<ImageOperation>();

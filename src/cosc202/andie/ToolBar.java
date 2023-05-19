@@ -18,10 +18,11 @@ public class ToolBar {
         protected static ArrayList<Action> actions;
         protected static JToolBar toolBar = new JToolBar();
         protected static JLabel colourLabel;
+        private static MacroRecorder macroRecorder;
 
-        public static JToolBar createToolBar(ImagePanel imagePanel, SelectActions sActions) throws Exception {
+        public static JToolBar createToolBar(ImagePanel imagePanel, SelectActions sActions, MacroRecorder macro) throws Exception {
                 toolBar = new JToolBar();
-                ImagePanel ip = new ImagePanel();
+                ImagePanel ip = new ImagePanel(macroRecorder);
                 FileActions fa = new FileActions();
                 EditActions ea = new EditActions();
                 ImageActions ia = new ImageActions(imagePanel);
@@ -98,7 +99,6 @@ public class ToolBar {
                         leftPanel.add(buttons[i]);
                 }
 
-                MacroRecorder mr = new MacroRecorder();
                 JToggleButton toggleMacroButton = new JToggleButton();
 
                 ip.iconArray[27].setImage(ip.iconArray[27].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Play
@@ -110,10 +110,12 @@ public class ToolBar {
                         public void actionPerformed(ActionEvent e) {
                                 if (toggleMacroButton.isSelected()) {
                                         toggleMacroButton.setSelectedIcon(ip.iconArray[28]); // Set selected (ON) icon
-                                        mr.startRecording();
+                                        macro.startRecording();
+                                        
+
                                 } else {
                                         toggleMacroButton.setSelectedIcon(ip.iconArray[27]); // Set selected (OFF) icon
-                                        mr.stopRecording();
+                                        macro.stopRecording();
                                         //
                                 }
                         }

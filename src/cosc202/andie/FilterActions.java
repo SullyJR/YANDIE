@@ -46,7 +46,7 @@ public class FilterActions {
      */
     public FilterActions(ImagePanel panel) throws Exception {
         this.panel = panel;
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macroRecorder);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[13].setImage(ip.iconArray[13].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Blur
         ip.iconArray[14].setImage(ip.iconArray[14].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Filter

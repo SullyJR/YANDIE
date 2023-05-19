@@ -33,7 +33,9 @@ public class ColourActions {
 
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-    private MacroRecorder macroRecorder;
+
+    /** */
+    private MacroRecorder macro;
 
     /**
      * <p>
@@ -42,11 +44,11 @@ public class ColourActions {
      * 
      * @throws IOException user input exception
      */
-    public ColourActions(MacroRecorder macroRecorder) throws IOException {
-        this.macroRecorder = macroRecorder;
-        macroRecorder.startRecording();
+    public ColourActions() throws IOException {
+      
+  
 
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[15].setImage(ip.iconArray[15].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Greyscale
         ip.iconArray[16].setImage(ip.iconArray[16].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Brightness
@@ -119,7 +121,7 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
             try {
                // macroRecorder.addAction("Greyscale");
-                target.getImage().apply(new ConvertToGrey(macroRecorder));
+                target.getImage().apply(new ConvertToGrey());
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
