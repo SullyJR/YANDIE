@@ -9,7 +9,7 @@ public class Emboss implements ImageOperation, java.io.Serializable {
     
 
     /**
-     * Constructs a SoftBlur filter.
+     * Constructs an Emboss filter.
      */
     Emboss() {
         // Any construction code goes here
@@ -74,7 +74,7 @@ public class Emboss implements ImageOperation, java.io.Serializable {
       
 
         BufferedImage output = new BufferedImage(input.getColorModel(),input.copyData(null),input.isAlphaPremultiplied(), null);
-        // c1.filter(input, output);
+         c1.filter(input, output);
         // c2.filter(input, output);
         // c3.filter(input, output);
         // c4.filter(input, output);
@@ -83,7 +83,7 @@ public class Emboss implements ImageOperation, java.io.Serializable {
         // c7.filter(input, output);
         // c8.filter(input, output);
         // c9.filter(input, output);
-        c10.filter(input, output);
+        //c10.filter(input, output);
         // c.filter(input, output); // <-- this is the funky emboss. maybe add at the end
 
      for (int x = 0; x < output.getWidth(); x++) {

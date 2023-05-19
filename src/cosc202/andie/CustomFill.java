@@ -35,14 +35,14 @@ public class CustomFill implements ImageOperation, java.io.Serializable{
 
     /**
      * <p>
-     * A path drawn by the user called back from ImagePanels Mouselisteners
+     * A path drawn by the user called back from ImagePanels MouseListener
      * </p>
      */
     private GeneralPath drawPath;
 
     /**
      * <p>
-     * Construct a CustomFill constructor using the given ImagePanel and also choosen Color
+     * Construct a CustomFill constructor using the given ImagePanel and also chosen Color
      * </p>
      * 
      * @param imagePanel
