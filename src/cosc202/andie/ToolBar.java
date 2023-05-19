@@ -42,6 +42,7 @@ public class ToolBar {
                 ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
                 ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
 
+                ip.iconArray[19].setImage(ip.iconArray[19].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Crop
                 ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
                 ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Paint
                 ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
@@ -63,9 +64,10 @@ public class ToolBar {
                                 Integer.valueOf(KeyEvent.VK_R)));
                 actions.add(ia.new RotateAction(null, ip.iconArray[8], Language.translate("Rotate the image"),
                                 Integer.valueOf(KeyEvent.VK_P)));
-                actions.add(ia.new FlipHorizontallyAction(null, ip.iconArray[9],
-                                Language.translate("Flips image horizontally"),
-                                Integer.valueOf(KeyEvent.VK_O)));
+                actions.add(sActions.new CropAction(null, ip.iconArray[19],
+                                Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
+                actions.add(sActions.new FillColorAction(null, ip.iconArray[21],
+                                Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
                 actions.add(va.new ZoomInAction(null, ip.iconArray[10], Language.translate("Zoom In"),
                                 Integer.valueOf(KeyEvent.VK_PLUS)));
                 actions.add(va.new ZoomOutAction(null, ip.iconArray[11], Language.translate("Zoom Out"),
@@ -86,7 +88,8 @@ public class ToolBar {
                                 new JButton(actions.get(6)),
                                 new JButton(actions.get(7)),
                                 new JButton(actions.get(8)),
-                                new JButton(actions.get(9))
+                                new JButton(actions.get(9)),
+                                new JButton(actions.get(10)),
                 };
 
                 // Create left and right panels

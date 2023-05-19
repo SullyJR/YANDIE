@@ -22,7 +22,6 @@ import java.awt.image.*;
  * @version 1.0
  */
 public class ConvertToGrey implements ImageOperation, java.io.Serializable {
- private MacroRecorder macroRecorder;
 
     /**
      * <p>
@@ -30,10 +29,8 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * </p>
      */
 
-    ConvertToGrey(MacroRecorder macroRecorder) {
-        this.macroRecorder = macroRecorder;
-
-    }  
+    ConvertToGrey() {
+    }
 
     /**
      * <p>
@@ -51,7 +48,6 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * @return The resulting greyscale image.
      */
     public BufferedImage apply(BufferedImage input) {
-       
 
         // Change the value of the RGB values
         for (int y = 0; y < input.getHeight(); ++y) {

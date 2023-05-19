@@ -341,16 +341,16 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(target.getImage().getCurrentImage() == null){
+            if (target.getImage().getCurrentImage() == null) {
                 JPanel error = new JPanel();
-                            error.add(new JLabel(Language.translate("You have no image to export!")));
-                            error.setVisible(enabled);
-                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
-                            return;
+                error.add(new JLabel(Language.translate("You have no image to export!")));
+                error.setVisible(enabled);
+                JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+                return;
             }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
-            
+
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
 
@@ -370,7 +370,7 @@ public class FileActions {
                             JPanel newP = new JPanel();
                             newP.add(new JLabel(Language.translate("Image have been saved to original extension")));
                             newP.setVisible(enabled);
-                            JOptionPane.showMessageDialog(target, newP, Language.translate(""),
+                            JOptionPane.showMessageDialog(target, newP, "",
                                     JOptionPane.OK_CANCEL_OPTION);
                         } catch (IOException ex) {
                             JPanel error = new JPanel();
@@ -394,7 +394,7 @@ public class FileActions {
                     }
 
                 } catch (Exception ex) {
-                    System.exit(1);
+
                 }
             }
         }

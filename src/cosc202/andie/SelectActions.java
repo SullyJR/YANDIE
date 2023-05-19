@@ -317,7 +317,7 @@ public class SelectActions {
       // Selection in place
 
       if (imagePanel.rectToggled()) {
-        JOptionPane.showOptionDialog(null, "Press Yes to Proceed", "Select Rectangle",
+        JOptionPane.showOptionDialog(null, "Press Yes to Proceed", Language.translate("Select Rectangle"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new SelectRectangle(imagePanel));
@@ -327,7 +327,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else {
-        JOptionPane.showMessageDialog(null, "Please make a selection!", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
+            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
         return;
       }
     }
@@ -372,7 +373,8 @@ public class SelectActions {
 
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        JOptionPane.showOptionDialog(null, "test", "Crop",
+        JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+            Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new Lasso(imagePanel));
@@ -382,7 +384,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Crop",
+        JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+            Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new CropRect(imagePanel));
@@ -392,7 +395,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Crop",
+        JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+            Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new CropCir(imagePanel));
@@ -402,7 +406,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else {
-        JOptionPane.showMessageDialog(null, "Please make a selection before Cropping", "Error",
+        JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
+            Language.translate("Error"),
             JOptionPane.ERROR_MESSAGE);
         return;
       }
@@ -442,7 +447,8 @@ public class SelectActions {
     public void actionPerformed(ActionEvent e) {
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        JOptionPane.showOptionDialog(null, "test", "Draw a shape",
+        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new CustomFill(imagePanel, selectedColor));
@@ -452,7 +458,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
+        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new FillRect(imagePanel, selectedColor));
@@ -462,7 +469,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a circle/oval",
+        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new FillCir(imagePanel, selectedColor));
@@ -472,7 +480,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else if (imagePanel.lineToggled()) { // if Line is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a line",
+        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         try {
           target.getImage().apply(new DrawLine(imagePanel, selectedColor));
@@ -482,7 +491,8 @@ public class SelectActions {
           // TODO: handle exception
         }
       } else {
-        JOptionPane.showMessageDialog(null, "Please enable any Selection", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
+            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
         return;
       }
     }
