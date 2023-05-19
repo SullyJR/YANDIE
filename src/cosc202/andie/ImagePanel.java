@@ -84,10 +84,10 @@ public class ImagePanel extends JPanel {
      * the drawing functionality will activate or not
      */
     private boolean toggleDraw;
-    
+
     /**
      * selectLine is the Line create when anchor and anchorEND exist
-     * and also when toggleLine is true. 
+     * and also when toggleLine is true.
      * Only used in drawing lines
      */
     private Line2D selectLine;
@@ -128,7 +128,7 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/circle.png", "Circle"),
             new ImageIcon("./src/cosc202/andie/icons/line.png", "Line"),
             new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"),
-            new ImageIcon("./src/cosc202/andie/icons/rectangle.png", "Rectangle"),
+            new ImageIcon("./src/cosc202/andie/icons/curved.png", "Curved"),
             new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
     };
 
@@ -318,12 +318,12 @@ public class ImagePanel extends JPanel {
             g2.setColor(Color.BLACK);
             g2.draw(selectCircle);
         }
-        if(toggleLine && anchor != null && anchorEND != null) {
+        if (toggleLine && anchor != null && anchorEND != null) {
             Graphics2D g2 = (Graphics2D) g.create();
             selectLine = new Line2D.Double(anchor, anchorEND);
             g2.setColor(Color.BLACK);
             g2.draw(selectLine);
-            g2.dispose();    
+            g2.dispose();
         }
         if (toggleDraw) {
             Graphics2D g2 = (Graphics2D) g.create();
