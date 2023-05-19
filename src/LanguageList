@@ -66,8 +66,12 @@ Box Blur, Flou de boîte, Kabur Kotak
 You have no image to export!, Vous n'avez aucune image à exporter!,Anda tidak mempunyai gambar untuk dieksport!
 Error, Erreur, Ralat
 Select, Sélectionner, Pilih
-Select Rectangle, Sélectionner un rectangle, Pilih segi empat
-Select a rectangle, Sélectionner un rectangle, Pilih segi empat
+Select Rectangle, Selectionner un rectangle, Pilih segi empat
+Select a rectangle, Selectionner un rectangle
+Select a circle, Selectionner un cercle
+Select a line, Selectionner une ligne
+Select a colour, Selectionnez une couleur, Pilih satu warn
+Select a curved line, Selectionner une ligne courbe
 Crop Image, Recadrer l'image, Potong Gambar
 Crop an Image, Recadrer l'image, Potong Gambar
 Brightness and Contrast, Luminosité et Contraste, Kecerahan dan Kontras
@@ -78,3 +82,4 @@ Draw a Rectangle, Dessiner un rectangle, Lukis satu Segiempat
 Draw Circle, Dessiner un cercle, Lukis Bulatan
 Draw a Circle, Dessiner un cercle, Lukis satu Bulatan
 Make a Drawing, Faire un dessin, Melukis Lukisan
+Selected Colour, Couleur Selectionnee, Warna Yang Dipilih
