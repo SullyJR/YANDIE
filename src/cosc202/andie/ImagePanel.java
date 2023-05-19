@@ -129,6 +129,8 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/line.png", "Line"),
             new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"),
             new ImageIcon("./src/cosc202/andie/icons/curved.png", "Curved"),
+            new ImageIcon("./src/cosc202/andie/icons/play.png", "Play"),
+            new ImageIcon("./src/cosc202/andie/icons/stop.png", "Stop"),
             new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
     };
 

@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -45,6 +47,9 @@ public class ToolBar {
                 ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
                 ip.iconArray[23].setImage(ip.iconArray[23].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Circle
                 ip.iconArray[24].setImage(ip.iconArray[24].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Line
+
+                ip.iconArray[27].setImage(ip.iconArray[27].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Play
+                ip.iconArray[28].setImage(ip.iconArray[28].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Stop
 
                 // Create actions list
                 actions = new ArrayList<Action>();
@@ -93,8 +98,30 @@ public class ToolBar {
                         leftPanel.add(buttons[i]);
                 }
 
+                MacroRecorder mr = new MacroRecorder();
+                JToggleButton toggleMacroButton = new JToggleButton();
+
+                ip.iconArray[27].setImage(ip.iconArray[27].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Play
+                ip.iconArray[28].setImage(ip.iconArray[28].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Stop
+
+                toggleMacroButton.setIcon((Icon) ip.iconArray[27]);
+                toggleMacroButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                if (toggleMacroButton.isSelected()) {
+                                        toggleMacroButton.setSelectedIcon(ip.iconArray[28]); // Set selected (ON) icon
+                                        mr.startRecording();
+                                } else {
+                                        toggleMacroButton.setSelectedIcon(ip.iconArray[27]); // Set selected (OFF) icon
+                                        mr.stopRecording();
+                                        //
+                                }
+                        }
+                });
+
                 // Add toggle buttons from SelectionActions to the right panel
 
+                rightPanel.add(toggleMacroButton);
                 rightPanel.add(sActions.getToggleSelect());
                 rightPanel.add(sActions.getToggleCircle());
                 rightPanel.add(sActions.getToggleLine());
