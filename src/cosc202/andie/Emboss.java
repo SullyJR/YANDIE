@@ -80,7 +80,7 @@ public class Emboss implements ImageOperation, java.io.Serializable {
    * Apply the kernel to the image
    * </p>
    * 
-   * @param image  The image to apply the Mean filter to.
+   * @param image  The image to apply the emboss filter to.
    * @param kernel the kernel used to apply the filter
    * @return The resulting (blurred)) image.
    */
