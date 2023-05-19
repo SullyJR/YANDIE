@@ -36,7 +36,7 @@ public class CropRect implements ImageOperation, java.io.Serializable {
    * Construct CropRect constructor using the given ImagePanel
    * </p>
    * 
-   * @param imagePanel and Imagepanel to call selection methods
+   * @param imagePanel and imagePanel to call selection methods
    */
   CropRect(ImagePanel imagePanel) {
     this.imagePanel = imagePanel;

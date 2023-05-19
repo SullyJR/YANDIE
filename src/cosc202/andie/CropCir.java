@@ -37,10 +37,10 @@ public class CropCir implements ImageOperation, java.io.Serializable {
 
   /**
    * <p>
-   * Construct CropRect constructor using the given ImagePanel
+   * Construct CropCir constructor using the given ImagePanel
    * </p>
    * 
-   * @param imagePanel and Imagepanel to call selection methods
+   * @param imagePanel an imagePanel to call selection methods
    */
   CropCir(ImagePanel imagePanel) {
     this.imagePanel = imagePanel;
