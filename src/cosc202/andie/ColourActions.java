@@ -42,7 +42,9 @@ public class ColourActions {
      * 
      * @throws IOException user input exception
      */
-    public ColourActions() throws IOException {
+    public ColourActions(MacroRecorder macroRecorder) throws IOException {
+        this.macroRecorder = macroRecorder;
+        macroRecorder.startRecording();
 
         ImagePanel ip = new ImagePanel();
         // Adds Icons and Scales them down to fit in the box
@@ -117,7 +119,7 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
             try {
                // macroRecorder.addAction("Greyscale");
-                target.getImage().apply(new ConvertToGrey());
+                target.getImage().apply(new ConvertToGrey(macroRecorder));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {

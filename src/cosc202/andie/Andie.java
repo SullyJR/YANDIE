@@ -101,6 +101,7 @@ public class Andie {
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
+        MacroRecorder macroRecorder = new MacroRecorder();
 
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -139,7 +140,7 @@ public class Andie {
         menuBar.add(filterActions.createMenu());
 
         // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions();
+        ColourActions colourActions = new ColourActions(macroRecorder);
         menuBar.add(colourActions.createMenu());
 
         // Changes all the texts language on the UI
