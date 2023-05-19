@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.*;
 
 /**
-* Construct a SelectRectangle Class which implements ImageOperation and java.io.Serializable,
+* A SelectRectangle Class which implements ImageOperation and java.io.Serializable,
 * and creates and holds values for the rectangle selection feature
 */
 public class SelectRectangle implements ImageOperation, java.io.Serializable{

@@ -6,8 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-
-import javax.crypto.Mac;
 import javax.swing.*;
 
 /**
@@ -30,8 +28,6 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
-    private List actions;
-    private boolean isRecording;
 
     /**
      * The image to display in the ImagePanel.
@@ -39,7 +35,6 @@ public class ImagePanel extends JPanel {
     private EditableImage image;
 
     /**
-     * 
      * 
      */
     private MacroRecorder macro;

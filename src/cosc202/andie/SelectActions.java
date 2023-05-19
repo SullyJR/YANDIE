@@ -77,6 +77,8 @@ public class SelectActions {
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
     actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22],
         Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
+    actions.add(new BlurSelectAction(Language.translate("Blur an area"), ip.iconArray[22],
+        Language.translate("Blur an area"), Integer.valueOf(KeyEvent.VK_R)));
   }
 
   /**
@@ -334,6 +336,76 @@ public class SelectActions {
             Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
         return;
       }
+    }
+  }
+
+  /**
+   * <p>
+   * Action to filter an image based on user selection with a mean filter.
+   * </p>
+   * 
+   * @see MeanFilter
+   */
+
+  public class BlurSelectAction extends ImageAction {
+
+    /**
+     * <p>
+     * Create a new BlurSelectAction.
+     * </p>
+     * 
+     * @param name     The name of the action (ignored if null).
+     * @param icon     An icon to use to represent the action (ignored if null).
+     * @param desc     A brief description of the action (ignored if null).
+     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+     */
+    BlurSelectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+      super(name, icon, desc, mnemonic);
+    }
+
+    /**
+     * <p>
+     * Callback for when the blur select action is triggered.
+     * </p>
+     * 
+     * <p>
+     * This method is called whenever the BlurSelectAction is triggered.
+     * It prompts the user for a filter radius, then applys an appropriately sized
+     * {@link MeanFilter}.
+     * </p>
+     * 
+     * @param e The event triggering this callback.
+     */
+    public void actionPerformed(ActionEvent e) {
+      if (imagePanel.rectToggled()) { // if Rectangle is toggled
+        // Determine the radius - ask the user.
+        int radius = 1;
+
+        // Pop-up dialog box to ask for the radius value.
+        SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
+        JSpinner radiusSpinner = new JSpinner(radiusModel);
+        int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        // Check the return value from the dialog box.
+        if (option == JOptionPane.CANCEL_OPTION) {
+          return;
+        } else if (option == JOptionPane.OK_OPTION) {
+          radius = radiusModel.getNumber().intValue();
+        }
+        // Create and apply the filter
+        try {
+          target.getImage().apply(new BlurSelect(radius, imagePanel));
+          target.repaint();
+          target.getParent().revalidate();
+
+        } catch (java.lang.NullPointerException err) {
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, Language.translate("Please only a rectangle selection"),
+            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+        return;
+      }
+
     }
   }
 

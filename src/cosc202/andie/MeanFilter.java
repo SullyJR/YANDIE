@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.awt.image.*;
 import java.util.*;
-import java.awt.Rectangle; 
 
 /**
  * <p>
@@ -31,10 +30,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 5x5 filter, and so forth.
      */
     private int radius;
-    /** To be fixed */
-    private Rectangle area;
-    /** To be fixed */
-    private ImagePanel panel;
+
     /**
      * <p>
      * Construct a Mean filter with the given size.
@@ -48,8 +44,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 
      * @param radius The radius of the newly constructed MeanFilter
      */
-    MeanFilter(int radius, ImagePanel panel) {
-        //this.panel = panel;
+    MeanFilter(int radius) {
         this.radius = radius;
     }
 
@@ -65,7 +60,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @see MeanFilter(int)
      */
     MeanFilter() {
-        
+        this(1);
     }
 
     /**
@@ -83,27 +78,14 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        
-        area = panel.getSelection();
-        
-        if(area != null) {
-            BufferedImage newImg = input.getSubimage(area.x, area.y, area.width, area.height);
-            int size = (2 * radius + 1) * (2 * radius + 1);
-            float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
-            for (float[] array : kernelValues) {
-                Arrays.fill(array, 1.0f / size);
-            }
-            return applyKernel(newImg, kernelValues);    
-        } else {
-            //new version of code
-            int size = (2 * radius + 1) * (2 * radius + 1);
-            float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
-            for (float[] array : kernelValues) {
-                Arrays.fill(array, 1.0f / size);
-            }
-            return applyKernel(input, kernelValues);
+
+        int size = (2 * radius + 1) * (2 * radius + 1);
+        float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
+        for (float[] array : kernelValues) {
+            Arrays.fill(array, 1.0f / size);
         }
-        
+        return applyKernel(input, kernelValues);
+
     }
 
     /**
@@ -111,7 +93,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * Apply the kernel to the image
      * </p>
      * 
-     * @param image The image to apply the Mean filter to.
+     * @param image  The image to apply the Mean filter to.
      * @param kernel the kernel used to apply the filter
      * @return The resulting (blurred)) image.
      */
@@ -123,15 +105,15 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         int kernelHeight = kernel[0].length;
         int kernelXOffset = (kernelWidth - 1) / 2;
         int kernelYOffset = (kernelHeight - 1) / 2;
-    
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                
+
                 float r = 0;
                 float g = 0;
                 float b = 0;
                 float a = 0;
-    
+
                 for (int i = 0; i < kernelWidth; i++) {
                     for (int j = 0; j < kernelHeight; j++) {
                         int pixelPosX = x + i - kernelXOffset;
@@ -160,7 +142,6 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
                 result.setRGB(x, y, (aInt << 24) | (rInt << 16) | (gInt << 8) | bInt);
             }
         }
-    
         return result;
     }
 

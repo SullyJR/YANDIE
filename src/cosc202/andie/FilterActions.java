@@ -30,9 +30,6 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
 
-    /** An image panel that serves as a linkage to use imagePanel from andie */
-    private ImagePanel panel;
-
     private MacroRecorder macroRecorder;
 
     /**
@@ -45,7 +42,6 @@ public class FilterActions {
      * @throws Exception error handling exception
      */
     public FilterActions(ImagePanel panel) throws Exception {
-        this.panel = panel;
         ImagePanel ip = new ImagePanel(macroRecorder);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[13].setImage(ip.iconArray[13].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Blur
@@ -145,7 +141,7 @@ public class FilterActions {
             // Create and apply the filter
             try {
                 // ImagePanel.addAction("Mean Filter");
-                target.getImage().apply(new MeanFilter(radius, panel));
+                target.getImage().apply(new MeanFilter(radius));
                 target.repaint();
                 target.getParent().revalidate();
 
