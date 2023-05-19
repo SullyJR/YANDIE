@@ -93,7 +93,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
             for (float[] array : kernelValues) {
                 Arrays.fill(array, 1.0f / size);
             }
-            return applyKernelV2(newImg, kernelValues);    
+            return applyKernel(newImg, kernelValues);    
         } else {
             //new version of code
             int size = (2 * radius + 1) * (2 * radius + 1);
@@ -101,7 +101,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
             for (float[] array : kernelValues) {
                 Arrays.fill(array, 1.0f / size);
             }
-            return applyKernelV2(input, kernelValues);
+            return applyKernel(input, kernelValues);
         }
         
     }
@@ -115,7 +115,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @param kernel the kernel used to apply the filter
      * @return The resulting (blurred)) image.
      */
-    public static BufferedImage applyKernelV2(BufferedImage image, float[][] kernel) {
+    public static BufferedImage applyKernel(BufferedImage image, float[][] kernel) {
         int width = image.getWidth();
         int height = image.getHeight();
         BufferedImage result = new BufferedImage(width, height, image.getType());

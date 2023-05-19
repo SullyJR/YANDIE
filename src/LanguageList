@@ -60,17 +60,21 @@ Flips image vertically, Retourne l'image verticalement, Memutar imej secara mene
 Rotate Image, Faire Pivoter l'image, Putar Imej
 There was a problem opening the image, Il y a eu un problème lors de l'ouverture de l'image, Terdapat masalah ketika membuka imej
 This file type is not Supported, Ce type de fichier n’est pas pris en charge, Jenis fail ini tidak disokong 
-Image have been saved to original extension, L’image a été enregistrée dans l’extension d’origine, Imej telah disimpan pada sambungan asal
+Image have been saved to original extension, L’image a ete enregistree dans l’extension d’origine, Imej telah disimpan pada sambungan asal
 Emboss Filter, Filtre en relief, Penapis Emboss
 Box Blur, Flou de boîte, Kabur Kotak
-You have no image to export!, Vous n'avez aucune image à exporter!,Anda tidak mempunyai gambar untuk dieksport!
+You have no image to export!, Vous n'avez aucune image a exporter!,Anda tidak mempunyai gambar untuk dieksport!
 Error, Erreur, Ralat
-Select, Sélectionner, Pilih
-Select Rectangle, Sélectionner un rectangle, Pilih segi empat
-Select a rectangle, Sélectionner un rectangle, Pilih segi empat
+Select, Selectionner, Pilih
+Select Rectangle, Selectionner un rectangle, Pilih segi empat
+Select a rectangle, Selectionner un rectangle, Pilih bulatan
+Select a circle, Selectionner un cercle, Pilih garisan
+Select a line, Selectionner une ligne, Pilih garis melengkung
+Select a colour, Selectionnez une couleur, Pilih satu warn
+Select a curved line, Selectionner une ligne courbe
 Crop Image, Recadrer l'image, Potong Gambar
 Crop an Image, Recadrer l'image, Potong Gambar
-Brightness and Contrast, Luminosité et Contraste, Kecerahan dan Kontras
+Brightness and Contrast, Luminosite et Contraste, Kecerahan dan Kontras
 Adjust the Brightness and Contrast, Ajuster la luminosité et le contraste, Sesuaikan Kecerahan dan Kontras
 Macro, Macro, Macro
 Draw Rectangle, Dessiner un rectangle, Lukis Segiempat
@@ -78,3 +82,4 @@ Draw a Rectangle, Dessiner un rectangle, Lukis satu Segiempat
 Draw Circle, Dessiner un cercle, Lukis Bulatan
 Draw a Circle, Dessiner un cercle, Lukis satu Bulatan
 Make a Drawing, Faire un dessin, Melukis Lukisan
+Selected Colour, Couleur Selectionnee, Warna Yang Dipilih
