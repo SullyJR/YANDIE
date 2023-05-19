@@ -2,13 +2,15 @@ package cosc202.andie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+
 import javax.swing.Action;
 
 public class MacroRecorder {
 
     private boolean macroOn = false;
 
-    private List<ImageOperation> actions = new ArrayList<>();
+    private Stack<ImageOperation> actions = new Stack<ImageOperation>();
 
     public MacroRecorder() {
      // this.actions = actions;
@@ -17,14 +19,29 @@ public class MacroRecorder {
 
     public void add(ImageOperation action) {
         if(macroOn){
-            actions.add(action);
-            System.out.println(actions.toString());
+            actions.push(action);
+            System.out.println("This is redo: " + actions);
         }else{
             System.out.println("Macro is not on");
         }
 
         
     }
+
+    public void delete() {
+        if(macroOn){
+            if(actions != null){
+                actions.pop();
+            }
+            
+            System.out.println("This is undo: " + actions);
+        }else{
+            System.out.println("Macro is not on");
+        }
+
+        
+    }
+
 
     public void startRecording() {
         macroOn = true;

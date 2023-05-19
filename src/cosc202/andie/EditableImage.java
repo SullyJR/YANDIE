@@ -284,10 +284,17 @@ class EditableImage {
      * 
      * @param op The operation to apply.
      */
+
+     boolean z =true; // This is only ever false if it is called from the redo method (when we dont want to add to the macro)
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
-       macro.add(op);
+        if(z){
+            macro.add(op);
+            z = true;
+        }
+       
+       
          
         
         
@@ -301,6 +308,9 @@ class EditableImage {
      */
     public void undo() {
         redoOps.push(ops.pop());
+        macro.delete();
+        
+
         refresh();
     }
 
@@ -310,7 +320,11 @@ class EditableImage {
      * </p>
      */
     public void redo() {
+        macro.add(redoOps.peek());
+        z=false;
         apply(redoOps.pop());
+       
+
     }
 
     /**
