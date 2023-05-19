@@ -95,6 +95,7 @@ public class SelectActions {
     Image resizedImage = ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
     Icon smallIcon = new ImageIcon(resizedImage);
     toggleSelectButton = new JToggleButton(smallIcon);
+    toggleSelectButton.setToolTipText(Language.translate("Select a rectangle"));
     toggleSelectButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -113,9 +114,10 @@ public class SelectActions {
     });
 
     // Created a toggle button for drawing and add it to the edit menu
-    resizedImage = ip.iconArray[24].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+    resizedImage = ip.iconArray[26].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
     smallIcon = new ImageIcon(resizedImage);
     toggleDrawButton = new JToggleButton(smallIcon);
+    toggleDrawButton.setToolTipText(Language.translate("Select a curved line"));
     toggleDrawButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -137,6 +139,7 @@ public class SelectActions {
     resizedImage = ip.iconArray[23].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
     smallIcon = new ImageIcon(resizedImage);
     toggleCirButton = new JToggleButton(smallIcon);
+    toggleCirButton.setToolTipText(Language.translate("Select a circle"));
     toggleCirButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -155,9 +158,10 @@ public class SelectActions {
     });
 
     // Created a toggle button for Line and add it to the edit menu
-    resizedImage = ip.iconArray[23].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+    resizedImage = ip.iconArray[24].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
     smallIcon = new ImageIcon(resizedImage);
     toggleLineButton = new JToggleButton(smallIcon);
+    toggleLineButton.setToolTipText(Language.translate("Select a line"));
     toggleLineButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -208,6 +212,7 @@ public class SelectActions {
     resizedImage = ip.iconArray[25].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
     smallIcon = new ImageIcon(resizedImage);
     colorPickerButton = new JButton(smallIcon);
+    colorPickerButton.setToolTipText(Language.translate("Select a colour"));
     colorPickerButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
