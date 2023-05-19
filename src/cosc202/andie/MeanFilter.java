@@ -12,7 +12,7 @@ import java.awt.Rectangle;
  * <p>
  * A Mean filter blurs an image by replacing each pixel by the average of the
  * pixels in a surrounding neighbourhood, and can be implemented by a
- * convoloution.
+ * convolution.
  * </p>
  * 
  * <p>
@@ -49,7 +49,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed MeanFilter
      */
     MeanFilter(int radius, ImagePanel panel) {
-        this.panel = panel;
+        //this.panel = panel;
         this.radius = radius;
     }
 
@@ -65,7 +65,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @see MeanFilter(int)
      */
     MeanFilter() {
-
+        
     }
 
     /**
