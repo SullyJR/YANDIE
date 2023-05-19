@@ -62,7 +62,7 @@ public class FilterActions {
         actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), ip.iconArray[13],
                 Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BoxBlurAction(Language.translate("Box Blur"), ip.iconArray[13],
-                Language.translate("Apply a Box blur"), Integer.valueOf(KeyEvent.VK_B)));
+                Language.translate("Apply a box blur"), Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new MedianFilterAction(Language.translate("Median Filter"), ip.iconArray[14],
                 Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
         actions.add(new EmbossFilterAction(Language.translate("Emboss Filter"), ip.iconArray[14],

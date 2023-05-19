@@ -120,7 +120,6 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-               // macroRecorder.addAction("Greyscale");
                 target.getImage().apply(new ConvertToGrey());
                 target.repaint();
                 target.getParent().revalidate();
