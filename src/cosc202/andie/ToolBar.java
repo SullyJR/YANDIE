@@ -108,16 +108,21 @@ public class ToolBar {
                 ip.iconArray[28].setImage(ip.iconArray[28].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Stop
 
                 toggleMacroButton.setIcon((Icon) ip.iconArray[27]);
+                toggleMacroButton.setToolTipText(Language.translate("Play Macro"));
+
                 toggleMacroButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 if (toggleMacroButton.isSelected()) {
                                         toggleMacroButton.setSelectedIcon(ip.iconArray[28]); // Set selected (ON) icon
+                                        toggleMacroButton.setToolTipText(Language.translate("Stop Macro"));
+
                                         mr.startRecording();
                                 } else {
                                         toggleMacroButton.setSelectedIcon(ip.iconArray[27]); // Set selected (OFF) icon
+                                        toggleMacroButton.setToolTipText(Language.translate("Play Macro"));
                                         mr.stopRecording();
-                                        //
+                                        // messagebox here
                                 }
                         }
                 });
