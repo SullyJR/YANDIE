@@ -341,7 +341,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(this.image == null){
+            if(target.getImage().getCurrentImage() == null){
                 JPanel error = new JPanel();
                             error.add(new JLabel(Language.translate("You have no image to export!")));
                             error.setVisible(enabled);
