@@ -1,20 +1,17 @@
 package cosc202.andie;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import javax.swing.Action;
-
 public class MacroRecorder {
 
-    private boolean macroOn = false;
+    private boolean macroOn;
 
     private Stack<ImageOperation> actions = new Stack<ImageOperation>();
 
     public MacroRecorder() {
      // this.actions = actions;
-      startRecording();
+      macroOn = false;
     }
 
     public void add(ImageOperation action) {
