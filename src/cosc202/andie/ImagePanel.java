@@ -7,6 +7,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
+import javax.crypto.Mac;
 import javax.swing.*;
 
 /**
@@ -36,6 +37,12 @@ public class ImagePanel extends JPanel {
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
+
+    /**
+     * 
+     * 
+     */
+    private MacroRecorder macro;
 
     /**
      * Anchor represents the starting point when Mouse is Pressed
@@ -129,6 +136,8 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/line.png", "Line"),
             new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"),
             new ImageIcon("./src/cosc202/andie/icons/curved.png", "Curved"),
+            new ImageIcon("./src/cosc202/andie/icons/play.png", "Play"),
+            new ImageIcon("./src/cosc202/andie/icons/stop.png", "Stop"),
             new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
     };
 
@@ -156,8 +165,9 @@ public class ImagePanel extends JPanel {
      * Newly created ImagePanels also have toggleSelection false on default
      * </p>
      */
-    public ImagePanel() {
-        image = new EditableImage();
+    public ImagePanel(MacroRecorder macro) {
+        this.macro = macro;
+        image = new EditableImage(macro);
         scale = 1.0;
 
         // Making sure all is untoggled so weird things dont happen

@@ -25,6 +25,8 @@ public class SettingsActions {
     /** A list of actions for the Settings menu. */
     protected ArrayList<Action> actions;
 
+    private MacroRecorder macro;
+
     /**
      * <p>
      * Create a set of Settings menu actions.
@@ -35,7 +37,7 @@ public class SettingsActions {
 
     public SettingsActions() throws IOException {
 
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[18].setImage(ip.iconArray[18].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Language
 

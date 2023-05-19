@@ -12,7 +12,9 @@ import javax.swing.*;
  */
 public class KeyPress implements KeyListener{
 
-     ImagePanel ip = new ImagePanel();
+    private MacroRecorder macro;
+
+     ImagePanel ip = new ImagePanel(macro);
 
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 

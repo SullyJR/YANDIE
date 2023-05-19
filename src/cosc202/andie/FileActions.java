@@ -36,6 +36,8 @@ public class FileActions {
     /** A String of the original extension */
     protected String oriExtension;
 
+    private MacroRecorder macro;
+
     /**
      * <p>
      * Create a set of File menu actions.
@@ -47,7 +49,7 @@ public class FileActions {
 
         // Adds Icons and Scales them down to fit in the box
         // Adds Icons and Scales them down to fit in the box
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
 
         ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
         ip.iconArray[1].setImage(ip.iconArray[1].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open def
@@ -341,16 +343,16 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(target.getImage().getCurrentImage() == null){
+            if (target.getImage().getCurrentImage() == null) {
                 JPanel error = new JPanel();
-                            error.add(new JLabel(Language.translate("You have no image to export!")));
-                            error.setVisible(enabled);  
-                            JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
-                            return;
+                error.add(new JLabel(Language.translate("You have no image to export!")));
+                error.setVisible(enabled);
+                JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+                return;
             }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
-            
+
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
 
@@ -370,7 +372,7 @@ public class FileActions {
                             JPanel newP = new JPanel();
                             newP.add(new JLabel(Language.translate("Image have been saved to original extension")));
                             newP.setVisible(enabled);
-                            JOptionPane.showMessageDialog(target, newP, Language.translate(""),
+                            JOptionPane.showMessageDialog(target, newP, "",
                                     JOptionPane.OK_CANCEL_OPTION);
                         } catch (IOException ex) {
                             JPanel error = new JPanel();
@@ -394,7 +396,7 @@ public class FileActions {
                     }
 
                 } catch (Exception ex) {
-                    System.exit(1);
+
                 }
             }
         }
