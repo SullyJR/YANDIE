@@ -7,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.*;
-import javax.swing.Box.Filler;
 
 /**
  * <p>
@@ -26,7 +25,7 @@ public class SelectActions {
   /** A list of actions for the Select menu. */
   protected ArrayList<Action> actions;
 
-  /** A image panel that serves as a linkage to use imagePanel from andie */
+  /** An image panel that serves as a linkage to use imagePanel from andie */
   private ImagePanel imagePanel;
 
   /** A toggle button to toggle on and off Select Rectangle */

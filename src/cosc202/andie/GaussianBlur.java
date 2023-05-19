@@ -59,7 +59,6 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
     float array[] = new float[size*size];
     float sigma = radius / 3f;
 
-    // To get the index for the array
 
     // used to normalise the kernel after computing it
     float kernelSum = 0f;
@@ -89,11 +88,6 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
       }
     }
 
-    // Kernel kernelOld = new Kernel(size, size, array);
-    // ConvolveOp convOp = new ConvolveOp(kernelOld);
-    // BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), false, null);
-    // convOp.filter(input, output);
-    // return output;
     return applyKernel(input, kernel);
 
   }

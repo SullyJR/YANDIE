@@ -26,7 +26,7 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
     }
 
     /**
-     * Repalcement for default constructor
+     * Replacement for default constructor
      * Wow
      */
     SelectRectangle(ImagePanel imagePanel) {

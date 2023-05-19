@@ -29,17 +29,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
                 {0, -1 / 2.0f, 0}
         };
 
-        // // Make a 3x3 filter from the array
-        // Kernel kernel = new Kernel(3, 3, array);
-        // // Apply this as a convolution - same code as in MeanFilter
-        // ConvolveOp convOp = new ConvolveOp(kernel);
-
-        // BufferedImage output = new BufferedImage(input.getColorModel(),
-        //         input.copyData(null),
-        //         input.isAlphaPremultiplied(), null);
-        // convOp.filter(input, output);
-        // And we're done
-        return applyKernelV2(input, kernel);
+        return applyKernel(input, kernel);
     }
 
     /**
@@ -47,11 +37,11 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
      * Apply the kernel to the image
      * </p>
      * 
-     * @param image The image to apply the Mean filter to.
+     * @param image The image to apply the sharpen filter to.
      * @param kernel the kernel used to apply the filter
      * @return The resulting (blurred)) image.
      */
-    public static BufferedImage applyKernelV2(BufferedImage image, float[][] kernel) {
+    public static BufferedImage applyKernel(BufferedImage image, float[][] kernel) {
         int width = image.getWidth();
         int height = image.getHeight();
         BufferedImage result = new BufferedImage(width, height, image.getType());

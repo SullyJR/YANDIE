@@ -36,7 +36,7 @@ public class Lasso implements ImageOperation, java.io.Serializable {
 
   /**
    * <p>
-   * Construct CropRect constructor using the given ImagePanel
+   * Construct lasso constructor using the given ImagePanel
    * </p>
    * 
    * @param imagePanel and Imagepanel to call selection methods
