@@ -344,7 +344,7 @@ public class FileActions {
             if(target.getImage().getCurrentImage() == null){
                 JPanel error = new JPanel();
                             error.add(new JLabel(Language.translate("You have no image to export!")));
-                            error.setVisible(enabled);
+                            error.setVisible(enabled);  
                             JOptionPane.showMessageDialog(target, error, Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
                             return;
             }

@@ -347,6 +347,15 @@ public class ImagePanel extends JPanel {
 
     /**
      * <p>
+     * Method to remove selection
+     * </p>
+     */
+    public void removeRect() {
+        selection = null;
+    }
+
+    /**
+     * <p>
      * Method that sets toggleRect to true so
      * that it shows the drawing and also calculates
      * the rectangle

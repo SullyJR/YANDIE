@@ -100,6 +100,7 @@ public class SelectActions {
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.rectToggled()) {
           imagePanel.deactivateRect();
+          imagePanel.removeRect();
         } else {
           imagePanel.deactivateDraw();
           imagePanel.deactivateCir();
