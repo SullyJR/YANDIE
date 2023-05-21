@@ -368,4 +368,18 @@ class EditableImage {
     public void addMouseListener(MouseAdapter mouseAdapter) {
     }
 
+    ///return the current image
+    public BufferedImage getBufferedImage() {
+        return current;
+
+        
+    }
+
+    public BufferedImage setBufferedImage(BufferedImage input) {
+        current = input;
+        return current;
+
+        
+    }
+
 }

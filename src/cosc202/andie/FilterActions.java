@@ -4,6 +4,14 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.Image;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -91,13 +99,10 @@ public class FilterActions {
      * @see MeanFilter
      */
 
-    public class MeanFilterAction extends ImageAction {
-
+     public class MeanFilterAction extends ImageAction {
         /**
-         * <p>
          * Create a new mean-filter action.
-         * </p>
-         * 
+         *
          * @param name     The name of the action (ignored if null).
          * @param icon     An icon to use to represent the action (ignored if null).
          * @param desc     A brief description of the action (ignored if null).
@@ -106,51 +111,69 @@ public class FilterActions {
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
+    
         /**
-         * <p>
          * Callback for when the mean action is triggered.
-         * </p>
-         * 
-         * <p>
+         *
          * This method is called whenever the MeanFilterAction is triggered.
-         * It prompts the user for a filter radius, then applys an appropriately sized
+         * It prompts the user for a filter radius, then applies an appropriately sized
          * {@link MeanFilter}.
-         * </p>
-         * 
+         *
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             // Determine the radius - ask the user.
             int radius = 1;
-
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
+    
+            // Create the slider
+            JSlider radiusSlider = new JSlider(0, 10, radius);
+            radiusSlider.setMajorTickSpacing(10);
+            radiusSlider.setMinorTickSpacing(1);
+            radiusSlider.setPaintTicks(true);
+            radiusSlider.setPaintLabels(true);
+    
+            // Create a label to display the current selection of the slider
+            JLabel radiusLabel = new JLabel("Radius: " + radiusSlider.getValue());
+    
+            // Create a change listener for the slider
+            ChangeListener radiusChangeListener = new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    int selectedRadius = radiusSlider.getValue();
+                    radiusLabel.setText("Radius: " + selectedRadius);
+                }
+            };
+    
+            // Add the change listener to the slider
+            radiusSlider.addChangeListener(radiusChangeListener);
+    
+            // Create a panel to hold the slider and label
+            JPanel panel = new JPanel();
+            panel.add(radiusLabel);
+            panel.add(radiusSlider);
+    
+            // Show the panel with the slider in a JOptionPane
+            int option = JOptionPane.showOptionDialog(
+                    null, panel, "Enter filter radius",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    null, null, null);
+    
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+                radius = radiusSlider.getValue();
             }
-
+    
             // Create and apply the filter
             try {
-                // ImagePanel.addAction("Mean Filter");
                 target.getImage().apply(new MeanFilter(radius));
                 target.repaint();
                 target.getParent().revalidate();
-
             } catch (java.lang.NullPointerException err) {
+                // Cannot initiate filter without image
             }
-
         }
     }
-
     /**
      * <p>
      * Action to sharpen an image with a sharpen filter.
