@@ -13,8 +13,8 @@ import java.awt.image.BufferedImage;
  * 
  * <p>
  * The original image is cropped according to the user's selection.
- * > Circle
- * <p>
+ * Circle
+ * </p>
  * 
  */
 public class CropCir implements ImageOperation, java.io.Serializable {
@@ -33,7 +33,6 @@ public class CropCir implements ImageOperation, java.io.Serializable {
    * </p>
    */
   private Ellipse2D circle;
-
 
   /**
    * <p>

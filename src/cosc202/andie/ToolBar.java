@@ -13,13 +13,29 @@ import javax.swing.*;
 
 import cosc202.andie.EditActions.*;
 
+/**
+ * Creates a toolbar class to create interally and then called
+ * externally using a constructor to avoid complication.
+ */
 public class ToolBar {
 
+        /** An array of actions */
         protected static ArrayList<Action> actions;
+        /** An initialised toolbar */
         protected static JToolBar toolBar = new JToolBar();
+        /** A JLabel used for to notify the user of the colour selected */
         protected static JLabel colourLabel;
 
-        public static JToolBar createToolBar(ImagePanel imagePanel, SelectActions sActions, MacroRecorder macro) throws Exception {
+        /**
+         * A method that creates the toolbar
+         * 
+         * @param imagePanel the image panel
+         * @param sActions   the SelectActions class
+         * @macro the MacroRecording class
+         * @return the toolbar
+         */
+        public static JToolBar createToolBar(ImagePanel imagePanel, SelectActions sActions, MacroRecorder macro)
+                        throws Exception {
                 toolBar = new JToolBar();
                 ImagePanel ip = new ImagePanel(macro);
                 FileActions fa = new FileActions();
@@ -151,6 +167,12 @@ public class ToolBar {
                 return toolBar;
         }
 
+        /**
+         * A method which updates the colour of the label when the
+         * selected colour is changed.
+         * 
+         * @param selectedColor the selected colour
+         */
         public void updateColour(Color selectedColor) {
                 colourLabel.setBackground(selectedColor);
         }

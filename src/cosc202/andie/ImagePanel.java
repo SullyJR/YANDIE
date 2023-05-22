@@ -159,6 +159,8 @@ public class ImagePanel extends JPanel {
      * Newly created ImagePanels have a default zoom level of 100%
      * Newly created ImagePanels also have toggleSelection false on default
      * </p>
+     * 
+     * @param macro used to record previous actions
      */
     public ImagePanel(MacroRecorder macro) {
         this.macro = macro;
@@ -440,7 +442,7 @@ public class ImagePanel extends JPanel {
      * <p>
      * Method that returns the circle when called
      * Could also be used with alot of features
-     * <p>
+     * </p>
      * 
      * @return selectCir The Circle created when the user drew one
      */

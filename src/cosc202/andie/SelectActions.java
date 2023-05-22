@@ -489,6 +489,11 @@ public class SelectActions {
     }
   }
 
+  /**
+   * <p>
+   * Action to fill an area with colour {@link ImageAction}
+   * </p>
+   */
   public class FillColorAction extends ImageAction {
     /**
      * <p>
