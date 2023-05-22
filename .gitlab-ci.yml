@@ -77,5 +77,6 @@ junit-test-job: # JUnit testing
     - javac -d bin -classpath
       bin:lib/junit-platform-console-standalone-1.10.0-M1.jar
       src/test/cosc202/andie/*.java
+    - rsync -av --exclude='*.java' src/ bin/
     - java -jar lib/junit-platform-console-standalone-1.10.0-M1.jar -classpath
       bin --select-package test.cosc202.andie
