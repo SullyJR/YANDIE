@@ -13,13 +13,13 @@ public class ImagePanelTest {
 
     @Test
     void getZoomInitialValue() {
-        ImagePanel testPanel = new ImagePanel();
+        ImagePanel testPanel = new ImagePanel(null);
         Assertions.assertEquals(100.0, testPanel.getZoom());
     }
 
     @Test
     void getZoomAftersetZoom() {
-        ImagePanel testPanel = new ImagePanel();
+        ImagePanel testPanel = new ImagePanel(null);
         testPanel.setZoom(0.0);
         Assertions.assertFalse(testPanel.getZoom() == 100.0);
         Assertions.assertTrue(testPanel.getZoom() >= 50.0);
