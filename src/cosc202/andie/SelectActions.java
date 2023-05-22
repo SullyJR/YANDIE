@@ -534,51 +534,61 @@ public class SelectActions {
      * @param e The event triggering this callback
      */
     public void actionPerformed(ActionEvent e) {
+      int result;
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
             Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new CustomFill(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
-        }
+          if(result == JOptionPane.OK_OPTION){
+            try{
+              target.getImage().apply(new CustomFill(imagePanel, selectedColor));
+              target.repaint();
+              target.getParent().revalidate();
+            }catch (Exception ea) {
+              // exception handling
+            }
+          }
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
             Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new FillRect(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
-        }
+          if(result == JOptionPane.OK_OPTION){
+            try {
+              target.getImage().apply(new FillRect(imagePanel, selectedColor));
+              target.repaint();
+              target.getParent().revalidate();
+            } catch (Exception ea) {
+              // exception handling
+            }
+          }
+        
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
             Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new FillCir(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
-        }
+          if(result == JOptionPane.OK_OPTION){
+            try {
+              target.getImage().apply(new FillCir(imagePanel, selectedColor));
+              target.repaint();
+              target.getParent().revalidate();
+            } catch (Exception ea) {
+              // exception handling
+            }
+          }
       } else if (imagePanel.lineToggled()) { // if Line is toggled
-        JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
             Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new DrawLine(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
-        }
+          if(result == JOptionPane.OK_OPTION){
+            try {
+              target.getImage().apply(new DrawLine(imagePanel, selectedColor));
+              target.repaint();
+              target.getParent().revalidate();
+            } catch (Exception ea) {
+              // exception handling
+            }
+          }
       } else {
         JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
             Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
