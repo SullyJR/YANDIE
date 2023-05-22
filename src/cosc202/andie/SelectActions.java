@@ -328,16 +328,19 @@ public class SelectActions {
 
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
-
+      int result;
       if (imagePanel.rectToggled()) {
-        JOptionPane.showOptionDialog(null, "Press Yes to Proceed", Language.translate("Select Rectangle"),
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to select the image"),
+            Language.translate("Select Rectangle"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new SelectRectangle(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new SelectRectangle(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else {
         JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
@@ -409,7 +412,8 @@ public class SelectActions {
         } catch (java.lang.NullPointerException err) {
         }
       } else {
-        JOptionPane.showMessageDialog(null, Language.translate("Please only a rectangle selection"),
+        JOptionPane.showMessageDialog(null,
+            Language.translate("Please make a valid selection") + " (" + Language.translate("Select Rectangle") + ")",
             Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
         return;
       }
@@ -453,40 +457,46 @@ public class SelectActions {
 
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
-
+      int result;
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
             Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new Lasso(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new Lasso(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
             Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new CropRect(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new CropRect(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
             Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new CropCir(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new CropCir(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else {
         JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),

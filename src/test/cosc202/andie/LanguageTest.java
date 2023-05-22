@@ -18,7 +18,7 @@ public class LanguageTest {
 
     @Test
     void getInitialNumTextsValue() {
-        Assertions.assertEquals(94, Language.getNumTexts());
+        Assertions.assertEquals(96, Language.getNumTexts());
     }
 
     @Test
