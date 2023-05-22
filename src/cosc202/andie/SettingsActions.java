@@ -113,7 +113,7 @@ public class SettingsActions {
                 String option = (String) JOptionPane.showInputDialog(null, null,
                         Language.translate("Choose a language") + ":", JOptionPane.QUESTION_MESSAGE, null, newLanguages,
                         newLanguages[0]);
-            
+
                 // Checks if the new option is a duplicate of the initial language
                 String duplicateCheck = "";
                 if (option.equals(newLanguages[0])) {
@@ -123,22 +123,18 @@ public class SettingsActions {
                 } else if (option.equals(newLanguages[2])) {
                     duplicateCheck = "my";
                 }
-                
-                
+
                 boolean change = false;
                 // Checks if the option matches to language and checks for duplicates
                 if (option.equals(newLanguages[0]) && !duplicateCheck.equals(Language.language)) {
                     Language.setLanguage("en");
                     change = true;
-                    System.out.println("Changed to en");
                 } else if (option.equals(newLanguages[1]) && !duplicateCheck.equals(Language.language)) {
                     Language.setLanguage("fr");
                     change = true;
-                    System.out.println("Changed to fr");
                 } else if (option.equals(newLanguages[2]) && !duplicateCheck.equals(Language.language)) {
                     Language.setLanguage("my");
                     change = true;
-                    System.out.println("Changed to my");
                 }
                 // if an option is chosen, the frame will reload and change all the text to
                 // whatever was chosen previously, if it is the same a messagebox appears
@@ -150,8 +146,9 @@ public class SettingsActions {
                         ex.printStackTrace();
                         System.exit(1);
                     }
-                }else if(change == false){
-                    JOptionPane.showMessageDialog(null, Language.translate("Language is already in use"), Language.translate("Error"), JOptionPane.INFORMATION_MESSAGE);
+                } else if (change == false) {
+                    JOptionPane.showMessageDialog(null, Language.translate("Language is already in use"),
+                            Language.translate("Error"), JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();
