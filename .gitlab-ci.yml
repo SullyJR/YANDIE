@@ -72,6 +72,9 @@ junit-test-job: # JUnit testing
   image: eclipse-temurin:17
   stage: test
   script:
+    - echo "Installing rsync..."
+    - apt-get update
+    - apt-get install -y rsync
     - echo "Attempting to run unit tests..."
     - javac -d bin src/cosc202/andie/*.java
     - javac -d bin -classpath
