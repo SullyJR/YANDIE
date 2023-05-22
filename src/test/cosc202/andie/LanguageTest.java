@@ -13,8 +13,7 @@ public class LanguageTest {
 
     @Test
     void getInitialNumLanguagesValue() {
-        Language language = new Language();
-        Assertions.assertEquals(3, language.getNumLanguages());
+        Assertions.assertEquals(3, Language.getNumLanguages());
     }
 
     @Test

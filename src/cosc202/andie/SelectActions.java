@@ -44,7 +44,7 @@ public class SelectActions {
   private JButton colorPickerButton;
 
   /** A color variable to remember what color the user has picked */
-  private Color selectedColor;
+  private Color selectedColor = Color.WHITE;
 
   private MacroRecorder macro;
 
@@ -280,6 +280,15 @@ public class SelectActions {
    */
   public JButton getPaint() {
     return colorPickerButton;
+  }
+
+  /**
+   * Accessor method for colorSelected
+   * 
+   * @return the button
+   */
+  public Color getColour() {
+    return selectedColor;
   }
 
   /**
