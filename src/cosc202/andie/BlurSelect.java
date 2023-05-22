@@ -52,7 +52,7 @@ public class BlurSelect implements ImageOperation, java.io.Serializable {
     /**
      * Applies the blur select to the image
      * 
-     * @param image the image being used
+     * @param input the image being used
      * @return the buffered image
      */
     public BufferedImage apply(BufferedImage input) {

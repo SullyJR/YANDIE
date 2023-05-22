@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  * <p>
  * The original image is cropped according to the user's selection.
  * > Circle
- * <p>
+ * </p>
  * 
  */
 public class Lasso implements ImageOperation, java.io.Serializable {
