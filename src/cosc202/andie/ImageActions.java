@@ -183,9 +183,13 @@ public class ImageActions {
                      * @param e The event triggering this callback.
                      */
                     public void actionPerformed(ActionEvent e) {
-                        target.repaint();
-                        target.getParent().revalidate();
-                        rotateImage(-90.0);
+                        try {
+                            target.repaint();
+                            target.getParent().revalidate();
+                            rotateImage(-90.0);
+                        } catch (Exception err) {
+                            // cannot initiate filter without image
+                        }
                     }
                 });
 
@@ -200,9 +204,13 @@ public class ImageActions {
                      * @param e The event triggering this callback.
                      */
                     public void actionPerformed(ActionEvent e) {
-                        target.repaint();
-                        target.getParent().revalidate();
-                        rotateImage(90.0);
+                        try {
+                            target.repaint();
+                            target.getParent().revalidate();
+                            rotateImage(90.0);
+                        } catch (Exception err) {
+                            // cannot initiate filter without image
+                        }
                     }
                 });
 
@@ -272,9 +280,13 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new FlipHorizontally());
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new FlipHorizontally());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (NullPointerException err) {
+                // cannot initiate filter without image
+            }
         }
     }
 
@@ -314,9 +326,13 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new FlipVertically());
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new FlipVertically());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (NullPointerException err) {
+                // cannot initiate filter without image
+            }
         }
     }
 
