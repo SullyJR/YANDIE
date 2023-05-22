@@ -31,8 +31,10 @@ public class ToolBar {
          * 
          * @param imagePanel the image panel
          * @param sActions   the SelectActions class
-         * @macro the MacroRecording class
+         * @param macro      MacroRecording class
          * @return the toolbar
+         * 
+         * @throws Exception general exception errors
          */
         public static JToolBar createToolBar(ImagePanel imagePanel, SelectActions sActions, MacroRecorder macro)
                         throws Exception {
