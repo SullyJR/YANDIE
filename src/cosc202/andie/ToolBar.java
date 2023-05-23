@@ -130,16 +130,36 @@ public class ToolBar {
                 toggleMacroButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                                // if toggle macro is selected turns on macro, changes icon and starts
+                                // recording,
+                                // when off, macro asks to be either save
                                 if (toggleMacroButton.isSelected()) {
-                                        toggleMacroButton.setSelectedIcon(ip.iconArray[28]); // Set selected (ON) icon
+                                        toggleMacroButton.setSelectedIcon(ip.iconArray[28]);
                                         toggleMacroButton.setToolTipText(Language.translate("Stop Macro"));
-
-                                        macro.startRecording();
+                                        if (!(macro.isRecording())) {
+                                                macro.startRecording();
+                                        }
                                 } else {
-                                        toggleMacroButton.setSelectedIcon(ip.iconArray[27]); // Set selected (OFF) icon
-                                        toggleMacroButton.setToolTipText(Language.translate("Play Macro"));
-                                        macro.stopRecording();
-                                        // messagebox here
+
+                                        String[] options = { Language.translate("Save"), Language.translate("Remove") };
+                                        String result = (String) JOptionPane.showInputDialog(null, null,
+                                                        Language.translate("Macro Options") + ":",
+                                                        JOptionPane.QUESTION_MESSAGE, null, options,
+                                                        options[0]);
+                                        if (result == null) {
+                                                System.out.println("Ignored"); // cancel or 'X' pressed
+                                                toggleMacroButton.doClick();
+                                        } else if (result.equals(options[0])) { // Save option
+                                                System.out.println("Macro saved");
+                                                toggleMacroButton.doClick();
+                                                // save the macro
+                                        } else if (result.equals(options[1])) { // Remove option
+                                                System.out.println("Macro removed");
+                                                macro.getActions().clear(); // empty the macro
+                                                toggleMacroButton.setSelectedIcon(ip.iconArray[27]);
+                                                toggleMacroButton.setToolTipText(Language.translate("Play Macro"));
+                                                macro.stopRecording();
+                                        }
                                 }
                         }
                 });

@@ -137,14 +137,16 @@ public class FileActions {
                     oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
-                    JPanel error = new JPanel();
-                    error.add(new JLabel(Language.translate("This file type is not Supported")));
-                    error.setVisible(enabled);
-                    JOptionPane.showMessageDialog(target, error, Language.translate("Error"),
-                            JOptionPane.ERROR_MESSAGE);
-
+                    // error handling
                 }
+            } else {
+                JPanel error = new JPanel();
+                error.add(new JLabel(Language.translate("This file type is not Supported")));
+                error.setVisible(enabled);
+                JOptionPane.showMessageDialog(target, error, Language.translate("Error"),
+                        JOptionPane.ERROR_MESSAGE);
             }
+            System.out.println(result == JFileChooser.APPROVE_OPTION);
 
             target.repaint();
             target.getParent().revalidate();

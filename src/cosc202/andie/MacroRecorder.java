@@ -87,5 +87,4 @@ public class MacroRecorder {
     public List<ImageOperation> getActions() {
         return actions;
     }
-
 }
