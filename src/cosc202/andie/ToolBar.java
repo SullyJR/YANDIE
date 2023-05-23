@@ -178,7 +178,7 @@ public class ToolBar {
                 colourLabel.setBackground(Color.WHITE);
                 colourLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 colourLabel.setOpaque(true);
-                rightPanel.add(new JLabel(Language.translate("Selected Colour") + ": "));
+                rightPanel.add(new JLabel(Language.translate("Current Colour") + ": "));
                 rightPanel.add(colourLabel);
 
                 // Add left and right panels to the toolbar

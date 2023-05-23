@@ -546,10 +546,7 @@ public class SelectActions {
       int result;
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
+       
           try {
             target.getImage().apply(new CustomFill(imagePanel, selectedColor));
             target.repaint();
@@ -557,26 +554,21 @@ public class SelectActions {
           } catch (Exception ea) {
             // exception handling
           }
-        }
+        
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
+        
           try {
             target.getImage().apply(new FillRect(imagePanel, selectedColor));
             target.repaint();
             target.getParent().revalidate();
+            System.out.println("hello");
           } catch (Exception ea) {
             // exception handling
           }
-        }
+        
 
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
+        
           try {
             target.getImage().apply(new FillCir(imagePanel, selectedColor));
             target.repaint();
@@ -584,12 +576,9 @@ public class SelectActions {
           } catch (Exception ea) {
             // exception handling
           }
-        }
+        
       } else if (imagePanel.lineToggled()) { // if Line is toggled
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
+       
           try {
             target.getImage().apply(new DrawLine(imagePanel, selectedColor));
             target.repaint();
@@ -597,7 +586,7 @@ public class SelectActions {
           } catch (Exception ea) {
             // exception handling
           }
-        }
+        
       } else {
         JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
             Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
