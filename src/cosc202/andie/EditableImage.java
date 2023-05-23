@@ -367,7 +367,7 @@ class EditableImage {
     boolean z = true; // This is only ever false if it is called from the redo method (when we dont
                       // want to add to the macro)
 
-    public void apply(ImageOperation op) {
+    public synchronized void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
        
