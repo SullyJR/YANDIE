@@ -135,7 +135,9 @@ public class ToolBar {
                                 // if toggle macro is selected turns on macro, changes icon and starts
                                 // recording,
                                 // when off, macro asks to be either save
+                               
                                 if (toggleMacroButton.isSelected()) {
+                                        
                                         toggleMacroButton.setSelectedIcon(ip.iconArray[28]);
                                         toggleMacroButton.setToolTipText(Language.translate("Stop Macro"));
                                         if (!(macro.isRecording())) {
@@ -184,7 +186,7 @@ public class ToolBar {
                 colourLabel.setBackground(Color.WHITE);
                 colourLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 colourLabel.setOpaque(true);
-                rightPanel.add(new JLabel(Language.translate("Selected Colour") + ": "));
+                rightPanel.add(new JLabel(Language.translate("Current Colour") + ": "));
                 rightPanel.add(colourLabel);
 
                 // Add left and right panels to the toolbar

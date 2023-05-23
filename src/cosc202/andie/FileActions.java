@@ -387,8 +387,9 @@ public class FileActions {
                     } else {
                         try {
                             ImageIO.write(bi, extension, output);
-                            JOptionPane.showMessageDialog(null, new JLabel("Image Saved"), "Success",
-                                    JOptionPane.OK_CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null,
+                                    new JLabel(Language.translate("Image") + " " + Language.translate("Save"), null,
+                                            JOptionPane.OK_CANCEL_OPTION));
                         } catch (IOException ex) {
                             JPanel error = new JPanel();
                             error.add(new JLabel(Language.translate("There was a problem saving the image")));

@@ -25,12 +25,21 @@ public class SelectRectangle implements ImageOperation, java.io.Serializable{
     SelectRectangle() {
     }
 
+    public void killrectangle() {
+        selectedArea = null;
+        selectedArea.y = 0;
+        selectedArea.x = 0;
+        selectedArea.width = 0;
+        selectedArea.height = 0;
+    }
+
     /**
      * Replacement for default constructor
      * Wow
      */
     SelectRectangle(ImagePanel imagePanel) {
       this.imagePanel = imagePanel;
+     
     }
 
     public BufferedImage apply(BufferedImage input) {
