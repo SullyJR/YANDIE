@@ -9,6 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * <p>
@@ -128,28 +130,27 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
 
+            // A file chooser that only lets jpg, jpeg, and pngs to be selected, all other
+            // file types/extensions are removed from being selected
             JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showOpenDialog(target);
+            fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+            FileFilter ff = new FileNameExtensionFilter("Suitable ANDIE extensions", "jpg", "jpeg", "png");
+            fileChooser.addChoosableFileFilter(ff);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.showOpenDialog(target);
 
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
-                    target.getImage().open(imageFilepath);
-                } catch (Exception ex) {
-                    // error handling
-                }
-            } else {
-                JPanel error = new JPanel();
-                error.add(new JLabel(Language.translate("This file type is not Supported")));
-                error.setVisible(enabled);
-                JOptionPane.showMessageDialog(target, error, Language.translate("Error"),
-                        JOptionPane.ERROR_MESSAGE);
+            try {
+                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath(); // IOException
+                oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
+                target.getImage().open(imageFilepath); // Exception
+            } catch (Exception err) {
+                // error handling
             }
-            System.out.println(result == JFileChooser.APPROVE_OPTION);
 
             target.repaint();
             target.getParent().revalidate();
+
         }
 
     }
