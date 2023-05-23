@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -359,68 +361,89 @@ public class SelectActions {
    * @see MeanFilter
    */
 
-  public class BlurSelectAction extends ImageAction {
-
+   public class BlurSelectAction extends ImageAction {
+    int radius = 1;
     /**
      * <p>
      * Create a new BlurSelectAction.
      * </p>
-     * 
+     *
      * @param name     The name of the action (ignored if null).
      * @param icon     An icon to use to represent the action (ignored if null).
      * @param desc     A brief description of the action (ignored if null).
      * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
      */
     BlurSelectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-      super(name, icon, desc, mnemonic);
+        super(name, icon, desc, mnemonic);
     }
 
     /**
      * <p>
      * Callback for when the blur select action is triggered.
      * </p>
-     * 
+     *
      * <p>
      * This method is called whenever the BlurSelectAction is triggered.
-     * It prompts the user for a filter radius, then applys an appropriately sized
+     * It prompts the user for a filter radius, then applies an appropriately sized
      * {@link MeanFilter}.
      * </p>
-     * 
+     *
      * @param e The event triggering this callback.
      */
     public void actionPerformed(ActionEvent e) {
-      if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        // Determine the radius - ask the user.
-        int radius = 1;
+        if (imagePanel.rectToggled()) { // if Rectangle is toggled
+            // Determine the radius - ask the user.
+           
 
-        // Pop-up dialog box to ask for the radius value.
-        SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
-        JSpinner radiusSpinner = new JSpinner(radiusModel);
-        int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        // Check the return value from the dialog box.
-        if (option == JOptionPane.CANCEL_OPTION) {
-          return;
-        } else if (option == JOptionPane.OK_OPTION) {
-          radius = radiusModel.getNumber().intValue();
+            // Create the slider
+            JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, radius);
+            radiusSlider.setMajorTickSpacing(5);
+            radiusSlider.setPaintTicks(true);
+            radiusSlider.setPaintLabels(true);
+
+            // Create the title label
+            JLabel titleLabel = new JLabel("Filter Radius: " + radius);
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Create the dialog panel
+            JPanel dialogPanel = new JPanel(new BorderLayout());
+            dialogPanel.add(titleLabel, BorderLayout.NORTH);
+            dialogPanel.add(radiusSlider, BorderLayout.CENTER);
+
+            // Update the title label when the slider value changes
+            radiusSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    radius = radiusSlider.getValue();
+                    titleLabel.setText("Filter Radius: " + radius);
+                }
+            });
+
+            // Show the dialog and get the user's input
+            int option = JOptionPane.showOptionDialog(null, dialogPanel,
+                    Language.translate("Enter filter radius"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                // Create and apply the filter
+                try {
+                    target.getImage().apply(new BlurSelect(radius, imagePanel));
+                    target.repaint();
+                    target.getParent().revalidate();
+                } catch (java.lang.NullPointerException err) {
+                    // cannot initiate filter without image
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    Language.translate("Please make a valid selection") + " (" + Language.translate("Select Rectangle") + ")",
+                    Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        // Create and apply the filter
-        try {
-          target.getImage().apply(new BlurSelect(radius, imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-
-        } catch (java.lang.NullPointerException err) {
-        }
-      } else {
-        JOptionPane.showMessageDialog(null,
-            Language.translate("Please make a valid selection") + " (" + Language.translate("Select Rectangle") + ")",
-            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
-        return;
-      }
-
     }
-  }
+}
 
   /**
    * <p>
