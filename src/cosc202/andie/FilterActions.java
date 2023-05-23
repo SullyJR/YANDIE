@@ -59,20 +59,22 @@ public class FilterActions {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction(Language.translate("Mean Filter"), ip.iconArray[14],
                 Language.translate("Apply a mean filter"), Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction(Language.translate("Soft Blur"), ip.iconArray[13],
-                Language.translate("Apply a soft blur"),
-                Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), ip.iconArray[14],
-                Language.translate("Apply sharpen"), Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), ip.iconArray[13],
-                Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BoxBlurAction(Language.translate("Box Blur"), ip.iconArray[13],
-                Language.translate("Apply a box blur"), Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new MedianFilterAction(Language.translate("Median Filter"), ip.iconArray[14],
                 Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
         actions.add(new EmbossFilterAction(Language.translate("Emboss Filter"), ip.iconArray[14],
                 Language.translate("Apply an emboss filter"), Integer.valueOf(KeyEvent.VK_E)));
+                actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), ip.iconArray[14],
+                Language.translate("Apply sharpen"), Integer.valueOf(KeyEvent.VK_H)));
+                
 
+        actions.add(new SoftBlurAction(Language.translate("Soft Blur"), ip.iconArray[13],
+                Language.translate("Apply a soft blur"),
+                Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), ip.iconArray[13],
+                Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BoxBlurAction(Language.translate("Box Blur"), ip.iconArray[13],
+                Language.translate("Apply a box blur"), Integer.valueOf(KeyEvent.VK_B)));
+                
     }
 
     /**

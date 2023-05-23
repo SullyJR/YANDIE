@@ -133,7 +133,9 @@ public class ToolBar {
                                 // if toggle macro is selected turns on macro, changes icon and starts
                                 // recording,
                                 // when off, macro asks to be either save
+                               
                                 if (toggleMacroButton.isSelected()) {
+                                        
                                         toggleMacroButton.setSelectedIcon(ip.iconArray[28]);
                                         toggleMacroButton.setToolTipText(Language.translate("Stop Macro"));
                                         if (!(macro.isRecording())) {

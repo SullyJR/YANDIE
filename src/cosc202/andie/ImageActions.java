@@ -42,7 +42,7 @@ public class ImageActions {
     public ImageActions(ImagePanel imagePanel) throws IOException {
         ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
-        ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)); // Resize
+        ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[30].setImage(ip.iconArray[30].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
