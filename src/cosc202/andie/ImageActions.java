@@ -42,8 +42,9 @@ public class ImageActions {
     public ImageActions(ImagePanel imagePanel) throws IOException {
         ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
-        ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
+        ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
+        ip.iconArray[30].setImage(ip.iconArray[30].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
 
         actions = new ArrayList<Action>();
@@ -53,7 +54,7 @@ public class ImageActions {
         actions.add(
                 new RotateAction(Language.translate("Rotate"), ip.iconArray[8], Language.translate("Rotate the image"),
                         Integer.valueOf(KeyEvent.VK_P)));
-        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), ip.iconArray[9],
+        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), ip.iconArray[30],
                 Language.translate("Flips image horizontally"), Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), ip.iconArray[9],
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));

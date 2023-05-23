@@ -133,7 +133,8 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/curved.png", "Curved"),
             new ImageIcon("./src/cosc202/andie/icons/play.png", "Play"),
             new ImageIcon("./src/cosc202/andie/icons/stop.png", "Stop"),
-            new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
+            new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex"),
+            new ImageIcon("./src/cosc202/andie/icons/flip horizontal.png", "flip horizontal") //30
     };
 
     /**
