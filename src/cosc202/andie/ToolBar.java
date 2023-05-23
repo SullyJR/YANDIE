@@ -11,6 +11,10 @@ import javax.swing.*;
 
 import cosc202.andie.EditActions.*;
 
+/**
+ * The ToolBar class implements the JToolBar component and creates a toolbar
+ * with various functionality for the user to use
+ */
 public class ToolBar {
 
         protected static ArrayList<Action> actions;

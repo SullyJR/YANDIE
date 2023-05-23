@@ -1,7 +1,3 @@
-/**
-* The GaussianBlur class implements the ImageOperation interface to provide a
-* filter that applies a Gaussian blur to the given image.
-*/
 
 package cosc202.andie;
 
@@ -13,12 +9,10 @@ import java.awt.image.*;
  * </p>
  * 
  * <p>
- * Description for GaussianBlur
+ * The GaussianBlur filter implements the ImageOperation interface to provide a
+ * filter that applies a Gaussian blur to the given image using the supplied
+ * Gaussian equation to create a kernel.
  * </p>
- * 
- * 
- * 
- * 
  */
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
@@ -96,8 +90,8 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
    * Calculates the value for the Gaussian Kernel Using the
    * 2-d gaussian equation
    * 
-   * @param x     horiztonal distance from centre of kernal
-   * @param y     vertical distance from centre of kernal
+   * @param x     horizontal distance from centre of kernel
+   * @param y     vertical distance from centre of kernel
    * @param sigma the variation of the blur
    * @return the computation returns the Gaussian kernel value
    */
