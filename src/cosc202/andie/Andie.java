@@ -144,6 +144,10 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
+        // Add in Macro menu here
+        MacroActions macroActions = new MacroActions();
+        menuBar.add(macroActions.createMenu());
+
         // Changes all the texts language on the UI
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());

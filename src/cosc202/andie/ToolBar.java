@@ -44,6 +44,7 @@ public class ToolBar {
                 EditActions ea = new EditActions();
                 ImageActions ia = new ImageActions(imagePanel);
                 ViewActions va = new ViewActions();
+                MacroActions ma = new MacroActions();
 
                 // Image scaling
                 ip.iconArray[0].setImage(ip.iconArray[0].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Open
@@ -94,7 +95,7 @@ public class ToolBar {
                                 Integer.valueOf(KeyEvent.VK_Z)));
                 actions.add(ea.new RedoAction(null, ip.iconArray[6], Language.translate("Redo"),
                                 Integer.valueOf(KeyEvent.VK_Y)));
-
+                actions.add(ma.new SaveMacroAction(null, ip.iconArray[2], Language.translate("Macro"), null));
                 // Create buttons array
                 JButton[] buttons = {
                                 new JButton(actions.get(0)),
@@ -108,6 +109,7 @@ public class ToolBar {
                                 new JButton(actions.get(8)),
                                 new JButton(actions.get(9)),
                                 new JButton(actions.get(10)),
+                                new JButton(actions.get(11)),
                 };
 
                 // Create left and right panels
@@ -152,6 +154,9 @@ public class ToolBar {
                                         } else if (result.equals(options[0])) { // Save option
                                                 System.out.println("Macro saved");
                                                 toggleMacroButton.doClick();
+                                                toggleMacroButton.setSelectedIcon(ip.iconArray[27]);
+                                                toggleMacroButton.setToolTipText(Language.translate("Play Macro"));
+                                                macro.stopRecording();
                                                 // save the macro
                                         } else if (result.equals(options[1])) { // Remove option
                                                 System.out.println("Macro removed");
@@ -166,6 +171,7 @@ public class ToolBar {
 
                 // Add toggle buttons from SelectionActions to the right panel
 
+                rightPanel.add(buttons[11]);
                 rightPanel.add(toggleMacroButton);
                 rightPanel.add(sActions.getToggleSelect());
                 rightPanel.add(sActions.getToggleCircle());

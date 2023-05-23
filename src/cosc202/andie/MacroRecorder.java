@@ -1,13 +1,12 @@
 package cosc202.andie;
 
-import java.util.List;
 import java.util.Stack;
 
 /**
  * Records a macro of all the actions of an editable image and saved
  * it into a stack. This recorder can reproduce the commands onto other files.
  */
-public class MacroRecorder {
+public class MacroRecorder implements java.io.Serializable {
 
     /** Boolean to check if macro recorder is on */
     private boolean macroOn;
@@ -84,7 +83,7 @@ public class MacroRecorder {
      * 
      * @return gets stack of actions
      */
-    public List<ImageOperation> getActions() {
+    public Stack<ImageOperation> getActions() {
         return actions;
     }
 }

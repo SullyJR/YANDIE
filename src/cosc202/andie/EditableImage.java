@@ -43,7 +43,10 @@ class EditableImage {
     // public static final String ImageIO = null;
     /** The original image. This should never be altered by ANDIE. */
     private BufferedImage original;
+    /** Macro recorder to record image operations */
     private MacroRecorder macro;
+    /** The file where recorded operations sequence is stored. */
+    private String macroFilename;
     /**
      * The current image, the result of applying {@link ops} to {@link original}.
      */
@@ -278,26 +281,95 @@ class EditableImage {
 
     /**
      * <p>
+     * Save the recorded macro operations to a file.
+     * </p>
+     *
+     * <p>
+     * Saves the recorded macro operations to a file with the ".macro" extension.
+     * </p>
+     *
+     * @throws Exception If something goes wrong.
+     */
+    public void saveM() throws Exception {
+        if (this.macroFilename == null) {
+            this.macroFilename = this.macroFilename + ".macro";
+        }
+
+        // Save recorded macro operations to separate file
+        FileOutputStream macroFileOut = new FileOutputStream(this.macroFilename);
+        ObjectOutputStream macroObjOut = new ObjectOutputStream(macroFileOut);
+        macroObjOut.writeObject(this.macro);
+        macroObjOut.close();
+        macroFileOut.close();
+    }
+
+    /**
+     * <p>
+     * Save the macro stack to a specific location.
+     * </p>
+     * 
+     * <p>
+     * Saves an image to the file provided as a parameter.
+     * Also saves a set of operations from the file with <code>.ops</code> added.
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save
+     * the current operations to <code>some/path/to/image.png.ops</code>.
+     * </p>
+     * 
+     * @param macroFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
+     */
+    public void saveMacro(String macroFilename) throws Exception {
+        this.macroFilename = macroFilename + ".macro";
+        saveM();
+    }
+
+    /**
+     * <p>
+     * Load macros from a file and apply them to the current image.
+     * </p>
+     *
+     * <p>
+     * Loads the macros from the specified file with the ".macro" extension and
+     * applies them to the current image.
+     * </p>
+     *
+     * @param filePath The file to load the macros from.
+     * @throws Exception If something goes wrong.
+     */
+    public void loadMacros(String filePath) throws Exception {
+        macroFilename = filePath;
+
+        FileInputStream macroFileIn = new FileInputStream(macroFilename);
+        ObjectInputStream macroObjIn = new ObjectInputStream(macroFileIn);
+        MacroRecorder loadedMacro = (MacroRecorder) macroObjIn.readObject();
+        macroObjIn.close();
+        macroFileIn.close();
+
+        // Apply loaded macros to the current image
+        for (ImageOperation op : loadedMacro.getActions()) {
+            apply(op);
+        }
+    }
+
+    /**
+     * <p>
      * Apply an {@link ImageOperation} to this image.
      * </p>
      * 
      * @param op The operation to apply.
      */
 
-     boolean z =true; // This is only ever false if it is called from the redo method (when we dont want to add to the macro)
+    boolean z = true; // This is only ever false if it is called from the redo method (when we dont
+                      // want to add to the macro)
+
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
-        if(z){
+        if (z) {
             macro.add(op);
             z = true;
         }
-       
-       
-         
-        
-        
-
     }
 
     /**
@@ -308,8 +380,6 @@ class EditableImage {
     public void undo() {
         redoOps.push(ops.pop());
         macro.delete();
-        
-
         refresh();
     }
 
@@ -320,10 +390,8 @@ class EditableImage {
      */
     public void redo() {
         macro.add(redoOps.peek());
-        z=false;
+        z = false;
         apply(redoOps.pop());
-       
-
     }
 
     /**
@@ -368,18 +436,14 @@ class EditableImage {
     public void addMouseListener(MouseAdapter mouseAdapter) {
     }
 
-    ///return the current image
+    /// return the current image
     public BufferedImage getBufferedImage() {
         return current;
-
-        
     }
 
     public BufferedImage setBufferedImage(BufferedImage input) {
         current = input;
         return current;
-
-        
     }
 
 }
