@@ -13,10 +13,10 @@ import java.awt.image.BufferedImage;
  * <p>
  * The selected line is drawn over the original buffered image
  * Then returns the result of those combined
- * <p>
+ * </p>
  * 
  */
-public class DrawLine implements ImageOperation, java.io.Serializable{
+public class DrawLine implements ImageOperation, java.io.Serializable {
   /**
    * <p>
    * An ImagePanel to call back the original ImagePanel from andie
@@ -24,24 +24,25 @@ public class DrawLine implements ImageOperation, java.io.Serializable{
    * </p>
    */
   private ImagePanel imagePanel;
-  
+
   /**
    * <p>
    * A color data field to store the user's picked color
-   * </p> 
+   * </p>
    */
   private Color choosedColor;
 
   /**
    * <p>
    * A Line2D data field to store the location of the Line
-   * </p> 
+   * </p>
    */
   private Line2D selectLine;
 
   /**
    * <p>
-   * Construct a DrawLine constructor using the given ImagePanel and the selected Color
+   * Construct a DrawLine constructor using the given ImagePanel and the selected
+   * Color
    * </p>
    * 
    * @param imagePanel
@@ -64,7 +65,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable{
    */
   public BufferedImage apply(BufferedImage input) {
     BufferedImage output = input;
-    if(selectLine == null) {
+    if (selectLine == null) {
       selectLine = imagePanel.getLine();
     }
     Graphics2D g = output.createGraphics();

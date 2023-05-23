@@ -25,6 +25,8 @@ public class ImageActions {
     /** A list of actions for the Image menu. */
     protected ArrayList<Action> actions;
 
+    private MacroRecorder macro;
+
     /**
      * <p>
      * Create a set of Image menu actions.
@@ -35,7 +37,7 @@ public class ImageActions {
      * @throws IOException user input exception
      */
     public ImageActions(ImagePanel imagePanel) throws IOException {
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
@@ -181,9 +183,13 @@ public class ImageActions {
                      * @param e The event triggering this callback.
                      */
                     public void actionPerformed(ActionEvent e) {
-                        target.repaint();
-                        target.getParent().revalidate();
-                        rotateImage(-90.0);
+                        try {
+                            target.repaint();
+                            target.getParent().revalidate();
+                            rotateImage(-90.0);
+                        } catch (Exception err) {
+                            // cannot initiate filter without image
+                        }
                     }
                 });
 
@@ -198,9 +204,13 @@ public class ImageActions {
                      * @param e The event triggering this callback.
                      */
                     public void actionPerformed(ActionEvent e) {
-                        target.repaint();
-                        target.getParent().revalidate();
-                        rotateImage(90.0);
+                        try {
+                            target.repaint();
+                            target.getParent().revalidate();
+                            rotateImage(90.0);
+                        } catch (Exception err) {
+                            // cannot initiate filter without image
+                        }
                     }
                 });
 
@@ -270,9 +280,13 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new FlipHorizontally());
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new FlipHorizontally());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (NullPointerException err) {
+                // cannot initiate filter without image
+            }
         }
     }
 
@@ -312,9 +326,13 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the filter
-            target.getImage().apply(new FlipVertically());
-            target.repaint();
-            target.getParent().revalidate();
+            try {
+                target.getImage().apply(new FlipVertically());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (NullPointerException err) {
+                // cannot initiate filter without image
+            }
         }
     }
 

@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  * <p>
  * The original image is cropped according to the user's selection.
  * > Rectangle
- * <p>
+ * </p>
  * 
  */
 public class CropRect implements ImageOperation, java.io.Serializable {

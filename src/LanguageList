@@ -39,7 +39,9 @@ Apply a mean filter, Appliquer un filtre moyenne, Memohon penapis min
 Apply a soft blur, Appliquer un flou doux, Memohon pengaburan lembut
 Apply sharpen, Appliquer un accentuation, Memohon ketajaman
 Apply a Gaussian blur, Appliquer un flou Gaussien, Memohon pengaburan Gaussian
+Apply a box blur, Appliquer un flou de boite, Guna kesamaran kotak
 Apply a median filter, Appliquer un filtre median, Memohon penapis median
+Apply an emboss filter, Appliquer un filtre de relief, Gunakan penapis emboss
 Resize the image, Redimensionner l'image, Ubah saiz gambar
 Rotate the image, Faire pivoter l'image, Pusingkan gambar
 Convert to greyscale, Convertir en niveaux de gris, Tukar ke skala kelabu
@@ -62,7 +64,7 @@ There was a problem opening the image, Il y a eu un problème lors de l'ouvertur
 This file type is not Supported, Ce type de fichier n’est pas pris en charge, Jenis fail ini tidak disokong 
 Image have been saved to original extension, L’image a ete enregistree dans l’extension d’origine, Imej telah disimpan pada sambungan asal
 Emboss Filter, Filtre en relief, Penapis Emboss
-Box Blur, Flou de boîte, Kabur Kotak
+Box Blur, Flou de boite, Kabur Kotak
 You have no image to export!, Vous n'avez aucune image a exporter!,Anda tidak mempunyai gambar untuk dieksport!
 Error, Erreur, Ralat
 Select, Selectionner, Pilih
@@ -73,13 +75,24 @@ Select a line, Selectionner une ligne, Pilih garis melengkung
 Select a colour, Selectionnez une couleur, Pilih satu warn
 Select a curved line, Selectionner une ligne courbe
 Crop Image, Recadrer l'image, Potong Gambar
-Crop an Image, Recadrer l'image, Potong Gambar
+Crop an image, Recadrer l'image, Potong gambar
 Brightness and Contrast, Luminosite et Contraste, Kecerahan dan Kontras
-Adjust the Brightness and Contrast, Ajuster la luminosité et le contraste, Sesuaikan Kecerahan dan Kontras
+Adjust the Brightness and Contrast, Ajuster la luminosite et le contraste, Sesuaikan Kecerahan dan Kontras
 Macro, Macro, Macro
 Draw Rectangle, Dessiner un rectangle, Lukis Segiempat
 Draw a Rectangle, Dessiner un rectangle, Lukis satu Segiempat
-Draw Circle, Dessiner un cercle, Lukis Bulatan
 Draw a Circle, Dessiner un cercle, Lukis satu Bulatan
+Draw a Curved Line, Dessinez une ligne Courbe, Lukis Garis Melengkung
 Make a Drawing, Faire un dessin, Melukis Lukisan
+Draw, Dessinez, Lukis
 Selected Colour, Couleur Selectionnee, Warna Yang Dipilih
+Please make a valid selection, Veuillez effectuer une selection valide, Sila membuat pilihan yang sah.
+Would you like to crop the image, Souhaitez-vous recadrer l'image, Anda ingin memotong imej
+Would you like to select the image, Souhaitez-vous selectionner l'image, Anda ingin memilih gambar
+Would you like to draw on the image, Souhaitez-vous dessiner sur l'image, Anda ingin melukis pada imej
+Play Macro, Lancer la macro, Mainkan Makro 
+Stop Macro, Arreter la macro, Hentikan Makro
+Language is already in use, La langue est deja utilisee, Bahasa sudah digunakan
+Blur an area, Flouter une zone, Kaburkan kawasan
+Remove, Enlever, Buang
+Macro Options, Options de Macro, Pilihan Macro

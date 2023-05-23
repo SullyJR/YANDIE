@@ -1,29 +1,28 @@
 package cosc202.andie;
 
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.*;
-import java.util.*;
+import java.util.Arrays;
 
 /**
- * <p>
- * ImageOperation to apply a Mean (simple blur) filter.
- * </p>
- * 
- * <p>
- * A Mean filter blurs an image by replacing each pixel by the average of the
- * pixels in a surrounding neighbourhood, and can be implemented by a
- * convolution.
- * </p>
- * 
- * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
- * 4.0</a>
- * </p>
- * 
- * @see java.awt.image.ConvolveOp
- * @author Steven Mills
- * @version 1.0
+ * A BlurSelect class which blurs only the area selected by the user.
+ * Implements ImageOperation and java.io.Serializable
  */
-public class MeanFilter implements ImageOperation, java.io.Serializable {
+public class BlurSelect implements ImageOperation, java.io.Serializable {
+
+    /**
+     * <p>
+     * An ImagePanel to call back the original ImagePanel from andie
+     * to apply selections methods
+     * </p>
+     */
+    private ImagePanel imagePanel;
+
+    /**
+     * Selected area of the rectangle
+     */
+    private Rectangle area;
 
     /**
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
@@ -33,7 +32,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Construct a Mean filter with the given size.
+     * Construct a BlurSelect with the given radius.
      * </p>
      * 
      * <p>
@@ -44,47 +43,43 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 
      * @param radius The radius of the newly constructed MeanFilter
      */
-    MeanFilter(int radius) {
+    BlurSelect(int radius, ImagePanel imagePanel) {
         this.radius = radius;
+        this.imagePanel = imagePanel;
+        this.area = null;
     }
 
     /**
-     * <p>
-     * Construct a Mean filter with the default size.
-     * </p
-     * >
-     * <p>
-     * By default, a Mean filter has radius 1.
-     * </p>
+     * Applies the blur select to the image
      * 
-     * @see MeanFilter(int)
-     */
-    MeanFilter() {
-        this(1);
-    }
-
-    /**
-     * <p>
-     * Apply a Mean filter to an image.
-     * </p>
-     * 
-     * <p>
-     * As with many filters, the Mean filter is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.
-     * Larger radii lead to stronger blurring.
-     * </p>
-     * 
-     * @param input The image to apply the Mean filter to.
-     * @return The resulting (blurred)) image.
+     * @param input the image being used
+     * @return the buffered image
      */
     public BufferedImage apply(BufferedImage input) {
+        if (area == null) {
+            area = imagePanel.getSelection();
+        }
+        // get the selected area
+        BufferedImage selectedImg = input.getSubimage(area.x, area.y, area.width, area.height);
 
-        int size = (2 * radius + 1) * (2 * radius + 1);
+        // apply filter to the selected area
         float[][] kernelValues = new float[2 * radius + 1][2 * radius + 1];
+        int size = (2 * radius + 1) * (2 * radius + 1);
         for (float[] array : kernelValues) {
             Arrays.fill(array, 1.0f / size);
         }
-        return applyKernel(input, kernelValues);
+        BufferedImage filteredImg = applyKernel(selectedImg, kernelValues);
+
+        // create a new BufferedImage object to hold the filtered result
+        BufferedImage newImg = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
+
+        // draw the filtered result onto the new image at the correct location
+        Graphics2D g2d = newImg.createGraphics();
+        g2d.drawImage(input, 0, 0, null);
+        g2d.drawImage(filteredImg, area.x, area.y, null);
+        g2d.dispose();
+
+        return newImg;
 
     }
 
@@ -144,5 +139,4 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         }
         return result;
     }
-
 }

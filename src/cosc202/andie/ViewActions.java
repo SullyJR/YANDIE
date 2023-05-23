@@ -33,6 +33,8 @@ public class ViewActions {
      */
     protected ArrayList<Action> actions;
 
+    private MacroRecorder macro;
+
     /**
      * <p>
      * Create a set of View menu actions.
@@ -42,7 +44,7 @@ public class ViewActions {
      */
     public ViewActions() throws IOException {
 
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[10].setImage(ip.iconArray[10].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom in
         ip.iconArray[11].setImage(ip.iconArray[11].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Zoom

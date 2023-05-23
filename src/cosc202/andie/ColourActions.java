@@ -3,10 +3,14 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.Image;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.IOException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 
 /**
  * <p>
@@ -33,7 +37,9 @@ public class ColourActions {
 
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
-    private MacroRecorder macroRecorder;
+
+    /** */
+    private MacroRecorder macro;
 
     /**
      * <p>
@@ -43,8 +49,10 @@ public class ColourActions {
      * @throws IOException user input exception
      */
     public ColourActions() throws IOException {
+      
+  
 
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[15].setImage(ip.iconArray[15].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Greyscale
         ip.iconArray[16].setImage(ip.iconArray[16].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Brightness
@@ -116,7 +124,6 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-               // macroRecorder.addAction("Greyscale");
                 target.getImage().apply(new ConvertToGrey());
                 target.repaint();
                 target.getParent().revalidate();
@@ -239,6 +246,13 @@ public class ColourActions {
                     // Cannot initiate filter without image
                 }
             }
+        }
+
+        private BufferedImage deepCopy(BufferedImage image) {
+            ColorModel cm = image.getColorModel();
+            boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+            WritableRaster raster = image.copyData(null);
+            return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
         }
 
     }

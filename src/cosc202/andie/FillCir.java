@@ -39,14 +39,15 @@ public class FillCir implements ImageOperation, java.io.Serializable {
    * 
    */
   private Ellipse2D circle;
-  
+
   /**
    * <p>
-   * Construct a FillCir constructor using the given ImagePanel and also choosen Color
+   * Construct a FillCir constructor using the given ImagePanel and also choosen
+   * Color
    * </p>
    * 
-   * @param imagePanel
-   * @param choosedColor
+   * @param imagePanel   the image panel
+   * @param choosedColor the chosen colour from the user
    */
   FillCir(ImagePanel imagePanel, Color choosedColor) {
     this.imagePanel = imagePanel;
@@ -56,12 +57,12 @@ public class FillCir implements ImageOperation, java.io.Serializable {
 
   /**
    * 
-   * @param input
-   * @return output
+   * @param input the image
+   * @return outputs the image with filters
    */
   public BufferedImage apply(BufferedImage input) {
     BufferedImage output = input;
-    if(circle == null) {
+    if (circle == null) {
       circle = imagePanel.getCircle();
     }
 

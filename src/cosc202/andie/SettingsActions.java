@@ -25,17 +25,19 @@ public class SettingsActions {
     /** A list of actions for the Settings menu. */
     protected ArrayList<Action> actions;
 
+    private MacroRecorder macro;
+
     /**
      * <p>
      * Create a set of Settings menu actions.
      * </p>
      * 
      * @throws IOException user input exception
-     */ 
+     */
 
     public SettingsActions() throws IOException {
 
-        ImagePanel ip = new ImagePanel();
+        ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[18].setImage(ip.iconArray[18].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Language
 
@@ -101,36 +103,54 @@ public class SettingsActions {
         public void actionPerformed(ActionEvent e) {
 
             try {
-                // Creates a array of languages
-                String[] newLanguages = new String[Language.getNumLanguages];
+                // Creates an array of languages
+                String[] newLanguages = new String[Language.getNumLanguages()];
                 // Fills the language array with translated language options
                 for (int i = 0; i < Andie.languages.length; i++) {
                     newLanguages[i] = Language.translate(Andie.languages[i]);
                 }
-                // Creates a JOptionPane which prompts to user to choose a language
+                // Creates a JOptionPane which prompts the user to choose a language
                 String option = (String) JOptionPane.showInputDialog(null, null,
                         Language.translate("Choose a language") + ":", JOptionPane.QUESTION_MESSAGE, null, newLanguages,
                         newLanguages[0]);
 
-                // Checks the returning value of the combobox and evaluates choosen option using
-                // if statements, true if statements use the setLanguage method
-                // that changes the language to input
-                if (option == newLanguages[0]) {
-                    Language.setLanguage("en");
-                } else if (option == newLanguages[1]) {
-                    Language.setLanguage("fr");
-                } else if (option == newLanguages[2]) {
-                    Language.setLanguage("my");
-                }
-                // if an option is chosen, the frame will reload and change all the text to
-                // whatever was chosen previously, otherwise nothing changes
+                // checks if OK_OPTION was pressed
                 if (option != null) {
-                    try {
-                        Andie.frame.dispose();
-                        Andie.createAndShowGUI();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        System.exit(1);
+                    // Checks if the new option is a duplicate of the initial language
+                    String duplicateCheck = "";
+                    if (option.equals(newLanguages[0])) {
+                        duplicateCheck = "en";
+                    } else if (option.equals(newLanguages[1])) {
+                        duplicateCheck = "fr";
+                    } else if (option.equals(newLanguages[2])) {
+                        duplicateCheck = "my";
+                    }
+
+                    boolean change = false;
+                    // Checks if the option matches to language and checks for duplicates
+                    if (option.equals(newLanguages[0]) && !duplicateCheck.equals(Language.language)) {
+                        Language.setLanguage("en");
+                        change = true;
+                    } else if (option.equals(newLanguages[1]) && !duplicateCheck.equals(Language.language)) {
+                        Language.setLanguage("fr");
+                        change = true;
+                    } else if (option.equals(newLanguages[2]) && !duplicateCheck.equals(Language.language)) {
+                        Language.setLanguage("my");
+                        change = true;
+                    }
+                    // if an option is chosen, the frame will reload and change all the text to
+                    // whatever was chosen previously, if it is the same a messagebox appears
+                    if (option != null && change == true) {
+                        try {
+                            Andie.frame.dispose();
+                            Andie.createAndShowGUI();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            System.exit(1);
+                        }
+                    } else if (change == false) {
+                        JOptionPane.showMessageDialog(null, Language.translate("Language is already in use"),
+                                Language.translate("Error"), JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             } catch (Exception e2) {

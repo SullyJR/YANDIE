@@ -44,7 +44,9 @@ public class SelectActions {
   private JButton colorPickerButton;
 
   /** A color variable to remember what color the user has picked */
-  private Color selectedColor;
+  private Color selectedColor = Color.WHITE;
+
+  private MacroRecorder macro;
 
   /**
    * <p>
@@ -58,7 +60,7 @@ public class SelectActions {
   public SelectActions(ImagePanel imagePanel) throws IOException {
     this.imagePanel = imagePanel;
 
-    ImagePanel ip = new ImagePanel(); // For ICONS
+    ImagePanel ip = new ImagePanel(macro); // For ICONS
     // Adds Icons and Scales them down to fit in the box
     ip.iconArray[19].setImage(ip.iconArray[19].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Crop
     ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
@@ -75,6 +77,8 @@ public class SelectActions {
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
     actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22],
         Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
+    actions.add(new BlurSelectAction(Language.translate("Blur an area"), ip.iconArray[22],
+        Language.translate("Blur an area"), Integer.valueOf(KeyEvent.VK_R)));
   }
 
   /**
@@ -87,7 +91,7 @@ public class SelectActions {
   public JMenu createMenu() {
 
     JMenu selectMenu = new JMenu(Language.translate("Select"));
-    ImagePanel ip = new ImagePanel();
+    ImagePanel ip = new ImagePanel(macro);
     // Created a toggle button just for Selection and add it to the edit menu
     // ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16,
     // 16, Image.SCALE_SMOOTH)); // Select
@@ -100,6 +104,7 @@ public class SelectActions {
       public void actionPerformed(ActionEvent e) {
         if (imagePanel.rectToggled()) {
           imagePanel.deactivateRect();
+          imagePanel.removeRect();
         } else {
           imagePanel.deactivateDraw();
           imagePanel.deactivateCir();
@@ -198,7 +203,6 @@ public class SelectActions {
         selectedColor = chooser.getColor();
         ToolBar tb = new ToolBar();
         tb.updateColour(selectedColor);
-        System.out.println(selectedColor);
         colorPicker.dispose();
       }
     });
@@ -278,6 +282,15 @@ public class SelectActions {
   }
 
   /**
+   * Accessor method for colorSelected
+   * 
+   * @return the button
+   */
+  public Color getColour() {
+    return selectedColor;
+  }
+
+  /**
    * <p>
    * Action to select a rectangular area to edit
    * </p>
@@ -315,21 +328,96 @@ public class SelectActions {
 
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
-
+      int result;
       if (imagePanel.rectToggled()) {
-        JOptionPane.showOptionDialog(null, "Press Yes to Proceed", "Select Rectangle",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to select the image"),
+            Language.translate("Select Rectangle"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new SelectRectangle(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new SelectRectangle(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else {
-        JOptionPane.showMessageDialog(null, "Please make a selection!", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
+            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
         return;
       }
+    }
+  }
+
+  /**
+   * <p>
+   * Action to filter an image based on user selection with a mean filter.
+   * </p>
+   * 
+   * @see MeanFilter
+   */
+
+  public class BlurSelectAction extends ImageAction {
+
+    /**
+     * <p>
+     * Create a new BlurSelectAction.
+     * </p>
+     * 
+     * @param name     The name of the action (ignored if null).
+     * @param icon     An icon to use to represent the action (ignored if null).
+     * @param desc     A brief description of the action (ignored if null).
+     * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+     */
+    BlurSelectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+      super(name, icon, desc, mnemonic);
+    }
+
+    /**
+     * <p>
+     * Callback for when the blur select action is triggered.
+     * </p>
+     * 
+     * <p>
+     * This method is called whenever the BlurSelectAction is triggered.
+     * It prompts the user for a filter radius, then applys an appropriately sized
+     * {@link MeanFilter}.
+     * </p>
+     * 
+     * @param e The event triggering this callback.
+     */
+    public void actionPerformed(ActionEvent e) {
+      if (imagePanel.rectToggled()) { // if Rectangle is toggled
+        // Determine the radius - ask the user.
+        int radius = 1;
+
+        // Pop-up dialog box to ask for the radius value.
+        SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
+        JSpinner radiusSpinner = new JSpinner(radiusModel);
+        int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        // Check the return value from the dialog box.
+        if (option == JOptionPane.CANCEL_OPTION) {
+          return;
+        } else if (option == JOptionPane.OK_OPTION) {
+          radius = radiusModel.getNumber().intValue();
+        }
+        // Create and apply the filter
+        try {
+          target.getImage().apply(new BlurSelect(radius, imagePanel));
+          target.repaint();
+          target.getParent().revalidate();
+
+        } catch (java.lang.NullPointerException err) {
+        }
+      } else {
+        JOptionPane.showMessageDialog(null,
+            Language.translate("Please make a valid selection") + " (" + Language.translate("Select Rectangle") + ")",
+            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+        return;
+      }
+
     }
   }
 
@@ -369,46 +457,61 @@ public class SelectActions {
 
       // Pop-up dialog box to inform user to make sure there is a
       // Selection in place
-
+      int result;
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        JOptionPane.showOptionDialog(null, "test", "Crop",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+            Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new Lasso(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new Lasso(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Crop",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+            Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new CropRect(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new CropRect(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Crop",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to crop the image") + "?",
+            Language.translate("Crop Image"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new CropCir(imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new CropCir(imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else {
-        JOptionPane.showMessageDialog(null, "Please make a selection before Cropping", "Error",
+        JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
+            Language.translate("Error"),
             JOptionPane.ERROR_MESSAGE);
         return;
       }
     }
   }
 
+  /**
+   * <p>
+   * Action to fill an area with colour {@link ImageAction}
+   * </p>
+   */
   public class FillColorAction extends ImageAction {
     /**
      * <p>
@@ -440,49 +543,64 @@ public class SelectActions {
      * @param e The event triggering this callback
      */
     public void actionPerformed(ActionEvent e) {
+      int result;
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        JOptionPane.showOptionDialog(null, "test", "Draw a shape",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new CustomFill(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new CustomFill(imagePanel, selectedColor));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a rectangle",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new FillRect(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new FillRect(imagePanel, selectedColor));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
+
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a circle/oval",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new FillCir(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new FillCir(imagePanel, selectedColor));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else if (imagePanel.lineToggled()) { // if Line is toggled
-        JOptionPane.showOptionDialog(null, "test", "Draw a line",
+        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
+            Language.translate("Draw"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        try {
-          target.getImage().apply(new DrawLine(imagePanel, selectedColor));
-          target.repaint();
-          target.getParent().revalidate();
-        } catch (Exception ea) {
-          // TODO: handle exception
+        if (result == JOptionPane.OK_OPTION) {
+          try {
+            target.getImage().apply(new DrawLine(imagePanel, selectedColor));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (Exception ea) {
+            // exception handling
+          }
         }
       } else {
-        JOptionPane.showMessageDialog(null, "Please enable any Selection", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
+            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
         return;
       }
     }

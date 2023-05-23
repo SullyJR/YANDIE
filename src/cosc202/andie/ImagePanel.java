@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-
 import javax.swing.*;
 
 /**
@@ -29,13 +28,16 @@ import javax.swing.*;
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
-    private List actions;
-    private boolean isRecording;
 
     /**
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
+
+    /**
+     * 
+     */
+    private MacroRecorder macro;
 
     /**
      * Anchor represents the starting point when Mouse is Pressed
@@ -129,6 +131,8 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/line.png", "Line"),
             new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"),
             new ImageIcon("./src/cosc202/andie/icons/curved.png", "Curved"),
+            new ImageIcon("./src/cosc202/andie/icons/play.png", "Play"),
+            new ImageIcon("./src/cosc202/andie/icons/stop.png", "Stop"),
             new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex")
     };
 
@@ -146,6 +150,8 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
+    public ImagePanel imagePanel;
+
     /**
      * <p>
      * Create a new ImagePanel.
@@ -155,9 +161,12 @@ public class ImagePanel extends JPanel {
      * Newly created ImagePanels have a default zoom level of 100%
      * Newly created ImagePanels also have toggleSelection false on default
      * </p>
+     * 
+     * @param macro used to record previous actions
      */
-    public ImagePanel() {
-        image = new EditableImage();
+    public ImagePanel(MacroRecorder macro) {
+        this.macro = macro;
+        image = new EditableImage(macro);
         scale = 1.0;
 
         // Making sure all is untoggled so weird things dont happen
@@ -347,6 +356,15 @@ public class ImagePanel extends JPanel {
 
     /**
      * <p>
+     * Method to remove selection
+     * </p>
+     */
+    public void removeRect() {
+        selection = null;
+    }
+
+    /**
+     * <p>
      * Method that sets toggleRect to true so
      * that it shows the drawing and also calculates
      * the rectangle
@@ -426,7 +444,7 @@ public class ImagePanel extends JPanel {
      * <p>
      * Method that returns the circle when called
      * Could also be used with alot of features
-     * <p>
+     * </p>
      * 
      * @return selectCir The Circle created when the user drew one
      */
