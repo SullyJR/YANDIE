@@ -156,7 +156,12 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         JToolBar toolBar = ToolBar.createToolBar(imagePanel, selectActions, macroRecorder);
         frame.add(toolBar, BorderLayout.PAGE_START);
-        frame.addKeyListener(new KeyPress());
+
+        KeyPress keyPress = new KeyPress();
+        frame.addKeyListener(keyPress);
+        frame.setFocusable(true);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
 
@@ -192,8 +197,8 @@ public class Andie {
 
                 try {
                     createAndShowGUI();
-                    // FileActions.FileOpenDefaultAction();
                     frame.setPreferredSize(new Dimension(1000, 1500));
+                  
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

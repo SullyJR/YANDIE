@@ -5,6 +5,7 @@ import java.io.*;
 import java.awt.event.MouseAdapter;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.RepaintManager;
 
 /**
  * <p>
@@ -185,6 +186,8 @@ class EditableImage {
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
         }
+       
+        
         this.refresh();
     }
 
@@ -349,6 +352,7 @@ class EditableImage {
         // Apply loaded macros to the current image
         for (ImageOperation op : loadedMacro.getActions()) {
             apply(op);
+
         }
     }
 
@@ -366,6 +370,7 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+       
         if (z) {
             macro.add(op);
             z = true;
@@ -381,6 +386,7 @@ class EditableImage {
         redoOps.push(ops.pop());
         macro.delete();
         refresh();
+        
     }
 
     /**

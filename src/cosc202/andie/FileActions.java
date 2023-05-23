@@ -143,14 +143,19 @@ public class FileActions {
             try {
                 String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath(); // IOException
                 oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
+                
                 target.getImage().open(imageFilepath); // Exception
+                
             } catch (Exception err) {
                 // error handling
             }
-
+            
+            
+                
+           
             target.repaint();
             target.getParent().revalidate();
-
+           
         }
 
     }
