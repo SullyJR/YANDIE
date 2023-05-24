@@ -134,7 +134,7 @@ public class FileActions {
             // file types/extensions are removed from being selected
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
-            FileFilter ff = new FileNameExtensionFilter("Suitable ANDIE extensions", "jpg", "jpeg", "png");
+            FileFilter ff = new FileNameExtensionFilter("Suitable ANDIE extensions", "jpg", "jpeg", "png", "tiff");
             fileChooser.addChoosableFileFilter(ff);
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.setMultiSelectionEnabled(false);
