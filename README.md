@@ -94,10 +94,11 @@ The Source Code File (src) contains two folders, where:
 - `cosc202\andie` : the folder where the Java files are located, including the icons files and language text files
 - `test` : the folder where the unit testing is located 
 
-The workspace also contains two files, where:
+The workspace also contains three files, where:
 
 - `.gitignore` : the file that tells git which files to ignore
 - `README.md` : the markdown text file which describes the GitHub project
+- `.gitlab-ci.yml` : the continuous integration used to write the JUnit tests and pages
 
 > If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 > If you want to access the folder structure, open `https://altitude.otago.ac.nz/cosc202-yandie/andie`
