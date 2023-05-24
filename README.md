@@ -54,7 +54,8 @@ The filter menu has a wide variety of functionality as this is where all our ima
 ## Colour Menu
 The colour menu is used to adjust the brightness and contrast of the image, this is done with a combo slider which allows you to adjust both the brightness and contrast at the same time. The colour menu also has the ability to change the colour of the image to greyscale
 
-![image info](ReadmeImages/colour.png)
+![image info](./ReadmeImages/colour.png)
+
 ![image info](ReadmeImages/colourAdjust.png)
 
 ## Settings Menu
