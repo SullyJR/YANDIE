@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
 /**
  * <p>
  * Actions provided by the Colour menu.
@@ -35,7 +34,12 @@ public class ColourActions {
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
 
-    /** */
+    /**
+     * <p>
+     * A macroRecorder that connects the current MacroRecorder 
+     * to record all actions being applied onto the image
+     * </p>
+     */
     private MacroRecorder macro;
 
     /**
@@ -46,8 +50,6 @@ public class ColourActions {
      * @throws IOException user input exception
      */
     public ColourActions() throws IOException {
-      
-  
 
         ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box

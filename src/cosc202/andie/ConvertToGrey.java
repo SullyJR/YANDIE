@@ -29,9 +29,7 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * </p>
      */
 
-    ConvertToGrey() {
-
-    }  
+    ConvertToGrey() {}  
 
     /**
      * <p>
