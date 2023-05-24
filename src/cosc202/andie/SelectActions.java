@@ -79,7 +79,7 @@ public class SelectActions {
     // Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
     actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[19],
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
-    actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22],
+    actions.add(new FillColorAction(Language.translate("Fill"), ip.iconArray[22],
         Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
     actions.add(new BlurSelectAction(Language.translate("Blur an area"), ip.iconArray[31],
         Language.translate("Blur an area"), Integer.valueOf(KeyEvent.VK_R)));

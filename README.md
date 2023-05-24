@@ -1,6 +1,6 @@
 # andie
 
-andie is a non destructive (open source) image editor, which allows you to add images from your PC and lets you style them as you please. andie is developed using Java programming and libraries which includes JUnit testing, icons and text files. The UI is based off a standard image editor. ChatGPT was used within the Java programing for translations in languageList.txt and to write some JavaDocs.
+Andie is a non destructive (open source) image editor, which allows you to add images from your PC and lets you style them as you please. andie is developed using Java programming and libraries which includes JUnit testing, icons and text files. The UI is based off a standard image editor. ChatGPT was used within the Java programing for translations in languageList.txt and to write some JavaDocs.
 
 ## Features
 
