@@ -18,22 +18,22 @@ Andie is a non destructive (open source) image editor, which allows you to add i
 ## File Menu
 The file menu has various functionality for opening, saving, exporting and closing images. It also has a simple exit button to close the program.
 
-![image info](./ReadMeImages/fileMenu.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/fileMenu.png)
 
 ## Edit Menu
 The edit menu is used to undo and redo actions to the current image.
 
-![image info](ReadmeImages/edit.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/edit.png)
 
 ## Image Menu
 The image menu has the ability to resize the image, rotate the image, and flip the image both horizontally and vertically.
 
-![image info](ReadmeImages/image.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/image.png)
 
 ## View Menu
 The view menu is simply used to zoom in and out of the image.
 
-![image info](ReadmeImages/view.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/view.png)
 
 ## Filter Menu
 The filter menu has a wide variety of functionality as this is where all our image processing filters are kept. In this menu you have 7 different filters that can be applied. These are:
@@ -47,27 +47,27 @@ The filter menu has a wide variety of functionality as this is where all our ima
 
 4 of these filters (Mean, Gaussian, Box, and Median) have the ability to choose the radius of the filter which alters the strength to which the filter is applied.
 
-![image info](ReadmeImages/filter.png)
-![image info](ReadmeImages/radiusFilter.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/filter.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/radiusFilter.png)
 
 
 ## Colour Menu
 The colour menu is used to adjust the brightness and contrast of the image, this is done with a combo slider which allows you to adjust both the brightness and contrast at the same time. The colour menu also has the ability to change the colour of the image to greyscale
 
-![image info](./ReadmeImages/colour.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/colour.png)
 
-![image info](ReadmeImages/colourAdjust.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/colourAdjust.png)
 
 ## Settings Menu
 The settings menu allows the user to change the programs language from a dropdown menu. The user can select from either English, French, or Malay.
 
-![image info](ReadmeImages/settings.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/settings.png)
 
 ## UI/Toolbar
 The UI is based off of a standard image editor so that it is simple and easy to use. There is also an included toolbar that has quick access to some of the features noted above for efficient image processing
 
-![image info](ReadmeImages/leftToolbar.png)
-![image info](ReadmeImages/rightToolbar.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/leftToolbar.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/rightToolbar.png)
 
 
 # Folder Structure
