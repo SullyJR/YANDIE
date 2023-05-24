@@ -35,10 +35,10 @@ public class MacroActions {
 
         ImagePanel ip = new ImagePanel(null);
         ip.iconArray[2].setImage(ip.iconArray[2].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
-        ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Load
+        ip.iconArray[32].setImage(ip.iconArray[32].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Load
 
         actions = new ArrayList<Action>();
-        actions.add(new LoadMacroAction(Language.translate("Load"), ip.iconArray[8], Language.translate("Load"), null));
+        actions.add(new LoadMacroAction(Language.translate("Load"), ip.iconArray[32], Language.translate("Load"), null));
     }
 
     /**
