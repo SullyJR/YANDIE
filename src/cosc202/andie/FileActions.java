@@ -400,7 +400,7 @@ public class FileActions {
                         try {
                             ImageIO.write(bi, extension, output);
                             JOptionPane.showMessageDialog(null,
-                                    new JLabel(Language.translate("Image") + " " + Language.translate("Save"), null,
+                                    new JLabel(Language.translate("Image") + " " + Language.translate("Saved"), null,
                                             JOptionPane.OK_CANCEL_OPTION));
                         } catch (IOException ex) {
                             JPanel error = new JPanel();
