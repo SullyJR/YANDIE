@@ -31,7 +31,7 @@ public class ImagePanelTest {
     void getIconLengthArray() {
         ImagePanel testPanel = new ImagePanel(null);
         ImageIcon[] ip = testPanel.iconArray;
-        Assertions.assertEquals(ip.length, 31);
+        Assertions.assertEquals(ip.length, 32);
     }
 
     @Test
