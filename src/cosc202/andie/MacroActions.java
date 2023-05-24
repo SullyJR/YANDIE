@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Image;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
@@ -31,11 +32,14 @@ public class MacroActions {
      * @throws IOException user input exception
      */
     public MacroActions() throws IOException {
-        // SEN :)
+
+        ImagePanel ip = new ImagePanel(null);
+        ip.iconArray[2].setImage(ip.iconArray[2].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
+        ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Load
 
         actions = new ArrayList<Action>();
-        actions.add(new SaveMacroAction("save", null, null, null));
-        actions.add(new LoadMacroAction("load", null, null, null));
+        actions.add(new SaveMacroAction(Language.translate("Save"), ip.iconArray[2], Language.translate("Save"), null));
+        actions.add(new LoadMacroAction(Language.translate("Load"), ip.iconArray[8], Language.translate("Load"), null));
     }
 
     /**

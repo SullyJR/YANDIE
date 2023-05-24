@@ -1,4 +1,6 @@
 package cosc202.andie;
+
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -6,6 +8,8 @@ import java.util.Collections;
 import javax.swing.*;
 
 public class KeyPress implements KeyListener {
+
+    ImagePanel ip = new ImagePanel(null);
 
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 
@@ -15,7 +19,7 @@ public class KeyPress implements KeyListener {
     boolean boolX = false;
 
     public KeyPress() {
-      
+
     }
 
     @Override
@@ -48,8 +52,8 @@ public class KeyPress implements KeyListener {
         if (boolX) {
             boolX = false;
             JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!",
-                    JOptionPane.QUESTION_MESSAGE);
-            
+                    JOptionPane.QUESTION_MESSAGE, ip.iconArray[29]);
+
         }
     }
 

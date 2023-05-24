@@ -67,8 +67,7 @@ public class Andie {
         frame = new JFrame("YANDIE");
         frame.setForeground(Color.GRAY);
 
-        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/alex.png")); // andie icon
-        // new File("./src/cosc202/andie/icons/icon.png"
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png")); // andie icon
 
         // Set the location of the frame to the center of the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -102,7 +101,6 @@ public class Andie {
         // The main content area is an ImagePanel
         MacroRecorder macroRecorder = new MacroRecorder();
         ImagePanel imagePanel = new ImagePanel(macroRecorder);
-        
 
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -198,7 +196,6 @@ public class Andie {
                 try {
                     createAndShowGUI();
                     frame.setPreferredSize(new Dimension(1000, 1500));
-                  
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
