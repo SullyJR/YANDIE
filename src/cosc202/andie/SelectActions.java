@@ -567,7 +567,6 @@ public class SelectActions {
      * @param e The event triggering this callback
      */
     public void actionPerformed(ActionEvent e) {
-      int result;
       // if draw is toggled
       if (imagePanel.drawToggled()) {
        

@@ -23,9 +23,6 @@ public class MacroActions {
     /** A list of actions for the Macro menu. */
     protected ArrayList<Action> actions;
 
-    /** MacroRecorder object to callback methods from macro */
-    private MacroRecorder macro;
-
     /**
      * <p>
      * Create a set of Macro menu actions.

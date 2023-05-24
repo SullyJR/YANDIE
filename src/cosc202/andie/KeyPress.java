@@ -6,8 +6,6 @@ import java.util.Collections;
 import javax.swing.*;
 
 public class KeyPress implements KeyListener {
-    private MacroRecorder macro;
-    private ImagePanel ip;
 
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 

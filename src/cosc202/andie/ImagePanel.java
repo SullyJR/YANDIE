@@ -35,11 +35,6 @@ public class ImagePanel extends JPanel {
     private EditableImage image;
 
     /**
-     * 
-     */
-    private MacroRecorder macro;
-
-    /**
      * Anchor represents the starting point when Mouse is Pressed
      */
     private Point anchor;
@@ -167,7 +162,6 @@ public class ImagePanel extends JPanel {
      * @param macro used to record previous actions
      */
     public ImagePanel(MacroRecorder macro) {
-        this.macro = macro;
         image = new EditableImage(macro);
         scale = 1.0;
 
