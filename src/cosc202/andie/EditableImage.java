@@ -157,12 +157,16 @@ class EditableImage {
      * @param filePath The file to open the image from.
      * @throws Exception If something goes wrong.
      */
-    public void open(String filePath) throws Exception {
+    public void open(String filePath){
         imageFilename = filePath;
-        ops = null;
+        ops = new Stack<>();
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
-        original = ImageIO.read(imageFile);
+        try {
+            original = ImageIO.read(imageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         current = deepCopy(original);
 
         try {

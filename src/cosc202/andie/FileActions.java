@@ -138,26 +138,33 @@ public class FileActions {
             fileChooser.addChoosableFileFilter(ff);
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.setMultiSelectionEnabled(false);
-            fileChooser.showOpenDialog(target);
+            int result = fileChooser.showOpenDialog(target);
 
-            try {
-                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath(); // IOException
-                oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
-                
-                target.getImage().open(imageFilepath); // Exception
-                
-            } catch (Exception err) {
-                // error handling
+            if (result == JFileChooser.APPROVE_OPTION) { // Check if a file was selected
+                String imageFilepath;
+                try {
+                    File selectedFile = fileChooser.getSelectedFile(); // Get the selected file
+                    imageFilepath = selectedFile.getCanonicalPath();
+                    oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();     
+                } catch (IOException err) {
+                    imageFilepath = null;
+                    // Handle IO exception
+                } 
+                EditableImage var = target.getImage();
+                try{
+                    var.open(imageFilepath);
+                }catch(Exception err){
+                    System.out.println(err);// Handle Exception
+                }
+
+            } else {
+                // No file was selected or dialog was canceled
+                System.out.println("No file selected.");
             }
             
-            
-                
-           
             target.repaint();
             target.getParent().revalidate();
-           
         }
-
     }
 
     /**
