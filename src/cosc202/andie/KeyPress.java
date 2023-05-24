@@ -6,15 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
 
-/**
- * The KeyPress class implements KeyListener and lets users use keyboard
- * shortcuts to start functions automatically to the image
- */
-public class KeyPress implements KeyListener{
+/** Easter egg that allows the user to find long lost Alex using KeyEvents */
+public class KeyPress implements KeyListener {
 
-    private MacroRecorder macro;
-
-     ImagePanel ip = new ImagePanel(macro);
+    ImagePanel ip = new ImagePanel(null);
 
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 
@@ -23,47 +18,45 @@ public class KeyPress implements KeyListener{
     boolean boolE = false;
     boolean boolX = false;
 
+    /**
+     * Constructor for KeyPress
+     */
+    public KeyPress() {
+
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
-
-      
         if (e.getKeyCode() == KeyEvent.VK_A) {
-            System.out.println("testing");
             boolA = true;
             boolL = false;
             boolE = false;
             boolX = false;
-
         }
-        if (e.getKeyCode() == KeyEvent.VK_L && boolA == true) {
-
+        if (e.getKeyCode() == KeyEvent.VK_L && boolA) {
             boolL = true;
             boolA = false;
             boolE = false;
             boolX = false;
         }
-        if (e.getKeyCode() == KeyEvent.VK_E && boolL == true) {
-
+        if (e.getKeyCode() == KeyEvent.VK_E && boolL) {
             boolE = true;
             boolA = false;
             boolL = false;
             boolX = false;
-
         }
-        if (e.getKeyCode() == KeyEvent.VK_X && boolE == true) {
-
+        if (e.getKeyCode() == KeyEvent.VK_X && boolE) {
             boolX = true;
             boolA = false;
             boolL = false;
             boolE = false;
-
         }
 
-        if (boolX == true) {
-            JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!",
-                    JOptionPane.QUESTION_MESSAGE, ip.iconArray[19]);
+        if (boolX) {
             boolX = false;
-            // System.exit(1);
+            JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!",
+                    JOptionPane.QUESTION_MESSAGE, ip.iconArray[29]);
+
         }
     }
 
@@ -76,5 +69,4 @@ public class KeyPress implements KeyListener{
     public void keyTyped(KeyEvent e) {
         // Not used
     }
-
 }

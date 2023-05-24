@@ -134,25 +134,37 @@ public class FileActions {
             // file types/extensions are removed from being selected
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
-            FileFilter ff = new FileNameExtensionFilter("Suitable ANDIE extensions", "jpg", "jpeg", "png");
+            FileFilter ff = new FileNameExtensionFilter("Suitable ANDIE extensions", "jpg", "jpeg", "png", "tiff");
             fileChooser.addChoosableFileFilter(ff);
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.setMultiSelectionEnabled(false);
-            fileChooser.showOpenDialog(target);
+            int result = fileChooser.showOpenDialog(target);
 
-            try {
-                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath(); // IOException
-                oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();
-                target.getImage().open(imageFilepath); // Exception
-            } catch (Exception err) {
-                // error handling
+            if (result == JFileChooser.APPROVE_OPTION) { // Check if a file was selected
+                String imageFilepath;
+                try {
+                    File selectedFile = fileChooser.getSelectedFile(); // Get the selected file
+                    imageFilepath = selectedFile.getCanonicalPath();
+                    oriExtension = imageFilepath.substring(1 + imageFilepath.lastIndexOf(".")).toLowerCase();     
+                } catch (IOException err) {
+                    imageFilepath = null;
+                    // Handle IO exception
+                } 
+                EditableImage var = target.getImage();
+                try{
+                    var.open(imageFilepath);
+                }catch(Exception err){
+                    System.out.println(err);// Handle Exception
+                }
+
+            } else {
+                // No file was selected or dialog was canceled
+                System.out.println("No file selected.");
             }
-
+            
             target.repaint();
             target.getParent().revalidate();
-
         }
-
     }
 
     /**
@@ -387,8 +399,9 @@ public class FileActions {
                     } else {
                         try {
                             ImageIO.write(bi, extension, output);
-                            JOptionPane.showMessageDialog(null, new JLabel("Image Saved"), "Success",
-                                    JOptionPane.OK_CANCEL_OPTION);
+                            JOptionPane.showMessageDialog(null,
+                                    new JLabel(Language.translate("Image") + " " + Language.translate("Save"), null,
+                                            JOptionPane.OK_CANCEL_OPTION));
                         } catch (IOException ex) {
                             JPanel error = new JPanel();
                             error.add(new JLabel(Language.translate("There was a problem saving the image")));

@@ -8,6 +8,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 
 /**
  * <p>
@@ -41,6 +44,7 @@ public class ImageActions {
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[7].setImage(ip.iconArray[7].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Resize
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
+        ip.iconArray[30].setImage(ip.iconArray[30].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Rotate
         ip.iconArray[9].setImage(ip.iconArray[9].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Flip
 
         actions = new ArrayList<Action>();
@@ -50,7 +54,7 @@ public class ImageActions {
         actions.add(
                 new RotateAction(Language.translate("Rotate"), ip.iconArray[8], Language.translate("Rotate the image"),
                         Integer.valueOf(KeyEvent.VK_P)));
-        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), ip.iconArray[9],
+        actions.add(new FlipHorizontallyAction(Language.translate("Flip Horizontally"), ip.iconArray[30],
                 Language.translate("Flips image horizontally"), Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FlipVerticallyAction(Language.translate("Flip Vertically"), ip.iconArray[9],
                 Language.translate("Flips image vertically"), Integer.valueOf(KeyEvent.VK_V)));
@@ -83,11 +87,14 @@ public class ImageActions {
      */
     public class ResizeAction extends ImageAction {
 
+        /** The default percentage value */
+        double percentage = 100.0;
+
         /**
          * <p>
          * Create a new resize action.
          * </p>
-         * 
+         *
          * @param name     The name of the action (ignored if null).
          * @param icon     An icon to use to represent the action (ignored if null).
          * @param desc     A brief description of the action (ignored if null).
@@ -101,37 +108,54 @@ public class ImageActions {
          * <p>
          * Callback for when the resize action is triggered.
          * </p>
-         * 
+         *
          * <p>
          * This method is called whenever the ResizeAction is triggered.
-         * It resizes the images based on the user input
+         * It resizes the images based on the user input.
          * </p>
-         * 
+         *
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            // Determine the resize percentage - ask the user.
 
-            // Determine the radius - ask the user.
-            double percentage = 1.0;
+            // Create the slider
+            JSlider percentageSlider = new JSlider(0, 200, 100);
+            percentageSlider.setMajorTickSpacing(50);
+            percentageSlider.setPaintTicks(true);
+            percentageSlider.setPaintLabels(true);
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel percentageModel = new SpinnerNumberModel(percentage, 0.01, 10.0, 0.1);
-            JSpinner percentageSpinner = new JSpinner(percentageModel);
-            int option = JOptionPane.showOptionDialog(null, percentageSpinner,
-                    Language.translate("Enter resize percentage in decimal places"),
+            // Create the title label
+            JLabel titleLabel = new JLabel("Resize Percentage: " + percentage + "%");
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Create the dialog panel
+            JPanel dialogPanel = new JPanel(new BorderLayout());
+            dialogPanel.add(titleLabel, BorderLayout.NORTH);
+            dialogPanel.add(percentageSlider, BorderLayout.CENTER);
+
+            // Update the title label when the slider value changes
+            percentageSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    percentage = percentageSlider.getValue() / 100.0;
+                    titleLabel.setText("Resize Percentage: " + (percentage * 100) + "%");
+                }
+            });
+
+            // Show the dialog and get the user's input
+            int option = JOptionPane.showOptionDialog(null, dialogPanel,
+                    Language.translate("Enter resize percentage"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                percentage = percentageModel.getNumber().doubleValue();
+                // Create and apply the filter
+                target.getImage().apply(new Resize(percentage));
+                target.repaint();
+                target.getParent().revalidate();
             }
-
-            // Create and apply the filter
-            target.getImage().apply(new Resize(percentage));
-            target.repaint();
-            target.getParent().revalidate();
         }
     }
 

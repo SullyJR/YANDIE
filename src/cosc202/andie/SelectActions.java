@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * <p>
@@ -66,18 +68,20 @@ public class SelectActions {
     ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
     ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Paint
     ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
+    ip.iconArray[31].setImage(ip.iconArray[31].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
 
     // Creates a new Actions array list
     actions = new ArrayList<Action>();
 
     // Adds actions into the arraylist which will then look like buttons
-    actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[20],
-        Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
+    // actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"),
+    // ip.iconArray[20],
+    // Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
     actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[19],
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
-    actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22],
+    actions.add(new FillColorAction(Language.translate("Fill"), ip.iconArray[22],
         Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
-    actions.add(new BlurSelectAction(Language.translate("Blur an area"), ip.iconArray[22],
+    actions.add(new BlurSelectAction(Language.translate("Blur an area"), ip.iconArray[31],
         Language.translate("Blur an area"), Integer.valueOf(KeyEvent.VK_R)));
   }
 
@@ -360,11 +364,14 @@ public class SelectActions {
 
   public class BlurSelectAction extends ImageAction {
 
+    /** The blur select default radius */
+    int radius = 1;
+
     /**
      * <p>
      * Create a new BlurSelectAction.
      * </p>
-     * 
+     *
      * @param name     The name of the action (ignored if null).
      * @param icon     An icon to use to represent the action (ignored if null).
      * @param desc     A brief description of the action (ignored if null).
@@ -378,38 +385,59 @@ public class SelectActions {
      * <p>
      * Callback for when the blur select action is triggered.
      * </p>
-     * 
+     *
      * <p>
      * This method is called whenever the BlurSelectAction is triggered.
-     * It prompts the user for a filter radius, then applys an appropriately sized
+     * It prompts the user for a filter radius, then applies an appropriately sized
      * {@link MeanFilter}.
      * </p>
-     * 
+     *
      * @param e The event triggering this callback.
      */
     public void actionPerformed(ActionEvent e) {
       if (imagePanel.rectToggled()) { // if Rectangle is toggled
         // Determine the radius - ask the user.
-        int radius = 1;
 
-        // Pop-up dialog box to ask for the radius value.
-        SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
-        JSpinner radiusSpinner = new JSpinner(radiusModel);
-        int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
+        // Create the slider
+        JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, radius);
+        radiusSlider.setMajorTickSpacing(5);
+        radiusSlider.setPaintTicks(true);
+        radiusSlider.setPaintLabels(true);
+
+        // Create the title label
+        JLabel titleLabel = new JLabel("Filter Radius: " + radius);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Create the dialog panel
+        JPanel dialogPanel = new JPanel(new BorderLayout());
+        dialogPanel.add(titleLabel, BorderLayout.NORTH);
+        dialogPanel.add(radiusSlider, BorderLayout.CENTER);
+
+        // Update the title label when the slider value changes
+        radiusSlider.addChangeListener(new ChangeListener() {
+          public void stateChanged(ChangeEvent e) {
+            radius = radiusSlider.getValue();
+            titleLabel.setText("Filter Radius: " + radius);
+          }
+        });
+
+        // Show the dialog and get the user's input
+        int option = JOptionPane.showOptionDialog(null, dialogPanel,
+            Language.translate("Enter filter radius"),
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
         // Check the return value from the dialog box.
         if (option == JOptionPane.CANCEL_OPTION) {
           return;
         } else if (option == JOptionPane.OK_OPTION) {
-          radius = radiusModel.getNumber().intValue();
-        }
-        // Create and apply the filter
-        try {
-          target.getImage().apply(new BlurSelect(radius, imagePanel));
-          target.repaint();
-          target.getParent().revalidate();
-
-        } catch (java.lang.NullPointerException err) {
+          // Create and apply the filter
+          try {
+            target.getImage().apply(new BlurSelect(radius, imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (java.lang.NullPointerException err) {
+            // cannot initiate filter without image
+          }
         }
       } else {
         JOptionPane.showMessageDialog(null,
@@ -417,7 +445,6 @@ public class SelectActions {
             Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
         return;
       }
-
     }
   }
 
@@ -543,61 +570,47 @@ public class SelectActions {
      * @param e The event triggering this callback
      */
     public void actionPerformed(ActionEvent e) {
-      int result;
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
-          try {
-            target.getImage().apply(new CustomFill(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
+
+        try {
+          target.getImage().apply(new CustomFill(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
         }
+
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
-          try {
-            target.getImage().apply(new FillRect(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
+
+        try {
+          target.getImage().apply(new FillRect(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
         }
 
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
-          try {
-            target.getImage().apply(new FillCir(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
+
+        try {
+          target.getImage().apply(new FillCir(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
         }
+
       } else if (imagePanel.lineToggled()) { // if Line is toggled
-        result = JOptionPane.showOptionDialog(null, Language.translate("Would you like to draw on the image") + "?",
-            Language.translate("Draw"),
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (result == JOptionPane.OK_OPTION) {
-          try {
-            target.getImage().apply(new DrawLine(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
+
+        try {
+          target.getImage().apply(new DrawLine(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
         }
+
       } else {
         JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
             Language.translate("Error"), JOptionPane.ERROR_MESSAGE);

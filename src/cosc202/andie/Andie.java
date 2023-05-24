@@ -67,8 +67,7 @@ public class Andie {
         frame = new JFrame("YANDIE");
         frame.setForeground(Color.GRAY);
 
-        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/alex.png")); // andie icon
-        // new File("./src/cosc202/andie/icons/icon.png"
+        Image image = ImageIO.read(new File("./src/cosc202/andie/icons/icon.png")); // andie icon
 
         // Set the location of the frame to the center of the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -102,7 +101,6 @@ public class Andie {
         // The main content area is an ImagePanel
         MacroRecorder macroRecorder = new MacroRecorder();
         ImagePanel imagePanel = new ImagePanel(macroRecorder);
-        
 
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -144,6 +142,10 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
+        // Add in Macro menu here
+        MacroActions macroActions = new MacroActions();
+        menuBar.add(macroActions.createMenu());
+
         // Changes all the texts language on the UI
         SettingsActions settingsActions = new SettingsActions();
         menuBar.add(settingsActions.createMenu());
@@ -152,7 +154,12 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         JToolBar toolBar = ToolBar.createToolBar(imagePanel, selectActions, macroRecorder);
         frame.add(toolBar, BorderLayout.PAGE_START);
-        frame.addKeyListener(new KeyPress());
+
+        KeyPress keyPress = new KeyPress();
+        frame.addKeyListener(keyPress);
+        frame.setFocusable(true);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
 
@@ -188,7 +195,6 @@ public class Andie {
 
                 try {
                     createAndShowGUI();
-                    // FileActions.FileOpenDefaultAction();
                     frame.setPreferredSize(new Dimension(1000, 1500));
 
                 } catch (Exception ex) {

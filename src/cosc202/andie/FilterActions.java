@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.BorderLayout;
 import java.awt.Image;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -58,19 +59,20 @@ public class FilterActions {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction(Language.translate("Mean Filter"), ip.iconArray[14],
                 Language.translate("Apply a mean filter"), Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction(Language.translate("Soft Blur"), ip.iconArray[13],
-                Language.translate("Apply a soft blur"),
-                Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), ip.iconArray[14],
-                Language.translate("Apply sharpen"), Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), ip.iconArray[13],
-                Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BoxBlurAction(Language.translate("Box Blur"), ip.iconArray[13],
-                Language.translate("Apply a box blur"), Integer.valueOf(KeyEvent.VK_B)));
         actions.add(new MedianFilterAction(Language.translate("Median Filter"), ip.iconArray[14],
                 Language.translate("Apply a median filter"), Integer.valueOf(KeyEvent.VK_L)));
         actions.add(new EmbossFilterAction(Language.translate("Emboss Filter"), ip.iconArray[14],
                 Language.translate("Apply an emboss filter"), Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new SharpenFilterAction(Language.translate("Sharpen Filter"), ip.iconArray[14],
+                Language.translate("Apply sharpen"), Integer.valueOf(KeyEvent.VK_H)));
+
+        actions.add(new SoftBlurAction(Language.translate("Soft Blur"), ip.iconArray[13],
+                Language.translate("Apply a soft blur"),
+                Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new GaussianBlurAction(Language.translate("Gaussian Blur"), ip.iconArray[13],
+                Language.translate("Apply a Gaussian blur"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BoxBlurAction(Language.translate("Box Blur"), ip.iconArray[13],
+                Language.translate("Apply a box blur"), Integer.valueOf(KeyEvent.VK_B)));
 
     }
 
@@ -99,7 +101,7 @@ public class FilterActions {
      * @see MeanFilter
      */
 
-     public class MeanFilterAction extends ImageAction {
+    public class MeanFilterAction extends ImageAction {
         /**
          * Create a new mean-filter action.
          *
@@ -111,7 +113,7 @@ public class FilterActions {
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-    
+
         /**
          * Callback for when the mean action is triggered.
          *
@@ -124,17 +126,17 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             // Determine the radius - ask the user.
             int radius = 1;
-    
+
             // Create the slider
             JSlider radiusSlider = new JSlider(0, 10, radius);
             radiusSlider.setMajorTickSpacing(10);
             radiusSlider.setMinorTickSpacing(1);
             radiusSlider.setPaintTicks(true);
             radiusSlider.setPaintLabels(true);
-    
+
             // Create a label to display the current selection of the slider
             JLabel radiusLabel = new JLabel("Radius: " + radiusSlider.getValue());
-    
+
             // Create a change listener for the slider
             ChangeListener radiusChangeListener = new ChangeListener() {
                 public void stateChanged(ChangeEvent e) {
@@ -142,28 +144,28 @@ public class FilterActions {
                     radiusLabel.setText("Radius: " + selectedRadius);
                 }
             };
-    
+
             // Add the change listener to the slider
             radiusSlider.addChangeListener(radiusChangeListener);
-    
+
             // Create a panel to hold the slider and label
             JPanel panel = new JPanel();
             panel.add(radiusLabel);
             panel.add(radiusSlider);
-    
+
             // Show the panel with the slider in a JOptionPane
             int option = JOptionPane.showOptionDialog(
                     null, panel, "Enter filter radius",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                     null, null, null);
-    
+
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 radius = radiusSlider.getValue();
             }
-    
+
             // Create and apply the filter
             try {
                 target.getImage().apply(new MeanFilter(radius));
@@ -174,6 +176,7 @@ public class FilterActions {
             }
         }
     }
+
     /**
      * <p>
      * Action to sharpen an image with a sharpen filter.
@@ -278,12 +281,14 @@ public class FilterActions {
      * @see GaussianBlur
      */
     public class GaussianBlurAction extends ImageAction {
+        /** Gaussian radius default */
+        int radius = 1;
 
         /**
          * <p>
          * Create a new Gaussian blur action.
          * </p>
-         * 
+         *
          * @param name     The name of the action (ignored if null).
          * @param icon     An icon to use to represent the action (ignored if null).
          * @param desc     A brief description of the action (ignored if null).
@@ -297,39 +302,58 @@ public class FilterActions {
          * <p>
          * Callback for when the Gaussian blur action is triggered.
          * </p>
-         * 
+         *
          * <p>
          * This method is called whenever the GaussianBlurAction is triggered.
          * {@link GaussianBlur}.
          * </p>
-         * 
+         *
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
 
             // Determine the radius - ask the user.
-            int radius = 1;
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
+            // Create the slider
+            JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 0, 10, radius);
+            radiusSlider.setMajorTickSpacing(5);
+            radiusSlider.setPaintTicks(true);
+            radiusSlider.setPaintLabels(true);
+
+            // Create the title label
+            JLabel titleLabel = new JLabel("Blur Radius: " + radius);
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Create the dialog panel
+            JPanel dialogPanel = new JPanel(new BorderLayout());
+            dialogPanel.add(titleLabel, BorderLayout.NORTH);
+            dialogPanel.add(radiusSlider, BorderLayout.CENTER);
+
+            // Update the title label when the slider value changes
+            radiusSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    radius = radiusSlider.getValue();
+                    titleLabel.setText("Blur Radius: " + radius);
+                }
+            });
+
+            // Show the dialog and get the user's input
+            int option = JOptionPane.showOptionDialog(null, dialogPanel,
+                    Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
-            }
-
-            // Create and apply the filter
-            try {
-                target.getImage().apply(new GaussianBlur(radius));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (java.lang.NullPointerException err) {
-                // cannot initiate filter without image
+                // Create and apply the filter
+                try {
+                    target.getImage().apply(new GaussianBlur(radius));
+                    target.repaint();
+                    target.getParent().revalidate();
+                } catch (java.lang.NullPointerException err) {
+                    // cannot initiate filter without image
+                }
             }
         }
     }
@@ -343,11 +367,14 @@ public class FilterActions {
      */
     public class BoxBlurAction extends ImageAction {
 
+        /** Box blur default radius */
+        int radius = 1;
+
         /**
          * <p>
          * Create a new box blur action.
          * </p>
-         * 
+         *
          * @param name     The name of the action (ignored if null).
          * @param icon     An icon to use to represent the action (ignored if null).
          * @param desc     A brief description of the action (ignored if null).
@@ -361,38 +388,57 @@ public class FilterActions {
          * <p>
          * Callback for when the box blur action is triggered.
          * </p>
-         * 
+         *
          * <p>
          * This method is called whenever the BoxBlurAction is triggered.
          * </p>
-         * 
+         *
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
 
             // Determine the radius - ask the user.
-            int radius = 1;
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
+            // Create the slider
+            JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, radius);
+            radiusSlider.setMajorTickSpacing(5);
+            radiusSlider.setPaintTicks(true);
+            radiusSlider.setPaintLabels(true);
+
+            // Create the title label
+            JLabel titleLabel = new JLabel("Blur Radius: " + radius);
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Create the dialog panel
+            JPanel dialogPanel = new JPanel(new BorderLayout());
+            dialogPanel.add(titleLabel, BorderLayout.NORTH);
+            dialogPanel.add(radiusSlider, BorderLayout.CENTER);
+
+            // Update the title label when the slider value changes
+            radiusSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    radius = radiusSlider.getValue();
+                    titleLabel.setText("Blur Radius: " + radius);
+                }
+            });
+
+            // Show the dialog and get the user's input
+            int option = JOptionPane.showOptionDialog(null, dialogPanel,
+                    Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
-            }
-
-            // Create and apply the filter
-            try {
-                target.getImage().apply(new BoxBlur(radius));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (java.lang.NullPointerException err) {
-                // cannot initiate filter without image
+                // Create and apply the filter
+                try {
+                    target.getImage().apply(new BoxBlur(radius));
+                    target.repaint();
+                    target.getParent().revalidate();
+                } catch (java.lang.NullPointerException err) {
+                    // cannot initiate filter without image
+                }
             }
         }
     }
@@ -459,11 +505,14 @@ public class FilterActions {
      */
     public class MedianFilterAction extends ImageAction {
 
+        /** Median default radius */
+        int radius = 1;
+
         /**
          * <p>
          * Create a new median filter action.
          * </p>
-         * 
+         *
          * @param name     The name of the action (ignored if null).
          * @param icon     An icon to use to represent the action (ignored if null).
          * @param desc     A brief description of the action (ignored if null).
@@ -477,12 +526,12 @@ public class FilterActions {
          * <p>
          * Callback for when the median action is triggered.
          * </p>
-         * 
+         *
          * <p>
          * This method is called whenever the MedianFilterAction is triggered.
          * {@link MedianFilter}.
          * </p>
-         * 
+         *
          * @param e The event triggering this callback.
          */
 
@@ -494,32 +543,48 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
 
             // Determine the radius - ask the user.
-            int radius = 1;
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, Language.translate("Enter filter radius"),
+            // Create the slider
+            JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, radius);
+            radiusSlider.setMajorTickSpacing(2);
+            radiusSlider.setPaintTicks(true);
+            radiusSlider.setPaintLabels(true);
+
+            // Create the title label
+            JLabel titleLabel = new JLabel("Filter Radius: " + radius);
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Create the dialog panel
+            JPanel dialogPanel = new JPanel(new BorderLayout());
+            dialogPanel.add(titleLabel, BorderLayout.NORTH);
+            dialogPanel.add(radiusSlider, BorderLayout.CENTER);
+
+            // Update the title label when the slider value changes
+            radiusSlider.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    radius = radiusSlider.getValue();
+                    titleLabel.setText("Filter Radius: " + radius);
+                }
+            });
+
+            // Show the dialog and get the user's input
+            int option = JOptionPane.showOptionDialog(null, dialogPanel,
+                    Language.translate("Enter filter radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+                // Create and apply the filter
+                try {
+                    target.getImage().apply(new MedianFilter(radius));
+                    target.repaint();
+                    target.getParent().revalidate();
+                } catch (java.lang.NullPointerException err) {
+                    // cannot initiate filter without image
+                }
             }
-
-            // Create and apply the filter
-            try {
-                target.getImage().apply(new MedianFilter(radius));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (java.lang.NullPointerException err) {
-                // cannot initiate filter without image
-            }
-
         }
-
     }
-
 }

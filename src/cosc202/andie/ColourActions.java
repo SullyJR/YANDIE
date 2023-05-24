@@ -3,9 +3,6 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.Image;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
 import java.io.IOException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -55,8 +52,8 @@ public class ColourActions {
         ImagePanel ip = new ImagePanel(macro);
         // Adds Icons and Scales them down to fit in the box
         ip.iconArray[15].setImage(ip.iconArray[15].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Greyscale
-        ip.iconArray[16].setImage(ip.iconArray[16].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Brightness
-        ip.iconArray[17].setImage(ip.iconArray[17].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Contrast
+        ip.iconArray[16].setImage(ip.iconArray[17].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Brightness
+        ip.iconArray[17].setImage(ip.iconArray[16].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Contrast
 
         actions = new ArrayList<Action>();
         actions.add(new BrightnessAction(Language.translate("Brightness and Contrast"), ip.iconArray[16],
@@ -128,6 +125,7 @@ public class ColourActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (java.lang.NullPointerException err) {
+                System.out.println("AHHH NOT WORKING");
                 // cannot initiate filter without image
             }
         }
@@ -246,13 +244,6 @@ public class ColourActions {
                     // Cannot initiate filter without image
                 }
             }
-        }
-
-        private BufferedImage deepCopy(BufferedImage image) {
-            ColorModel cm = image.getColorModel();
-            boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-            WritableRaster raster = image.copyData(null);
-            return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
         }
 
     }

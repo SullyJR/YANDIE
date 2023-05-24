@@ -85,7 +85,7 @@ Draw a Circle, Dessiner un cercle, Lukis satu Bulatan
 Draw a Curved Line, Dessinez une ligne Courbe, Lukis Garis Melengkung
 Make a Drawing, Faire un dessin, Melukis Lukisan
 Draw, Dessinez, Lukis
-Selected Colour, Couleur Selectionnee, Warna Yang Dipilih
+Current Colour, Couleur Selectionnee, Warna Yang Dipilih
 Please make a valid selection, Veuillez effectuer une selection valide, Sila membuat pilihan yang sah.
 Would you like to crop the image, Souhaitez-vous recadrer l'image, Anda ingin memotong imej
 Would you like to select the image, Souhaitez-vous selectionner l'image, Anda ingin memilih gambar
@@ -96,3 +96,5 @@ Language is already in use, La langue est deja utilisee, Bahasa sudah digunakan
 Blur an area, Flouter une zone, Kaburkan kawasan
 Remove, Enlever, Buang
 Macro Options, Options de Macro, Pilihan Macro
+Save Macro, Sauvegarder la Macro, Simpan Macro
+Load, Ouvrir, Buka
