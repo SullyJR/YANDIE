@@ -67,7 +67,7 @@ public class SelectActions {
     ip.iconArray[19].setImage(ip.iconArray[19].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Crop
     ip.iconArray[20].setImage(ip.iconArray[20].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Select
     ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Paint
-    ip.iconArray[22].setImage(ip.iconArray[22].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
+    ip.iconArray[21].setImage(ip.iconArray[21].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
     ip.iconArray[31].setImage(ip.iconArray[31].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Draw
 
     // Creates a new Actions array list
@@ -79,7 +79,7 @@ public class SelectActions {
     // Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
     actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[19],
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
-    actions.add(new FillColorAction(Language.translate("Fill"), ip.iconArray[22],
+    actions.add(new FillColorAction(Language.translate("Fill"), ip.iconArray[21],
         Language.translate("Make a Drawing"), Integer.valueOf(KeyEvent.VK_R)));
     actions.add(new BlurSelectAction(Language.translate("Blur an area"), ip.iconArray[31],
         Language.translate("Blur an area"), Integer.valueOf(KeyEvent.VK_R)));

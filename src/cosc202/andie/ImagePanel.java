@@ -119,12 +119,12 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/contrast.png", "Contrast"),
             new ImageIcon("./src/cosc202/andie/icons/language.png", "Language"),
             new ImageIcon("./src/cosc202/andie/icons/crop.png", "Crop"),
-            new ImageIcon("./src/cosc202/andie/icons/select.png", "Select"),
+            new ImageIcon("./src/cosc202/andie/icons/select.png", "Select"), //20
             new ImageIcon("./src/cosc202/andie/icons/fill.png", "Paint"),
             new ImageIcon("./src/cosc202/andie/icons/draw.png", "Draw"),
             new ImageIcon("./src/cosc202/andie/icons/circle.png", "Circle"),
             new ImageIcon("./src/cosc202/andie/icons/line.png", "Line"),
-            new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"),
+            new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"), //25
             new ImageIcon("./src/cosc202/andie/icons/curved.png", "Curved"),
             new ImageIcon("./src/cosc202/andie/icons/play.png", "Play"),
             new ImageIcon("./src/cosc202/andie/icons/stop.png", "Stop"),
