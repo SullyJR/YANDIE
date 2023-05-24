@@ -18,7 +18,7 @@ Andie is a non destructive (open source) image editor, which allows you to add i
 ## File Menu
 The file menu has various functionality for opening, saving, exporting and closing images. It also has a simple exit button to close the program.
 
-![image info](/src/cosc202/ReadMeImages/fileMenu.png)
+![image info](./src/cosc202/ReadMeImages/fileMenu.png)
 
 ## Edit Menu
 The edit menu is used to undo and redo actions to the current image.
