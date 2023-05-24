@@ -30,6 +30,11 @@ The image menu has the ability to resize the image, rotate the image, and flip t
 
 ![image info](./src/cosc202/andie/icons/ReadMeImages/image.png)
 
+## Select menu
+The select menu is used to crop the image, fill a certain area with a colour, and it also allows the user to blur a selected area of the image.
+
+![image info](./src/cosc202/andie/icons/ReadMeImages/select.png)
+
 ## View Menu
 The view menu is simply used to zoom in and out of the image.
 
@@ -57,6 +62,13 @@ The colour menu is used to adjust the brightness and contrast of the image, this
 ![image info](./src/cosc202/andie/icons/ReadMeImages/colour.png)
 
 ![image info](./src/cosc202/andie/icons/ReadMeImages/colourAdjust.png)
+
+## Macro Menu
+The macro menu is used to load in a macro previously saved by clicking the 'play button' icon in the tool bar, then clicking it again once you have completed all actions in the macro to save the recording. You then press load macro from the macro menu.
+
+![image info](./src/cosc202/andie/icons/ReadMeImages/startMacro.png) 
+
+![image info](./src/cosc202/andie/icons/ReadMeImages/loadMacro.png)
 
 ## Settings Menu
 The settings menu allows the user to change the programs language from a dropdown menu. The user can select from either English, French, or Malay.
