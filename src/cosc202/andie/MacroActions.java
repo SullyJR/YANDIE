@@ -62,7 +62,7 @@ public class MacroActions {
      * Action to save the macro from file
      * </p>
      * 
-     * @see EditableImage#saveMacro()
+     * @see EditableImage #saveMacro()
      */
     public class SaveMacroAction extends ImageAction {
         /**

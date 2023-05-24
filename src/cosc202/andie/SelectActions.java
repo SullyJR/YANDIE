@@ -74,8 +74,9 @@ public class SelectActions {
     actions = new ArrayList<Action>();
 
     // Adds actions into the arraylist which will then look like buttons
-    // actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"), ip.iconArray[20],
-    //     Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
+    // actions.add(new SelectRectangleAction(Language.translate("Select Rectangle"),
+    // ip.iconArray[20],
+    // Language.translate("Select a rectangle"), Integer.valueOf(KeyEvent.VK_S)));
     actions.add(new CropAction(Language.translate("Crop Image"), ip.iconArray[19],
         Language.translate("Crop an image"), Integer.valueOf(KeyEvent.VK_C)));
     actions.add(new FillColorAction(Language.translate("Make a Drawing"), ip.iconArray[22],
@@ -361,8 +362,11 @@ public class SelectActions {
    * @see MeanFilter
    */
 
-   public class BlurSelectAction extends ImageAction {
+  public class BlurSelectAction extends ImageAction {
+
+    /** The blur select default radius */
     int radius = 1;
+
     /**
      * <p>
      * Create a new BlurSelectAction.
@@ -374,7 +378,7 @@ public class SelectActions {
      * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
      */
     BlurSelectAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-        super(name, icon, desc, mnemonic);
+      super(name, icon, desc, mnemonic);
     }
 
     /**
@@ -391,59 +395,58 @@ public class SelectActions {
      * @param e The event triggering this callback.
      */
     public void actionPerformed(ActionEvent e) {
-        if (imagePanel.rectToggled()) { // if Rectangle is toggled
-            // Determine the radius - ask the user.
-           
+      if (imagePanel.rectToggled()) { // if Rectangle is toggled
+        // Determine the radius - ask the user.
 
-            // Create the slider
-            JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, radius);
-            radiusSlider.setMajorTickSpacing(5);
-            radiusSlider.setPaintTicks(true);
-            radiusSlider.setPaintLabels(true);
+        // Create the slider
+        JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, radius);
+        radiusSlider.setMajorTickSpacing(5);
+        radiusSlider.setPaintTicks(true);
+        radiusSlider.setPaintLabels(true);
 
-            // Create the title label
-            JLabel titleLabel = new JLabel("Filter Radius: " + radius);
-            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        // Create the title label
+        JLabel titleLabel = new JLabel("Filter Radius: " + radius);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-            // Create the dialog panel
-            JPanel dialogPanel = new JPanel(new BorderLayout());
-            dialogPanel.add(titleLabel, BorderLayout.NORTH);
-            dialogPanel.add(radiusSlider, BorderLayout.CENTER);
+        // Create the dialog panel
+        JPanel dialogPanel = new JPanel(new BorderLayout());
+        dialogPanel.add(titleLabel, BorderLayout.NORTH);
+        dialogPanel.add(radiusSlider, BorderLayout.CENTER);
 
-            // Update the title label when the slider value changes
-            radiusSlider.addChangeListener(new ChangeListener() {
-                public void stateChanged(ChangeEvent e) {
-                    radius = radiusSlider.getValue();
-                    titleLabel.setText("Filter Radius: " + radius);
-                }
-            });
+        // Update the title label when the slider value changes
+        radiusSlider.addChangeListener(new ChangeListener() {
+          public void stateChanged(ChangeEvent e) {
+            radius = radiusSlider.getValue();
+            titleLabel.setText("Filter Radius: " + radius);
+          }
+        });
 
-            // Show the dialog and get the user's input
-            int option = JOptionPane.showOptionDialog(null, dialogPanel,
-                    Language.translate("Enter filter radius"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        // Show the dialog and get the user's input
+        int option = JOptionPane.showOptionDialog(null, dialogPanel,
+            Language.translate("Enter filter radius"),
+            JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                // Create and apply the filter
-                try {
-                    target.getImage().apply(new BlurSelect(radius, imagePanel));
-                    target.repaint();
-                    target.getParent().revalidate();
-                } catch (java.lang.NullPointerException err) {
-                    // cannot initiate filter without image
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    Language.translate("Please make a valid selection") + " (" + Language.translate("Select Rectangle") + ")",
-                    Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
-            return;
+        // Check the return value from the dialog box.
+        if (option == JOptionPane.CANCEL_OPTION) {
+          return;
+        } else if (option == JOptionPane.OK_OPTION) {
+          // Create and apply the filter
+          try {
+            target.getImage().apply(new BlurSelect(radius, imagePanel));
+            target.repaint();
+            target.getParent().revalidate();
+          } catch (java.lang.NullPointerException err) {
+            // cannot initiate filter without image
+          }
         }
+      } else {
+        JOptionPane.showMessageDialog(null,
+            Language.translate("Please make a valid selection") + " (" + Language.translate("Select Rectangle") + ")",
+            Language.translate("Error"), JOptionPane.ERROR_MESSAGE);
+        return;
+      }
     }
-}
+  }
 
   /**
    * <p>
@@ -569,46 +572,45 @@ public class SelectActions {
     public void actionPerformed(ActionEvent e) {
       // if draw is toggled
       if (imagePanel.drawToggled()) {
-       
-          try {
-            target.getImage().apply(new CustomFill(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
-        
+
+        try {
+          target.getImage().apply(new CustomFill(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
+        }
+
       } else if (imagePanel.rectToggled()) { // if Rectangle is toggled
-        
-          try {
-            target.getImage().apply(new FillRect(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
-        
+
+        try {
+          target.getImage().apply(new FillRect(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
+        }
 
       } else if (imagePanel.cirToggled()) { // if Circle is toggled
-        
-          try {
-            target.getImage().apply(new FillCir(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
-        
+
+        try {
+          target.getImage().apply(new FillCir(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
+        }
+
       } else if (imagePanel.lineToggled()) { // if Line is toggled
-       
-          try {
-            target.getImage().apply(new DrawLine(imagePanel, selectedColor));
-            target.repaint();
-            target.getParent().revalidate();
-          } catch (Exception ea) {
-            // exception handling
-          }
-        
+
+        try {
+          target.getImage().apply(new DrawLine(imagePanel, selectedColor));
+          target.repaint();
+          target.getParent().revalidate();
+        } catch (Exception ea) {
+          // exception handling
+        }
+
       } else {
         JOptionPane.showMessageDialog(null, Language.translate("Please make a valid selection"),
             Language.translate("Error"), JOptionPane.ERROR_MESSAGE);

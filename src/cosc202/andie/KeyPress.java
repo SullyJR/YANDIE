@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
 
+/** Easter egg that allows the user to find long lost Alex using KeyEvents */
 public class KeyPress implements KeyListener {
 
     ImagePanel ip = new ImagePanel(null);
@@ -18,6 +19,9 @@ public class KeyPress implements KeyListener {
     boolean boolE = false;
     boolean boolX = false;
 
+    /**
+     * Constructor for KeyPress
+     */
     public KeyPress() {
 
     }

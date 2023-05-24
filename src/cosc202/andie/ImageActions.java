@@ -86,7 +86,10 @@ public class ImageActions {
      * 
      */
     public class ResizeAction extends ImageAction {
+
+        /** The default percentage value */
         double percentage = 100.0;
+
         /**
          * <p>
          * Create a new resize action.
@@ -100,7 +103,7 @@ public class ImageActions {
         ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-    
+
         /**
          * <p>
          * Callback for when the resize action is triggered.
@@ -115,23 +118,22 @@ public class ImageActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Determine the resize percentage - ask the user.
-            
-    
+
             // Create the slider
             JSlider percentageSlider = new JSlider(0, 200, 100);
             percentageSlider.setMajorTickSpacing(50);
             percentageSlider.setPaintTicks(true);
             percentageSlider.setPaintLabels(true);
-    
+
             // Create the title label
             JLabel titleLabel = new JLabel("Resize Percentage: " + percentage + "%");
             titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    
+
             // Create the dialog panel
             JPanel dialogPanel = new JPanel(new BorderLayout());
             dialogPanel.add(titleLabel, BorderLayout.NORTH);
             dialogPanel.add(percentageSlider, BorderLayout.CENTER);
-    
+
             // Update the title label when the slider value changes
             percentageSlider.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent e) {
@@ -139,12 +141,12 @@ public class ImageActions {
                     titleLabel.setText("Resize Percentage: " + (percentage * 100) + "%");
                 }
             });
-    
+
             // Show the dialog and get the user's input
             int option = JOptionPane.showOptionDialog(null, dialogPanel,
                     Language.translate("Enter resize percentage"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-    
+
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
@@ -156,6 +158,7 @@ public class ImageActions {
             }
         }
     }
+
     /**
      * <p>
      * Action to rotate an image
