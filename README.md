@@ -7,9 +7,11 @@ Andie is a non destructive (open source) image editor, which allows you to add i
 * File - Open, save and exports images. Can also exit program.
 * Edit - Can undo and redo changes to the image  
 * Image - Resize, rotate and flip the image
+* Select - Crop, colour and blur a certain area
 * View - Zoom in and out on the image
 * Filter - Adds various types of filters and blurs to the image
 * Colour - Changes the colour of the image
+* Macro - Allows user to record, save and load macros on to image
 * Settings - Changes the language of the interface
 * UI - Sleek and efficient user interface
 
