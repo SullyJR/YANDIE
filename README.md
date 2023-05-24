@@ -47,7 +47,7 @@ The filter menu has a wide variety of functionality as this is where all our ima
 
 4 of these filters (Mean, Gaussian, Box, and Median) have the ability to choose the radius of the filter which alters the strength to which the filter is applied.
 
-![image info](./src/cosc202/andie/icons/ReadMeImages//filter.png)
+![image info](./src/cosc202/andie/icons/ReadMeImages/filter.png)
 ![image info](./src/cosc202/andie/icons/ReadMeImages/radiusFilter.png)
 
 
