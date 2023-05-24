@@ -38,7 +38,6 @@ public class MacroActions {
         ip.iconArray[8].setImage(ip.iconArray[8].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Load
 
         actions = new ArrayList<Action>();
-        actions.add(new SaveMacroAction(Language.translate("Save"), ip.iconArray[2], Language.translate("Save"), null));
         actions.add(new LoadMacroAction(Language.translate("Load"), ip.iconArray[8], Language.translate("Load"), null));
     }
 
