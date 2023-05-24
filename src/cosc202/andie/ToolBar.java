@@ -95,7 +95,9 @@ public class ToolBar {
                                 Integer.valueOf(KeyEvent.VK_Z)));
                 actions.add(ea.new RedoAction(null, ip.iconArray[6], Language.translate("Redo"),
                                 Integer.valueOf(KeyEvent.VK_Y)));
-               // actions.add(ma.new SaveMacroAction(null, ip.iconArray[2], Language.translate("Save Macro"), null));
+                actions.add(ma.new SaveMacroAction(null, ip.iconArray[2],
+                                Language.translate("Save Macro"), null));
+
                 // Create buttons array
                 JButton[] buttons = {
                                 new JButton(actions.get(0)),
@@ -109,7 +111,7 @@ public class ToolBar {
                                 new JButton(actions.get(8)),
                                 new JButton(actions.get(9)),
                                 new JButton(actions.get(10)),
-                                //new JButton(actions.get(11)),
+                                new JButton(actions.get(11)),
                 };
 
                 // Create left and right panels
@@ -173,7 +175,8 @@ public class ToolBar {
 
                 // Add toggle buttons from SelectionActions to the right panel
 
-                //rightPanel.add(buttons[11]);
+                rightPanel.add(buttons[11]);
+                buttons[11].setVisible(false);
                 rightPanel.add(toggleMacroButton);
                 rightPanel.add(sActions.getToggleSelect());
                 rightPanel.add(sActions.getToggleCircle());
