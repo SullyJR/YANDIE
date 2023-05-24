@@ -48,6 +48,12 @@ public class SelectActions {
   /** A color variable to remember what color the user has picked */
   private Color selectedColor = Color.WHITE;
 
+  /**
+   * <p>
+   * A macroRecorder that connects the current MacroRecorder
+   * to record all actions being applied onto the image
+   * </p>
+   */
   private MacroRecorder macro;
 
   /**

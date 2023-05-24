@@ -28,6 +28,12 @@ public class ImageActions {
     /** A list of actions for the Image menu. */
     protected ArrayList<Action> actions;
 
+    /**
+     * <p>
+     * A macroRecorder that connects the current MacroRecorder
+     * to record all actions being applied onto the image
+     * </p>
+     */
     private MacroRecorder macro;
 
     /**
