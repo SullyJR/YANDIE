@@ -29,9 +29,7 @@ public class MacroRecorder implements java.io.Serializable {
     public void add(ImageOperation action) {
         if (macroOn) {
             actions.push(action);
-            System.out.println("This is redo: " + actions);
         } else {
-            System.out.println("Macro is not on");
         }
 
     }
@@ -45,10 +43,7 @@ public class MacroRecorder implements java.io.Serializable {
             if (actions != null) {
                 actions.pop();
             }
-
-            System.out.println("This is undo: " + actions);
         } else {
-            System.out.println("Macro is not on");
         }
 
     }
@@ -58,7 +53,6 @@ public class MacroRecorder implements java.io.Serializable {
      */
     public void startRecording() {
         macroOn = true;
-        System.out.println("Macro is on");
     }
 
     /**
@@ -66,7 +60,6 @@ public class MacroRecorder implements java.io.Serializable {
      */
     public void stopRecording() {
         macroOn = false;
-        System.out.println("Macro is off");
     }
 
     /**

@@ -33,6 +33,12 @@ public class ViewActions {
      */
     protected ArrayList<Action> actions;
 
+    /**
+     * <p>
+     * A macroRecorder that connects the current MacroRecorder
+     * to record all actions being applied onto the image
+     * </p>
+     */
     private MacroRecorder macro;
 
     /**

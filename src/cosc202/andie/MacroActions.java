@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Image;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
@@ -20,11 +21,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @version 1.0
  */
 public class MacroActions {
+    
     /** A list of actions for the Macro menu. */
     protected ArrayList<Action> actions;
-
-    /** MacroRecorder object to callback methods from macro */
-    private MacroRecorder macro;
 
     /**
      * <p>
@@ -34,11 +33,13 @@ public class MacroActions {
      * @throws IOException user input exception
      */
     public MacroActions() throws IOException {
-        // SEN :)
+
+        ImagePanel ip = new ImagePanel(null);
+        ip.iconArray[2].setImage(ip.iconArray[2].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Save
+        ip.iconArray[32].setImage(ip.iconArray[32].getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH)); // Load
 
         actions = new ArrayList<Action>();
-        actions.add(new SaveMacroAction("save", null, null, null));
-        actions.add(new LoadMacroAction("load", null, null, null));
+        actions.add(new LoadMacroAction(Language.translate("Load"), ip.iconArray[32], Language.translate("Load"), null));
     }
 
     /**
@@ -61,7 +62,7 @@ public class MacroActions {
      * Action to save the macro from file
      * </p>
      * 
-     * @see EditableImage#saveMacro()
+     * @see EditableImage #saveMacro()
      */
     public class SaveMacroAction extends ImageAction {
         /**

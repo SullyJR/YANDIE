@@ -35,11 +35,6 @@ public class ImagePanel extends JPanel {
     private EditableImage image;
 
     /**
-     * 
-     */
-    private MacroRecorder macro;
-
-    /**
      * Anchor represents the starting point when Mouse is Pressed
      */
     private Point anchor;
@@ -124,18 +119,19 @@ public class ImagePanel extends JPanel {
             new ImageIcon("./src/cosc202/andie/icons/contrast.png", "Contrast"),
             new ImageIcon("./src/cosc202/andie/icons/language.png", "Language"),
             new ImageIcon("./src/cosc202/andie/icons/crop.png", "Crop"),
-            new ImageIcon("./src/cosc202/andie/icons/select.png", "Select"),
+            new ImageIcon("./src/cosc202/andie/icons/select.png", "Select"), //20
             new ImageIcon("./src/cosc202/andie/icons/fill.png", "Paint"),
             new ImageIcon("./src/cosc202/andie/icons/draw.png", "Draw"),
             new ImageIcon("./src/cosc202/andie/icons/circle.png", "Circle"),
             new ImageIcon("./src/cosc202/andie/icons/line.png", "Line"),
-            new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"),
+            new ImageIcon("./src/cosc202/andie/icons/pipette.png", "Pipette"), //25
             new ImageIcon("./src/cosc202/andie/icons/curved.png", "Curved"),
             new ImageIcon("./src/cosc202/andie/icons/play.png", "Play"),
             new ImageIcon("./src/cosc202/andie/icons/stop.png", "Stop"),
             new ImageIcon("./src/cosc202/andie/icons/alex.png", "Alex"),
-            new ImageIcon("./src/cosc202/andie/icons/flip horizontal.png", "flip horizontal"), //30
-            new ImageIcon("./src/cosc202/andie/icons/blur area.png", "flip horizontal") //31
+            new ImageIcon("./src/cosc202/andie/icons/flip horizontal.png", "flip horizontal"), // 30
+            new ImageIcon("./src/cosc202/andie/icons/blur area.png", "flip horizontal"), // 31
+            new ImageIcon("./src/cosc202/andie/icons/load.png", "load") // 32
     };
 
     /**
@@ -152,6 +148,7 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
+    /** The image panel */
     public ImagePanel imagePanel;
 
     /**
@@ -167,7 +164,6 @@ public class ImagePanel extends JPanel {
      * @param macro used to record previous actions
      */
     public ImagePanel(MacroRecorder macro) {
-        this.macro = macro;
         image = new EditableImage(macro);
         scale = 1.0;
 

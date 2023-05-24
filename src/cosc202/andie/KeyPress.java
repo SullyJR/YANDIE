@@ -1,13 +1,15 @@
 package cosc202.andie;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
 
+/** Easter egg that allows the user to find long lost Alex using KeyEvents */
 public class KeyPress implements KeyListener {
-    private MacroRecorder macro;
-    private ImagePanel ip;
+
+    ImagePanel ip = new ImagePanel(null);
 
     ArrayList<Integer> list = new ArrayList<Integer>(Collections.nCopies(60, 0));
 
@@ -16,8 +18,11 @@ public class KeyPress implements KeyListener {
     boolean boolE = false;
     boolean boolX = false;
 
+    /**
+     * Constructor for KeyPress
+     */
     public KeyPress() {
-      
+
     }
 
     @Override
@@ -50,8 +55,8 @@ public class KeyPress implements KeyListener {
         if (boolX) {
             boolX = false;
             JOptionPane.showMessageDialog(null, new JLabel("You have found Alex! :)"), "Congratulations!",
-                    JOptionPane.QUESTION_MESSAGE);
-            
+                    JOptionPane.QUESTION_MESSAGE, ip.iconArray[29]);
+
         }
     }
 
