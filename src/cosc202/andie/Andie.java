@@ -54,6 +54,7 @@ public class Andie {
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
+     * @see MacroActions
      * @see SettingsActions
      * 
      * @throws Exception if something goes wrong.
@@ -155,6 +156,7 @@ public class Andie {
         JToolBar toolBar = ToolBar.createToolBar(imagePanel, selectActions, macroRecorder);
         frame.add(toolBar, BorderLayout.PAGE_START);
 
+        // Added KeyPress object which serves as our easter egg
         KeyPress keyPress = new KeyPress();
         frame.addKeyListener(keyPress);
         frame.setFocusable(true);
