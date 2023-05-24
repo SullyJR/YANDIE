@@ -21,6 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @version 1.0
  */
 public class MacroActions {
+    
     /** A list of actions for the Macro menu. */
     protected ArrayList<Action> actions;
 
