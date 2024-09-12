@@ -116,7 +116,3 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 * johan372 - Andrew John Lieng <johan372@student.otago.ac.nz> (he/him)
 * macse341 - Sen Macmaster <macse341@student.otago.ac.nz> (he/him)
 
-## Emotional Support Team
-
-* lamal240 - Alex Lambert-Janes <lamal240@student.otago.ac.nz> (he/him)
-
